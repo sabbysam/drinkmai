@@ -8,7 +8,8 @@
   --matcha:#6b8f6b;
   --accent:#1f3327;
   --accent-2:#e2eadf;
-  --sun:#d7e1d2;
+  --sun:#f2d8d1;
+  --sun-ray:rgba(235,120,103,.18);
   --radius:24px;
 }
 
@@ -137,13 +138,31 @@ h1{
   align-items:flex-end;
   justify-content:center;
   overflow:visible;
+  isolation:isolate;
+}
+.hero-visual::before{
+  content:"";
+  position:absolute;
+  width:120%;
+  aspect-ratio:1/1;
+  right:-12%;
+  top:-8%;
+  background:
+    repeating-conic-gradient(
+      from -12deg,
+      var(--sun-ray) 0deg 7deg,
+      rgba(235,120,103,0) 7deg 16deg
+    );
+  mask: radial-gradient(circle, transparent 0 32%, #000 32%);
+  opacity:.35;
+  z-index:0;
 }
 .sun-disc{
   position:absolute;
   width:72%;
   aspect-ratio:1/1;
   border-radius:999px;
-  background: var(--sun);
+  background: radial-gradient(circle, rgba(242,216,209,.85) 0%, rgba(242,216,209,.45) 55%, rgba(242,216,209,0) 75%);
   right:10%;
   top:6%;
   z-index:0;
@@ -154,7 +173,8 @@ h1{
   height:auto;
   margin-bottom:6px;
   transform: translateX(12px);
-  filter: drop-shadow(0 30px 60px rgba(21,37,29,.28));
+  mix-blend-mode:multiply;
+  filter: drop-shadow(0 30px 60px rgba(21,37,29,.28)) brightness(1.02);
   position:relative;
   z-index:1;
 }
