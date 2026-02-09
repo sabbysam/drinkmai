@@ -1,12 +1,14 @@
 :root{
-  --bg:#fbfaf7;
-  --ink:#121212;
-  --muted:#5b5b5b;
-  --line:rgba(18,18,18,.10);
-  --card:rgba(255,255,255,.75);
+  --bg:#f7f1e8;
+  --ink:#1b1b18;
+  --muted:#5d5a52;
+  --line:rgba(27,27,24,.12);
+  --card:rgba(255,255,255,.7);
   --shadow:0 26px 60px rgba(18,18,18,.12);
-  --accent:#2f6b4f;
-  --accent-2:#dfe9e3;
+  --matcha:#6b8f6b;
+  --accent:#1f3327;
+  --accent-2:#e2eadf;
+  --sun:#d7e1d2;
   --radius:24px;
 }
 
@@ -25,7 +27,7 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 
 .container{max-width:1080px; margin:0 auto; padding:0 20px}
 .section{padding:84px 0}
-.section.alt{background:linear-gradient(180deg, rgba(223,233,227,.6), rgba(223,233,227,0))}
+.section.alt{background:rgba(226,234,223,.55)}
 .section-head{max-width:760px}
 .section-head h2{font-size:36px; letter-spacing:-.02em; margin:0 0 10px}
 .section-head p{margin:0; color:var(--muted); font-size:18px}
@@ -43,8 +45,8 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 .logo{display:flex; align-items:center; gap:10px}
 .logo-mark{
   width:14px; height:14px; border-radius:999px;
-  background: radial-gradient(circle at 30% 30%, #a9d3bc, var(--accent));
-  box-shadow: 0 8px 20px rgba(47,107,79,.22);
+  background: var(--matcha);
+  box-shadow: 0 8px 20px rgba(31,51,39,.22);
 }
 .logo-word{font-weight:750; letter-spacing:-.02em; text-transform:lowercase}
 
@@ -60,17 +62,19 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 
 .hero{
   padding:96px 0 78px;
-  background:
-    radial-gradient(1100px 700px at 20% -15%, rgba(245,248,244,.95), rgba(245,248,244,0)),
-    radial-gradient(900px 700px at 85% 5%, rgba(192,214,198,.55), rgba(192,214,198,0) 65%),
-    linear-gradient(135deg, #f8f8f2 0%, #e6efe4 55%, #dfe9e3 100%);
+  background: var(--bg);
 }
 .hero-grid{
   display:grid;
   grid-template-columns: 1fr;
+  grid-template-areas:
+    "visual"
+    "copy";
   gap:40px;
   align-items:center;
 }
+.hero-copy{grid-area:copy}
+.hero-visual{grid-area:visual}
 .kicker{
   display:inline-block;
   margin:0 0 14px;
@@ -81,7 +85,7 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   font-size:12px;
   letter-spacing:.14em;
   text-transform:uppercase;
-  color:rgba(18,18,18,.72);
+  color:rgba(27,27,24,.72);
 }
 h1{
   font-size:46px;
@@ -107,9 +111,9 @@ h1{
 }
 .button:hover{transform: translateY(-1px); box-shadow: 0 14px 30px rgba(0,0,0,.08)}
 .button.primary{
-  background:var(--ink);
+  background:var(--accent);
   color:white;
-  border-color:rgba(18,18,18,.9);
+  border-color:rgba(31,51,39,.9);
 }
 .button.ghost{
   background:rgba(255,255,255,.7);
@@ -129,47 +133,30 @@ h1{
 .hero-visual{
   position:relative;
   min-height:460px;
-  border-radius: calc(var(--radius) + 12px);
-  background:
-    radial-gradient(180% 130% at 40% 0%, rgba(255,255,255,.85), rgba(255,255,255,0) 60%);
-  border:1px solid rgba(18,18,18,.08);
-  box-shadow: var(--shadow);
-  overflow:hidden;
   display:flex;
   align-items:flex-end;
   justify-content:center;
+  overflow:visible;
 }
-.hero-visual::before{
-  content:"";
+.sun-disc{
   position:absolute;
-  width:64%;
-  height:64%;
-  left:20%;
-  bottom:10%;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.85), rgba(255,255,255,0) 70%);
-  filter: blur(18px);
-  opacity:.9;
-  pointer-events:none;
-}
-.hero-visual::after{
-  content:"";
-  position:absolute;
-  width:66%;
-  height:70%;
-  left:18%;
-  bottom:6%;
-  background: radial-gradient(circle at 50% 60%, rgba(47,107,79,.25), rgba(47,107,79,0) 70%);
-  filter: blur(28px);
-  opacity:.7;
-  pointer-events:none;
+  width:72%;
+  aspect-ratio:1/1;
+  border-radius:999px;
+  background: var(--sun);
+  right:10%;
+  top:6%;
+  z-index:0;
 }
 .can{
-  width:92%;
-  max-width:420px;
+  width:95%;
+  max-width:460px;
   height:auto;
-  margin-bottom:18px;
-  transform: translateX(18px);
-  filter: drop-shadow(0 28px 60px rgba(15,35,26,.35));
+  margin-bottom:6px;
+  transform: translateX(12px);
+  filter: drop-shadow(0 30px 60px rgba(21,37,29,.28));
+  position:relative;
+  z-index:1;
 }
 
 .cards{
@@ -206,7 +193,7 @@ h1{
 .cta{
   margin-top:18px;
   border-radius: calc(var(--radius) + 10px);
-  background: linear-gradient(135deg, rgba(47,107,79,.12), rgba(255,255,255,.70));
+  background: rgba(255,255,255,.7);
   border:1px solid var(--line);
   box-shadow: var(--shadow);
   padding:24px;
@@ -233,8 +220,8 @@ input[type="email"]{
   outline:none;
 }
 input[type="email"]:focus{
-  border-color: rgba(47,107,79,.45);
-  box-shadow: 0 0 0 6px rgba(47,107,79,.10);
+  border-color: rgba(31,51,39,.45);
+  box-shadow: 0 0 0 6px rgba(31,51,39,.10);
 }
 .fineprint{margin:8px 0 0; font-size:12px; color:rgba(18,18,18,.58)}
 
@@ -263,14 +250,17 @@ input[type="email"]:focus{
 }
 
 @media (min-width: 920px){
-  .hero-grid{grid-template-columns: .9fr 1.1fr}
+  .hero-grid{
+    grid-template-columns: .95fr 1.05fr;
+    grid-template-areas: "copy visual";
+  }
   h1{font-size:62px}
   .hero-visual{min-height:560px}
   .can{
     width:100%;
-    max-width:520px;
-    margin-bottom:12px;
-    transform: translateX(24px);
+    max-width:620px;
+    margin-bottom:8px;
+    transform: translateX(26px);
   }
   .cards, .benefits{grid-template-columns: repeat(3, 1fr)}
 }
