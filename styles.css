@@ -1,12 +1,12 @@
 :root {
-  --bg: #f3eee5;
+  --bg: #dde5d4;
   --ink: #141511;
   --muted: #4b4a43;
   --line: rgba(20, 21, 17, 0.14);
-  --card: #ece5d8;
+  --card: #e4ead9;
   --matcha: #1f4a35;
   --matcha-deep: #132e21;
-  --accent: #132e21;
+  --accent: #1c5038;
   --contrast: #a43e2f;
   --sun: #9e5e53;
   --radius: 24px;
@@ -17,7 +17,12 @@ html, body { height: 100%; }
 body {
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255, 255, 255, 0.24) 0 16%, transparent 18%),
+    radial-gradient(circle at 88% 74%, rgba(255, 255, 255, 0.17) 0 18%, transparent 20%),
+    radial-gradient(circle at 30% 42%, rgba(18, 40, 29, 0.05) 0 1px, transparent 1px),
+    var(--bg);
+  background-size: auto, auto, 4px 4px, auto;
   color: var(--ink);
   line-height: 1.35;
 }
@@ -32,7 +37,7 @@ a { color: inherit; text-decoration: none; }
   top: 0;
   z-index: 20;
   backdrop-filter: blur(8px);
-  background: rgba(243, 238, 229, 0.9);
+  background: rgba(221, 229, 212, 0.88);
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
 .logo { display: flex; align-items: center; gap: 10px; }
@@ -58,7 +63,7 @@ a { color: inherit; text-decoration: none; }
 
 .hero {
   position: relative;
-  padding: 86px 0 72px;
+  padding: 94px 0 84px;
   isolation: isolate;
 }
 .hero::before {
@@ -67,18 +72,19 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(circle at 24% 34%, rgba(158, 94, 83, 0.18) 0 30%, transparent 31%),
-    radial-gradient(circle at 63% 58%, rgba(20, 21, 17, 0.04) 0 1px, transparent 1px),
-    radial-gradient(circle at 30% 72%, rgba(20, 21, 17, 0.03) 0 1px, transparent 1px);
-  background-size: auto, 4px 4px, 5px 5px;
+    radial-gradient(circle at 29% 48%, rgba(164, 62, 47, 0.14) 0 28%, transparent 29%),
+    radial-gradient(circle at 66% 58%, rgba(255, 255, 255, 0.12) 0 24%, transparent 26%),
+    radial-gradient(circle at 44% 72%, rgba(16, 37, 28, 0.04) 0 1px, transparent 1px),
+    linear-gradient(125deg, rgba(255, 255, 255, 0.22), rgba(211, 221, 201, 0.34));
+  background-size: auto, auto, 4px 4px, auto;
 }
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.24), transparent 45%);
-  opacity: 0.3;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent 55%);
+  opacity: 0.4;
   pointer-events: none;
 }
 .hero-grid {
@@ -95,15 +101,15 @@ a { color: inherit; text-decoration: none; }
 
 .kicker {
   display: inline-block;
-  margin: 0 0 12px;
-  font-size: 11px;
+  margin: 0 0 14px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(20, 21, 17, 0.66);
 }
 .hero-wordmark {
-  margin: 0 0 12px;
+  margin: 0 0 22px;
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
   font-size: clamp(104px, 24vw, 300px);
   letter-spacing: -0.04em;
@@ -113,30 +119,31 @@ a { color: inherit; text-decoration: none; }
   color: #1b1a16;
 }
 h1 {
-  font-size: clamp(46px, 8vw, 82px);
+  font-size: clamp(54px, 8vw, 86px);
   letter-spacing: -0.04em;
   line-height: 0.94;
-  margin: 0 0 18px;
+  margin: 0 0 24px;
   font-weight: 900;
   text-transform: uppercase;
 }
 .subhead {
   margin: 0;
-  font-size: 20px;
+  font-size: clamp(23px, 2.3vw, 32px);
+  line-height: 1.2;
   color: var(--muted);
-  max-width: 520px;
+  max-width: 620px;
 }
-.hero-actions { margin-top: 28px; }
+.hero-actions { margin-top: 38px; }
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 24px;
+  padding: 16px 30px;
   border-radius: 999px;
   border: 1px solid var(--line);
   font-weight: 800;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
@@ -150,43 +157,43 @@ h1 {
   background: var(--accent);
   color: #f8f3eb;
   border-color: var(--accent);
+  box-shadow: 0 14px 24px rgba(24, 64, 47, 0.22);
 }
 
 .hero-visual {
   position: relative;
-  min-height: 560px;
+  min-height: 670px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
 .hero-disc {
   position: absolute;
-  width: min(88vw, 650px);
+  width: min(88vw, 640px);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: var(--sun);
-  left: -126%;
-  top: 0;
+  left: -112%;
+  top: 8%;
   z-index: 0;
-  opacity: 0.16;
+  opacity: 0.12;
 }
 .hero-visual::after {
   content: "";
   position: absolute;
-  width: min(72%, 520px);
-  height: 36px;
-  bottom: 36px;
-  background: radial-gradient(ellipse at center, rgba(14, 22, 18, 0.18), rgba(14, 22, 18, 0));
+  width: min(70%, 520px);
+  height: 42px;
+  bottom: 42px;
+  background: radial-gradient(ellipse at center, rgba(14, 22, 18, 0.2), rgba(14, 22, 18, 0));
   z-index: 1;
   filter: blur(1px);
 }
 .can {
-  width: min(108%, 900px);
+  width: min(124%, 980px);
   height: auto;
-  margin-bottom: -82px;
+  margin-bottom: -68px;
   transform: translateX(18px);
-  mix-blend-mode: multiply;
-  filter: drop-shadow(0 30px 34px rgba(14, 22, 18, 0.22)) contrast(1.08) saturate(1.04);
+  filter: drop-shadow(0 34px 34px rgba(14, 22, 18, 0.24));
   position: relative;
   z-index: 2;
 }
@@ -290,25 +297,25 @@ input[type="email"]:focus {
     gap: 12px;
   }
   .hero-visual {
-    min-height: 760px;
+    min-height: 860px;
     overflow: visible;
   }
   .hero-disc {
-    width: min(74vw, 820px);
-    left: -162%;
-    top: 4%;
+    width: min(76vw, 820px);
+    left: -132%;
+    top: 9%;
   }
   .can {
-    width: min(118%, 1020px);
-    margin-bottom: -104px;
-    transform: translateX(40px);
+    width: min(132%, 1140px);
+    margin-bottom: -86px;
+    transform: translateX(32px);
   }
 }
 
 @media (max-width: 900px) {
   .nav { display: none; }
   .hero {
-    padding-top: 74px;
+    padding-top: 80px;
   }
 }
 
@@ -317,17 +324,17 @@ input[type="email"]:focus {
     font-size: clamp(72px, 25vw, 132px);
   }
   .hero-visual {
-    min-height: 470px;
+    min-height: 520px;
   }
   .hero-disc {
-    width: 140%;
-    left: -84%;
-    top: -8%;
-    opacity: 0.14;
+    width: 132%;
+    left: -78%;
+    top: -2%;
+    opacity: 0.12;
   }
   .can {
-    width: 118%;
-    margin-bottom: -66px;
+    width: 124%;
+    margin-bottom: -52px;
     transform: translateX(12px);
   }
   .calm-statement {
