@@ -24,6 +24,11 @@ html {
   color-scheme: light;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   margin: 0;
   font-family: var(--sans);
@@ -32,6 +37,10 @@ body {
   line-height: 1.5;
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 body::before {
@@ -338,7 +347,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 .proof p {
   margin: 0 auto;
-  max-width: 22ch;
+  max-width: 28ch;
   font-size: 0.98rem;
   line-height: 1.45;
   color: var(--muted);
@@ -578,7 +587,7 @@ img { max-width: 100%; height: auto; display: block; }
   .hero-grid {
     grid-template-columns: 0.92fr 1.08fr;
     align-items: center;
-    min-height: calc(100svh - var(--header-h));
+    min-height: min(calc(100svh - var(--header-h)), 46rem);
     padding-bottom: 2rem;
   }
 
@@ -611,7 +620,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 @media (max-width: 719px) {
   .hero {
-    min-height: calc(100svh - var(--header-h));
+    min-height: min(calc(100svh - var(--header-h)), 46rem);
     display: flex;
     flex-direction: column;
   }

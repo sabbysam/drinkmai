@@ -12,6 +12,7 @@
     }
 
     form.hidden = true;
+    form.setAttribute("hidden", "");
     const note = document.querySelector("[data-waitlist-note]");
     if (note) {
       note.classList.add("form-success");
