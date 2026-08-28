@@ -1,5 +1,4 @@
 (function () {
-  const TEAM = "sbwinston@gmail.com";
   const SHARE_URL = "https://drinkmai.com";
   const SHARE_TEXT = "Calm energy. No chaos. Mai is lightly sparkling matcha — join the first drop.";
   const ENDPOINT = "https://formsubmit.co/ajax/sbwinston@gmail.com";
@@ -35,13 +34,6 @@
     if (kind) storageSet(kind);
   }
 
-  function showError(wrap, message) {
-    const error = wrap.querySelector("[data-mai-error]");
-    if (!error) return;
-    error.hidden = false;
-    error.innerHTML = message;
-  }
-
   function setNext(form) {
     const next = form.querySelector('input[name="_next"]');
     if (!next) return;
@@ -57,11 +49,18 @@
     if (honey && honey.value) return { ok: true, bot: true };
 
     const body = new FormData(form);
+    const ctrl = new AbortController();
+    const timer = window.setTimeout(function () { ctrl.abort(); }, 6000);
     const res = await fetch(ENDPOINT, {
       method: "POST",
       headers: { Accept: "application/json" },
-      body: body
+      body: body,
+      signal: ctrl.signal
     });
+    window.clearTimeout(timer);
+
+    const type = res.headers.get("content-type") || "";
+    if (!type.includes("json")) throw new Error("Not JSON");
 
     let payload = null;
     try { payload = await res.json(); } catch (err) { payload = null; }
@@ -71,18 +70,6 @@
       throw new Error(msg || "Request failed");
     }
     return payload || { ok: true };
-  }
-
-  function mailtoFallback(form) {
-    const data = new FormData(form);
-    const kind = form.getAttribute("data-mai-form") === "cafe" ? "Mai café / retail" : "Mai first drop waitlist";
-    const lines = [kind];
-    data.forEach(function (value, key) {
-      if (key.charAt(0) === "_") return;
-      if (!value) return;
-      lines.push(key + ": " + value);
-    });
-    return "mailto:" + TEAM + "?subject=" + encodeURIComponent(kind) + "&body=" + encodeURIComponent(lines.join("\n"));
   }
 
   document.querySelectorAll("form[data-mai-form]").forEach(function (form) {
@@ -115,16 +102,12 @@
           showSuccess(wrap, kind);
         })
         .catch(function () {
-          showError(
-            wrap,
-            'Something didn’t send. <a href="' + mailtoFallback(form) + '">Email us directly</a> and we’ll add you.'
-          );
-        })
-        .finally(function () {
+          // AJAX is often Cloudflare-challenged; native POST still reaches Formsubmit.
           if (button) {
             button.disabled = false;
             button.textContent = original;
           }
+          HTMLFormElement.prototype.submit.call(form);
         });
     });
   });
@@ -148,16 +131,21 @@
 
     if (copyBtn) {
       copyBtn.addEventListener("click", function () {
-        const done = function () {
-          copyBtn.textContent = "Link copied";
-          window.setTimeout(function () { copyBtn.textContent = "Copy link"; }, 1800);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(SHARE_URL).then(done).catch(function () {
-            window.prompt("Copy this link", SHARE_URL);
-          });
-        } else {
-          window.prompt("Copy this link", SHARE_URL);
+        copyBtn.textContent = "Link copied";
+        window.setTimeout(function () { copyBtn.textContent = "Copy link"; }, 1800);
+
+        const ta = document.createElement("textarea");
+        ta.value = SHARE_URL;
+        ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;left:-9999px;top:0";
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, SHARE_URL.length);
+        var ok = false;
+        try { ok = document.execCommand("copy"); } catch (err) { ok = false; }
+        document.body.removeChild(ta);
+        if (!ok && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(SHARE_URL).catch(function () { /* ignore */ });
         }
       });
     }
