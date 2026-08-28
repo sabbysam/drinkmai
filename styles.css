@@ -318,77 +318,17 @@ h1,
 .form-success p { margin: 0 0 0.85rem; }
 .form-error { color: #8a3a2a; }
 
-.hero-visual,
-.drop-visual,
-.still-life {
+.product {
   position: relative;
   margin: 0;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  min-height: 22rem;
 }
 
-.sun {
-  position: absolute;
-  width: min(22rem, 78vw);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 48%, #f3c8aa 0%, var(--sun) 34%, rgba(232, 180, 148, 0.28) 62%, transparent 72%);
-  filter: blur(2px);
-  z-index: 0;
-  pointer-events: none;
-}
-
-.hero-visual .sun,
-.drop-visual .sun {
-  bottom: 10%;
-}
-
-.can {
-  position: relative;
-  z-index: 2;
-  width: min(15.5rem, 52vw);
-  filter: drop-shadow(0 28px 28px rgba(19, 46, 33, 0.18));
-}
-
-.still-life {
-  min-height: 26rem;
-  max-width: 34rem;
-  width: 100%;
-  margin-inline: auto;
-}
-
-.still-life .sun {
-  width: min(24rem, 88%);
-  top: 6%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.still-life .can {
-  width: min(11.5rem, 42vw);
-  z-index: 2;
-}
-
-.still-life .prop {
-  position: absolute;
-  z-index: 3;
-  filter: drop-shadow(0 16px 18px rgba(19, 46, 33, 0.14));
-}
-
-.still-life .bowl {
-  width: min(10.5rem, 42vw);
-  left: 0;
-  bottom: 4%;
-}
-
-.still-life .whisk {
-  width: min(6.2rem, 24vw);
-  right: 2%;
-  top: 16%;
-  z-index: 1;
+.product-shot {
+  width: min(36rem, 100%);
+  height: auto;
 }
 
 .values {
@@ -754,28 +694,9 @@ body.has-sticky { padding-bottom: 5.25rem; }
     align-items: center;
   }
 
-  .hero-visual,
-  .drop-visual,
-  .still-life {
-    min-height: 32rem;
+  .product-shot {
+    width: min(40rem, 100%);
   }
-
-  .hero-visual .sun,
-  .drop-visual .sun {
-    width: min(28rem, 100%);
-    bottom: 12%;
-  }
-
-  .hero-visual .can,
-  .drop-visual .can {
-    width: min(17.5rem, 62%);
-  }
-
-  .still-life { min-height: 36rem; max-width: none; }
-
-  .still-life .can { width: min(13.5rem, 46%); }
-  .still-life .bowl { width: 12.5rem; left: 2%; }
-  .still-life .whisk { width: 7.2rem; right: 6%; top: 14%; }
 }
 
 @media (max-width: 719px) {
