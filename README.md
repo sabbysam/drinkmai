@@ -16,7 +16,9 @@ Open http://localhost:8080 and walk Home, Story, FAQ (`the-drop.html`), and Priv
 
 ## Fill-in spots
 
-Search the repo for `[PLACEHOLDER]`. Those are facts and assets that are not live yet: launch window, caffeine, sugar, price, vegan/clean-label, where it’s sold, Instagram URL, founder photo (`assets/founders.jpg`), and gallery frames (`assets/gallery-2.jpg` through `gallery-4.jpg`). Drop image files at those paths — layout is already there. Do not invent a handle or numbers in the meantime.
+Search the repo for `[PLACEHOLDER]`. Those are facts that are not live yet: launch window, caffeine, sugar, price, vegan/clean-label, where it’s sold, and Instagram URL. Do not invent a handle or numbers in the meantime.
+
+`assets/founders.jpg` is an interim still-life of two cans — not a portrait of Sam and Stephen. Drop a real photo over that same path when you have one; the Home circle and Story 4:5 frame stay put.
 
 ## GitHub Pages
 
