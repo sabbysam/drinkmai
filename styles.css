@@ -801,19 +801,36 @@ body.has-sticky { padding-bottom: 5.25rem; }
   visibility: hidden;
 }
 
+.founders-tease {
+  margin: 0 auto 1.35rem;
+  max-width: 16rem;
+}
+
+.founders-tease figcaption,
+.founders-frame figcaption {
+  margin: 0.7rem 0 0;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
 .media-slot--founders-tease {
   width: 8.75rem;
   height: 8.75rem;
   min-height: 0;
-  margin: 0 auto 1.35rem;
+  margin: 0 auto;
   border-radius: 50%;
+}
+
+.founders-frame {
+  margin: 0 auto 2rem;
 }
 
 .media-slot--founders {
   width: min(22rem, 100%);
   aspect-ratio: 4 / 5;
   min-height: 0;
-  margin: 0 auto 2rem;
+  margin: 0 auto;
 }
 
 .carousel-slide .media-slot {
@@ -975,6 +992,11 @@ body.has-sticky { padding-bottom: 5.25rem; }
     gap: 2.75rem;
     align-items: start;
     max-width: none;
+  }
+
+  .founders-frame {
+    margin: 0;
+    width: 100%;
   }
 
   .media-slot--founders {
