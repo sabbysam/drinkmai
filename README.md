@@ -16,7 +16,7 @@ Open http://localhost:8080 and walk Home, Story, FAQ (`the-drop.html`), and Priv
 
 ## Fill-in spots
 
-Search the repo for `[PLACEHOLDER]`. Those are facts that are not live yet: launch window, caffeine, sugar, price, vegan/clean-label, where it’s sold, and Instagram URL. Do not invent a handle or numbers in the meantime.
+Search the repo for `[PLACEHOLDER]`. Those are facts that are not live yet: launch window, caffeine, sugar, price, vegan/clean-label, and where it’s sold. Do not invent numbers in the meantime. Instagram is live at [instagram.com/drink.maimatcha](https://www.instagram.com/drink.maimatcha/).
 
 `assets/founders.jpg` is an interim still-life of two cans — not a portrait of Sam and Stephen. Drop a real photo over that same path when you have one; the Home circle and Story 4:5 frame stay put.
 
