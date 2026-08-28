@@ -13,94 +13,114 @@
       property="og:description"
       content="Calm energy without chaos, jitters, or sugar."
     />
+    <meta property="og:image" content="assets/Matcha1.png" />
     <meta name="theme-color" content="#f3eee5" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
     <header class="site-header">
       <div class="container header-inner">
-        <a class="logo" href="#" aria-label="Mai home">
-          <span class="logo-mark" aria-hidden="true"></span>
-          <span class="logo-word">mai</span>
-        </a>
+        <a class="wordmark" href="index.html" aria-label="Mai home">ma<span class="tittle">ı</span></a>
 
-        <nav class="nav">
-          <a href="#waitlist" class="nav-link nav-cta">Join the drop</a>
+        <nav class="nav" aria-label="Primary">
+          <div class="nav-links">
+            <a class="nav-link" href="story.html">Story</a>
+            <a class="nav-link" href="#waitlist">The drop</a>
+            <a class="nav-link" href="mailto:hello@drinkmai.com">Contact</a>
+          </div>
+          <a class="nav-cta" href="#waitlist">
+            <span class="cta-full">Join the drop</span>
+            <span class="cta-short">Join</span>
+          </a>
         </nav>
       </div>
     </header>
 
-    <main>
+    <main id="main">
       <section class="hero">
         <div class="container hero-grid">
           <div class="hero-copy">
-            <p class="kicker">sparkling matcha</p>
-            <p class="hero-wordmark">mai</p>
+            <p class="kicker">Sparkling matcha</p>
             <h1>Calm energy.<br />No chaos.</h1>
             <p class="subhead">For people done with jitters, crashes, and caffeine noise.</p>
-
             <div class="hero-actions">
-              <a class="button primary" href="#waitlist">Join the first drop</a>
+              <a class="button" href="#waitlist">Join the first drop</a>
             </div>
           </div>
 
           <figure class="hero-visual">
-            <span class="hero-disc" aria-hidden="true"></span>
-            <img class="can" src="assets/Matcha1.png" alt="Mai sparkling matcha can" />
-            <figcaption class="sr-only">Mai sparkling matcha can</figcaption>
+            <span class="sun" aria-hidden="true"></span>
+            <img
+              class="can"
+              src="assets/Matcha1.png"
+              alt="Mai sparkling matcha can"
+              width="408"
+              height="612"
+            />
           </figure>
         </div>
+        <div class="hero-wash" aria-hidden="true"></div>
       </section>
 
-      <section class="calm-statement" aria-label="Calm statement">
-        <div class="container">
-          <p>Calm is not boring.<br />Chaos is.</p>
+      <section class="statement" aria-label="Brand statement">
+        <p>Calm is not boring. Chaos is.</p>
+      </section>
+
+      <section class="proofs" aria-label="What Mai is">
+        <div class="container proof-grid">
+          <article class="proof">
+            <span class="proof-sun" aria-hidden="true"></span>
+            <h2>Real matcha.</h2>
+            <p>Ceremonial-grade matcha for steady, focused energy.</p>
+          </article>
+          <article class="proof">
+            <span class="proof-sun" aria-hidden="true"></span>
+            <h2>Light carbonation.</h2>
+            <p>Crisp, quiet bubbles that lift without overpowering.</p>
+          </article>
+          <article class="proof">
+            <span class="proof-sun" aria-hidden="true"></span>
+            <h2>Zero sugar rush.</h2>
+            <p>No sugar. No crash. Just calm, all day.</p>
+          </article>
         </div>
       </section>
 
-      <section id="belief" class="section belief">
+      <section id="waitlist" class="waitlist">
         <div class="container">
-          <div class="section-head">
-            <p class="manifesto-kicker">brand belief</p>
-            <h2>Most energy drinks are loud. Mai is deliberate.</h2>
-            <p>
-              We built Mai for clear mornings, deep work, and long days that demand steadiness over spikes. Real matcha.
-              Light carbonation. Zero sugar rush.
-            </p>
-            <a class="button primary" href="#waitlist">Get early access</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="waitlist" class="section waitlist">
-        <div class="container">
-          <div class="cta">
-            <div class="cta-copy">
-              <h2>First drop access</h2>
-              <p>Be first in line for launch, flavors, and member pricing.</p>
-            </div>
-
-            <form class="form" action="#" method="post">
-              <label class="sr-only" for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="you@domain.com" required />
-              <button class="button primary" type="submit">Join now</button>
-            </form>
-          </div>
+          <h2>First drop access</h2>
+          <form class="form" data-waitlist-form action="#" method="post">
+            <label class="sr-only" for="email">Email address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="Email address"
+              required
+            />
+            <button class="button" type="submit">Join now</button>
+          </form>
+          <p class="form-caption" data-waitlist-note>Be first for launch, flavors, and member pricing.</p>
         </div>
       </section>
     </main>
 
     <footer class="footer">
       <div class="container footer-inner">
-        <div>
-          <div class="footer-logo">mai</div>
-          <p class="footer-note">Sparkling matcha for calm energy.</p>
-        </div>
-        <div class="footer-links">
-          <a href="#" class="footer-link">Privacy</a>
-          <a href="mailto:hello@drinkmai.com" class="footer-link">Contact</a>
-        </div>
+        <a class="wordmark" href="index.html" aria-label="Mai home">ma<span class="tittle">ı</span></a>
+        <a class="footer-mail" href="mailto:hello@drinkmai.com">hello@drinkmai.com</a>
+        <a href="privacy.html">Privacy</a>
       </div>
     </footer>
 
