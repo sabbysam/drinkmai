@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" fill="none" role="img" aria-labelledby="founders-title">
+  <title id="founders-title">Two cans standing together in front of a peach sun</title>
+  <defs>
+    <radialGradient id="peach-sun" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#f3c6a8"/>
+      <stop offset="42%" stop-color="#e8b494"/>
+      <stop offset="100%" stop-color="#d49278"/>
+    </radialGradient>
+    <radialGradient id="peach-halo" cx="50%" cy="48%" r="50%">
+      <stop offset="0%" stop-color="#e8b494" stop-opacity="0.42"/>
+      <stop offset="70%" stop-color="#e8b494" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#e8b494" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Soft halo so the mark sits on cream, not a photo crop -->
+  <circle cx="200" cy="228" r="168" fill="url(#peach-halo)"/>
+  <circle cx="200" cy="226" r="112" fill="url(#peach-sun)"/>
+
+  <!-- Eight-point sparkle, the same quiet star used on the can -->
+  <path
+    fill="#1f4a35"
+    d="M200 86 L204.1 108.2 L226 112.5 L204.1 116.8 L200 139 L195.9 116.8 L174 112.5 L195.9 108.2 Z"
+  />
+
+  <!-- Grounding ellipse  two friends, one table -->
+  <ellipse cx="200" cy="384" rx="92" ry="14" fill="#1f4a35" opacity="0.08"/>
+
+  <g stroke="#1f4a35" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Left can -->
+    <g>
+      <rect x="124" y="198" width="70" height="168" rx="12" fill="#f7f3eb" stroke-width="5"/>
+      <ellipse cx="159" cy="198" rx="35" ry="9.5" fill="#f3eee5" stroke-width="5"/>
+      <path d="M134 216.5 h50" stroke-width="2.4" opacity="0.45"/>
+      <circle cx="159" cy="262" r="7.5" fill="#e8b494" stroke="none"/>
+    </g>
+    <!-- Right can, a step closer  two standing together -->
+    <g>
+      <rect x="206" y="210" width="70" height="168" rx="12" fill="#f7f3eb" stroke-width="5"/>
+      <ellipse cx="241" cy="210" rx="35" ry="9.5" fill="#f3eee5" stroke-width="5"/>
+      <path d="M216 228.5 h50" stroke-width="2.4" opacity="0.45"/>
+      <circle cx="241" cy="274" r="7.5" fill="#e8b494" stroke="none"/>
+    </g>
+  </g>
+</svg>

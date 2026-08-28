@@ -900,7 +900,25 @@ body.has-sticky { padding-bottom: 5.25rem; }
   padding: 2.5rem 0 0.5rem;
 }
 
-.faq-intro .button { margin-top: 1.6rem; }
+.faq-intro .text-link {
+  font-size: 1.22rem;
+}
+
+.media-slot--mark {
+  background:
+    radial-gradient(80% 90% at 50% 100%, rgba(232, 180, 148, 0.3), transparent 68%),
+    var(--cream);
+}
+
+.media-slot--mark img {
+  object-fit: contain;
+  padding: 0.7rem;
+  background: transparent;
+}
+
+.media-slot--founders.media-slot--mark img {
+  padding: 1.15rem 0.95rem;
+}
 
 .faq { padding-top: 1.5rem; }
 
