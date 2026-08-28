@@ -912,12 +912,12 @@ body.has-sticky { padding-bottom: 5.25rem; }
 
 .media-slot--mark img {
   object-fit: contain;
-  padding: 0.7rem;
+  padding: 0.45rem;
   background: transparent;
 }
 
 .media-slot--founders.media-slot--mark img {
-  padding: 1.15rem 0.95rem;
+  padding: 1.5rem 1.05rem;
 }
 
 .faq { padding-top: 1.5rem; }
