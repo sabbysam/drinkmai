@@ -511,7 +511,12 @@ img { max-width: 100%; height: auto; display: block; }
   min-height: calc(100svh - 8rem);
   display: grid;
   align-content: center;
+  justify-items: start;
   padding: 3rem 0 5rem;
+}
+
+.quiet-page .button {
+  width: auto;
 }
 
 .quiet-page p {
