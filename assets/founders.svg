@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" role="img" aria-labelledby="founders-title">
+  <title id="founders-title">Two cans standing together in front of a peach sun</title>
+  <defs>
+    <radialGradient id="peach-sun" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#f3c6a8"/>
+      <stop offset="40%" stop-color="#e8b494"/>
+      <stop offset="100%" stop-color="#d49278"/>
+    </radialGradient>
+    <radialGradient id="peach-halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8b494" stop-opacity="0.4"/>
+      <stop offset="72%" stop-color="#e8b494" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#e8b494" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="200" cy="198" r="168" fill="url(#peach-halo)"/>
+  <circle cx="200" cy="176" r="118" fill="url(#peach-sun)"/>
+  <circle cx="200" cy="68" r="11" fill="#e8b494"/>
+
+  <ellipse cx="200" cy="348" rx="98" ry="16" fill="#1f4a35" opacity="0.08"/>
+
+  <g stroke="#1f4a35" stroke-linejoin="round" stroke-linecap="round">
+    <g>
+      <rect x="116" y="152" width="80" height="178" rx="14" fill="#f7f3eb" stroke-width="7"/>
+      <ellipse cx="156" cy="152" rx="40" ry="11" fill="#f3eee5" stroke-width="7"/>
+      <path d="M128 174 h56" stroke-width="3" opacity="0.4"/>
+      <circle cx="156" cy="222" r="13" fill="#e8b494" stroke="none"/>
+    </g>
+    <g>
+      <rect x="204" y="166" width="80" height="178" rx="14" fill="#f7f3eb" stroke-width="7"/>
+      <ellipse cx="244" cy="166" rx="40" ry="11" fill="#f3eee5" stroke-width="7"/>
+      <path d="M216 188 h56" stroke-width="3" opacity="0.4"/>
+      <circle cx="244" cy="236" r="13" fill="#e8b494" stroke="none"/>
+    </g>
+  </g>
+</svg>
