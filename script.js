@@ -1,7 +1,7 @@
 (function () {
   const SHARE_URL = "https://drinkmai.com";
   const SHARE_TEXT = "Calm energy. No chaos. Mai is lightly sparkling matcha — join the first drop.";
-  const ENDPOINT = "https://formsubmit.co/ajax/sbwinston@gmail.com";
+  const ENDPOINT = "https://formsubmit.co/ajax/hello@drinkmai.com";
   const STORAGE = "mai-joined";
 
   const params = new URLSearchParams(window.location.search);
@@ -25,10 +25,10 @@
   function showSuccess(wrap, kind) {
     const form = wrap.querySelector("form");
     const success = wrap.querySelector("[data-mai-success]");
-    const caption = wrap.querySelector("[data-mai-caption]");
+    const captions = wrap.querySelectorAll("[data-mai-caption]");
     const error = wrap.querySelector("[data-mai-error]");
     if (form) form.hidden = true;
-    if (caption) caption.hidden = true;
+    captions.forEach(function (caption) { caption.hidden = true; });
     if (error) error.hidden = true;
     if (success) success.hidden = false;
     if (kind) storageSet(kind);
@@ -153,6 +153,7 @@
 
   const sticky = document.querySelector("[data-sticky-cta]");
   const waitlist = document.querySelector("#waitlist");
+  const waitlistIsForm = !!(waitlist && waitlist.querySelector("form[data-mai-form]"));
 
   function hideSticky() {
     if (!sticky) return;
@@ -171,14 +172,14 @@
   }
 
   if (sticky) {
-    if (waitlist && "IntersectionObserver" in window) {
+    if (waitlistIsForm && "IntersectionObserver" in window) {
       const io = new IntersectionObserver(function (entries) {
         const onScreen = entries.some(function (entry) { return entry.isIntersecting; });
         if (onScreen || alreadyJoined()) hideSticky();
         else revealSticky();
       }, { threshold: 0.18 });
       io.observe(waitlist);
-    } else if (!waitlist) {
+    } else if (!waitlistIsForm) {
       revealSticky();
     }
 
@@ -186,4 +187,112 @@
       if (!window.matchMedia("(max-width: 719px)").matches) hideSticky();
     });
   }
+
+  document.querySelectorAll("[data-slot-img]").forEach(function (img) {
+    const slot = img.closest(".media-slot");
+    if (slot) slot.classList.add("is-empty");
+
+    function missing() {
+      img.hidden = true;
+      if (slot) slot.classList.add("is-empty");
+    }
+
+    function present() {
+      if (!img.naturalWidth) {
+        missing();
+        return;
+      }
+      img.hidden = false;
+      if (slot) slot.classList.remove("is-empty");
+    }
+
+    img.addEventListener("error", missing);
+    img.addEventListener("load", present);
+    if (img.complete) present();
+  });
+
+  document.querySelectorAll("[data-carousel]").forEach(function (root) {
+    const track = root.querySelector(".carousel-track");
+    const slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
+    const dotsWrap = root.querySelector("[data-carousel-dots]");
+    const prev = root.querySelector("[data-carousel-prev]");
+    const next = root.querySelector("[data-carousel-next]");
+    if (!track || slides.length < 2) return;
+
+    let index = 0;
+    let startX = 0;
+    let deltaX = 0;
+    let dragging = false;
+
+    slides.forEach(function (_, i) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "carousel-dot" + (i === 0 ? " is-active" : "");
+      dot.setAttribute("aria-label", "Show image " + (i + 1));
+      dot.addEventListener("click", function () { go(i); });
+      if (dotsWrap) dotsWrap.appendChild(dot);
+    });
+
+    const dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll(".carousel-dot")) : [];
+
+    function go(n) {
+      index = (n + slides.length) % slides.length;
+      track.style.transform = "translateX(-" + index * 100 + "%)";
+      slides.forEach(function (slide, i) {
+        slide.classList.toggle("is-active", i === index);
+      });
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle("is-active", i === index);
+      });
+    }
+
+    if (prev) prev.addEventListener("click", function () { go(index - 1); });
+    if (next) next.addEventListener("click", function () { go(index + 1); });
+
+    root.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft") go(index - 1);
+      if (event.key === "ArrowRight") go(index + 1);
+    });
+
+    function onStart(x) {
+      dragging = true;
+      startX = x;
+      deltaX = 0;
+    }
+
+    function onMove(x) {
+      if (!dragging) return;
+      deltaX = x - startX;
+    }
+
+    function onEnd() {
+      if (!dragging) return;
+      dragging = false;
+      if (Math.abs(deltaX) > 40) go(index + (deltaX < 0 ? 1 : -1));
+      deltaX = 0;
+    }
+
+    track.addEventListener("touchstart", function (event) {
+      onStart(event.changedTouches[0].clientX);
+    }, { passive: true });
+    track.addEventListener("touchmove", function (event) {
+      onMove(event.changedTouches[0].clientX);
+    }, { passive: true });
+    track.addEventListener("touchend", onEnd);
+
+    track.addEventListener("pointerdown", function (event) {
+      if (event.pointerType === "touch") return;
+      onStart(event.clientX);
+    });
+    window.addEventListener("pointermove", function (event) {
+      if (event.pointerType === "touch") return;
+      onMove(event.clientX);
+    });
+    window.addEventListener("pointerup", function (event) {
+      if (event.pointerType === "touch") return;
+      onEnd();
+    });
+
+    go(0);
+  });
 })();
