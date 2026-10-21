@@ -270,8 +270,22 @@ p { margin: 0 0 1rem; }
   right: 0;
   top: 0;
   height: 9rem;
+  z-index: 0;
   pointer-events: none;
   background: radial-gradient(70% 100% at 50% 0%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 72%);
+}
+
+.hero-grid,
+.story-grid,
+.why-salt .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  color: var(--ink);
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
 
 .hero-grid,

@@ -164,7 +164,7 @@
   });
 
   var sticky = document.querySelector("[data-sticky-cta]");
-  var formWraps = document.querySelectorAll("[data-mai-form-wrap]");
+  var formWraps = document.querySelectorAll("[data-mai-form-wrap], [data-inline-cta]");
 
   function hideSticky() {
     if (!sticky) return;

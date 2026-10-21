@@ -18,7 +18,7 @@ Home links use `/`, not `index.html`, so Search Console does not treat them as t
 
 ## Product facts (locked)
 
-Real matcha. Caffeine comes naturally from the matcha. No milligram number. A pinch of real sea salt, for flavor. Lightly sparkling, quiet bubbles. Sugar line, everywhere it is stated: “About 4g of sugar” per can, lightly sweetened, not unsweetened and not sugar-free. 330ml can. Pre-launch: no shop, no price, no launch date. Seattle cafés first, then specialty shops. Final prototype round, and starting to look for a co-packer. Founders: Sam and Stephen.
+Real matcha. Caffeine comes naturally from the matcha. No milligram number. A pinch of real sea salt, for flavor. Lightly sparkling, quiet bubbles. Sugar line, everywhere it is stated: “About 4g of sugar” per can, lightly sweetened, not unsweetened and not sugar-free. 330ml can. Pre-launch: no shop, no price, no launch date. Denver cafés first, then specialty shops. Final prototype round, and starting to look for a co-packer. Founders: Sam and Stephen.
 
 Do not add caffeine mg, sodium mg, calories, prices, dates, flavor names, or supplier names. Leave a `TODO(Sam)` instead.
 
