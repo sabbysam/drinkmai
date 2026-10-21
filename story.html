@@ -100,12 +100,25 @@
 
       <section class="people" aria-labelledby="people-title">
         <div class="container people-grid">
-          <figure>
+          <figure class="founders-photo">
             <!-- TODO(Sam): replace after shoot — real photo of Sam and Stephen, 4:5, outdoor coastal light. Keep assets/founders.svg as a small badge on the photo. -->
-            <div class="founders-mark">
+            <div class="founders-frame">
+              <picture>
+                <source srcset="assets/gallery-4.avif" type="image/avif" />
+                <source srcset="assets/gallery-4.webp" type="image/webp" />
+                <img
+                  src="assets/gallery-4.jpg"
+                  alt="Two Mai cans and a bowl of matcha on a table"
+                  width="800"
+                  height="1000"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <img
+                class="founders-badge"
                 src="assets/founders.svg"
-                alt="Line drawing of two cans in front of a peach sun"
+                alt=""
                 width="400"
                 height="400"
               />

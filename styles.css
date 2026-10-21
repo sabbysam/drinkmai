@@ -667,22 +667,33 @@ p { margin: 0 0 1rem; }
   font-weight: 500;
 }
 
-.founders-mark {
-  width: min(16rem, 78%);
-  aspect-ratio: 4 / 5;
-  margin: 0 auto 0.85rem;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(80% 70% at 50% 100%, rgba(232, 180, 148, 0.28), transparent 70%),
-    var(--foam);
-  border: 1px solid var(--seaglass);
+.founders-photo {
+  margin: 0 auto 0.35rem;
+  width: min(18rem, 100%);
+}
+
+.founders-frame {
   position: relative;
 }
 
-.founders-mark img {
-  width: 72%;
-  height: auto;
+.founders-frame picture img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+}
+
+.founders-badge {
+  position: absolute;
+  left: 0.7rem;
+  bottom: 0.7rem;
+  width: 3.35rem;
+  height: 3.35rem;
+  padding: 0.4rem;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--seaglass);
+  box-sizing: border-box;
 }
 
 .founders-block { text-align: center; }
@@ -807,13 +818,6 @@ fieldset {
 .cafe-form textarea {
   min-height: 8rem;
   resize: vertical;
-}
-
-.waitlist-form input::placeholder,
-.cafe-form input::placeholder,
-.cafe-form textarea::placeholder {
-  color: var(--forest);
-  opacity: 1;
 }
 
 .waitlist-form .button,
@@ -1050,11 +1054,11 @@ body.has-sticky { padding-bottom: 5.5rem; }
     align-items: start;
   }
 
-  .people-grid .founders-mark { width: 100%; margin-inline: 0; }
+  .people-grid .founders-photo { width: 100%; margin-inline: 0; }
 
   .founders-block { text-align: left; }
 
-  .founders-block .founders-mark { margin-inline: 0; }
+  .founders-block .founders-photo { margin-inline: 0; }
 
   .founders-home {
     display: grid;
@@ -1065,7 +1069,7 @@ body.has-sticky { padding-bottom: 5.5rem; }
     text-align: left;
   }
 
-  .founders-home .founders-mark { width: 100%; }
+  .founders-home .founders-photo { width: 100%; margin-inline: 0; }
 
   .founders-home p,
   .founders-home .text-link { margin-left: 0; margin-right: 0; }

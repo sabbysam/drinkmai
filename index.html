@@ -106,7 +106,6 @@
                     type="email"
                     autocomplete="email"
                     inputmode="email"
-                    placeholder="you@email.com"
                     required
                   />
                 </div>
@@ -430,12 +429,25 @@
 
       <section class="founders-block" aria-labelledby="founders-title">
         <div class="container founders-home">
-          <figure>
+          <figure class="founders-photo">
             <!-- TODO(Sam): replace after shoot — real photo of Sam and Stephen, 4:5, outdoor coastal light. Keep assets/founders.svg as a small badge on the photo. -->
-            <div class="founders-mark">
+            <div class="founders-frame">
+              <picture>
+                <source srcset="assets/gallery-4.avif" type="image/avif" />
+                <source srcset="assets/gallery-4.webp" type="image/webp" />
+                <img
+                  src="assets/gallery-4.jpg"
+                  alt="Two Mai cans and a bowl of matcha on a table"
+                  width="800"
+                  height="1000"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <img
+                class="founders-badge"
                 src="assets/founders.svg"
-                alt="Line drawing of two cans in front of a peach sun"
+                alt=""
                 width="400"
                 height="400"
               />
@@ -491,11 +503,11 @@
 
               <div class="field">
                 <label for="venue">Venue</label>
-                <input id="venue" name="venue" type="text" autocomplete="organization" required placeholder="Café or shop name" />
+                <input id="venue" name="venue" type="text" autocomplete="organization" required />
               </div>
               <div class="field">
                 <label for="city-cafe">City</label>
-                <input id="city-cafe" name="city" type="text" autocomplete="address-level2" required placeholder="Seattle" />
+                <input id="city-cafe" name="city" type="text" autocomplete="address-level2" required />
               </div>
               <div class="field">
                 <label for="email-cafe">Email</label>
@@ -506,12 +518,11 @@
                   autocomplete="email"
                   inputmode="email"
                   required
-                  placeholder="you@cafe.com"
                 />
               </div>
               <div class="field">
                 <label for="note">Note <span class="optional">(optional)</span></label>
-                <textarea id="note" name="note" rows="3" placeholder="What you pour, who you serve."></textarea>
+                <textarea id="note" name="note" rows="3"></textarea>
               </div>
               <button class="button" type="submit">Tell us you’re interested</button>
             </form>
