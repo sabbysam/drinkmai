@@ -32,12 +32,16 @@ Pages deploys from `main` at `/` to the custom domain in `CNAME` (`drinkmai.com`
 
 ## Waitlist
 
-Both forms post through [Formsubmit](https://formsubmit.co) to `hello@drinkmai.com`. The endpoint lives in one place: `MAI_FORM_ENDPOINT` at the top of `script.js`. Swap that string when the provider changes.
+One join sheet, a modal on every page. It posts through [Formsubmit](https://formsubmit.co) to `hello@drinkmai.com`. The endpoint lives in one place: `MAI_FORM_ENDPOINT` at the top of `script.js`. Swap that string when the provider changes.
+
+“Join the first drop” opens the sheet. A café or shop can check “I’m a café / shop” in that same sheet to add venue and a note. There is no second form and no separate signup page. `#waitlist` on any page other than home redirects to `/#waitlist`, which opens the sheet.
+
+The sheet auto-opens once, after about 8 seconds or halfway down the page, unless it was already dismissed or someone already joined (`localStorage` keys `mai-popup-dismissed` and `mai-joined`).
 
 The first live submission to a new Formsubmit address sends an activation email to `hello@drinkmai.com`. Open it, or later signups will not arrive.
 
 A test submit should land in that inbox:
 
 - Waitlist subject: `Mai first drop waitlist` (email, optional city, optional interest).
-- Café subject: `Mai café / retail inquiry` (venue, city, email, optional note).
-- Success on the page does not jump when the ajax call works. If it falls back to a full post, Formsubmit returns to `?joined=1` (waitlist) or `?joined=cafe` (café).
+- Café subject: `Mai café / retail inquiry` (email, optional city, optional interest, venue, optional note).
+- Success stays in the sheet when the ajax call works. If it falls back to a full post, Formsubmit returns to `?joined=1` (waitlist) or `?joined=cafe` (café).

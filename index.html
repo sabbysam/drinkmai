@@ -71,79 +71,26 @@
           <a class="nav-link" href="the-drop.html">FAQ</a>
           <a class="nav-link" href="#cafes">Cafés</a>
         </nav>
-        <a class="nav-cta" href="#waitlist">Join the drop</a>
+        <button type="button" class="nav-cta" data-join-open>Join the drop</button>
       </div>
     </header>
 
     <main id="main">
-      <section class="hero">
+      <section class="hero" id="waitlist">
         <div class="container hero-grid">
           <div class="hero-copy">
             <p class="kicker">Sea salt sparkling matcha</p>
             <h1>Light as sea spray.<br />Calm as matcha.</h1>
             <p class="subhead">
-              Lightly sparkling matcha with a pinch of real sea salt. Lightly sweetened, quiet bubbles, and caffeine that comes naturally from the matcha.
+              Lightly sparkling matcha with a pinch of real sea salt. Quiet bubbles. About 4g of sugar.
             </p>
-
-            <div class="join" id="waitlist" data-mai-form-wrap>
-              <form class="waitlist-form" data-mai-form="waitlist" method="POST">
-                <input type="hidden" name="_subject" value="Mai first drop waitlist" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
-                <input type="hidden" name="_next" value="https://drinkmai.com/?joined=1" />
-                <div class="hp" aria-hidden="true">
-                  <label for="hp-home">Leave blank</label>
-                  <input id="hp-home" type="text" name="_honey" tabindex="-1" autocomplete="off" />
-                </div>
-                <input type="hidden" name="form" value="First drop waitlist" />
-                <input type="hidden" name="page" value="Home" />
-
-                <div class="field">
-                  <label for="email-home">Email</label>
-                  <input
-                    id="email-home"
-                    name="email"
-                    type="email"
-                    autocomplete="email"
-                    inputmode="email"
-                    required
-                  />
-                </div>
-
-                <div class="field">
-                  <label for="city-home">City <span class="optional">(optional)</span></label>
-                  <select id="city-home" name="city">
-                    <option value="Denver" selected>Denver</option>
-                    <option value="Portland">Portland</option>
-                    <option value="San Francisco">San Francisco</option>
-                    <option value="Los Angeles">Los Angeles</option>
-                    <option value="Seattle">Seattle</option>
-                    <option value="New York">New York</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <fieldset>
-                  <legend>I’m interested as <span class="optional">(optional)</span></legend>
-                  <div class="choices">
-                    <label class="choice"><input type="radio" name="interest" value="Drinker" /> Drinker</label>
-                    <label class="choice"><input type="radio" name="interest" value="Café" /> Café</label>
-                    <label class="choice"><input type="radio" name="interest" value="Retail shop" /> Retail shop</label>
-                  </div>
-                </fieldset>
-
-                <button class="button" type="submit">Join the first drop</button>
-              </form>
-              <p class="form-caption" data-mai-caption>
-                Early access and member pricing for the waitlist. We’ll email you when the first drop is ready.
-              </p>
-              <p class="launch-tease" data-mai-caption>Denver cafés first.</p>
-              <div class="form-success" data-mai-success hidden role="status">
-                <p>You’re on the list. We’ll email you when the first drop is ready.</p>
-                <p><a href="https://www.instagram.com/drink.maimatcha/">Follow along @drink.maimatcha</a></p>
-              </div>
-              <p class="form-error" data-mai-error hidden role="alert"></p>
+            <div class="hero-actions">
+              <button type="button" class="button" data-join-open data-inline-cta>Join the first drop</button>
+              <p class="launch-tease">Denver cafés first.</p>
             </div>
+            <noscript>
+              <p>Email <a href="mailto:hello@drinkmai.com">hello@drinkmai.com</a> to join the first drop.</p>
+            </noscript>
           </div>
 
           <figure class="product">
@@ -171,53 +118,34 @@
         </div>
       </section>
 
-      <section class="rhythm" aria-label="What Mai is for">
-        <p>Clear mornings.</p>
-        <p>Salt air.</p>
-        <p>Deep work.</p>
+      <svg class="wave" viewBox="0 0 1440 32" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 20c120 8 240-14 360-8s240 16 360 8 240-18 360-8 240 14 360 8" fill="none" stroke="currentColor" stroke-width="1.25" />
+      </svg>
+
+      <section class="facts-band" aria-label="What Mai is">
+        <div class="container">
+          <ul class="facts">
+            <li>
+              <p class="fact-label">A pinch of real sea salt</p>
+              <p class="fact-line">Rounds the matcha.</p>
+            </li>
+            <li>
+              <p class="fact-label">Quiet bubbles</p>
+              <p class="fact-line">Low. Not a soda.</p>
+            </li>
+            <li>
+              <p class="fact-label">About 4g of sugar</p>
+              <p class="fact-line">Lightly sweetened.</p>
+            </li>
+            <li>
+              <p class="fact-label">From the matcha</p>
+              <p class="fact-line">Caffeine. No crash.</p>
+            </li>
+          </ul>
+        </div>
       </section>
 
-      <section class="statement" aria-label="Brand statement">
-        <p>Calm is not boring. Chaos is.</p>
-      </section>
-
-      <div class="sea-band">
-        <section class="why-salt" aria-labelledby="why-salt-title">
-          <div class="container">
-            <div class="horizon horizon--tiny" aria-hidden="true">
-              <span class="horizon-sun"></span>
-              <span class="horizon-line"></span>
-            </div>
-            <p class="kicker">The pinch</p>
-            <h2 id="why-salt-title">Why the salt.</h2>
-            <p>
-              A pinch of sea salt does what it does in a good kitchen. It softens matcha’s bitter edge and lets the sweetness come forward. It’s there to round the flavor, not to make the can taste salty.
-            </p>
-            <p class="aside">
-              Matcha and salt already go together. In Japan, green tea salt is a seasoning for tempura and rice.
-            </p>
-          </div>
-        </section>
-
-        <section class="proofs" aria-label="What Mai is">
-          <div class="container proof-grid">
-            <article class="proof">
-              <p class="proof-label">A pinch of sea salt</p>
-              <p class="proof-line">Rounds the matcha, softens the bitter edge, brightens the finish.</p>
-            </article>
-            <article class="proof">
-              <p class="proof-label">Quiet bubbles</p>
-              <p class="proof-line">Low carbonation, fine as sea spray. Matcha, not soda.</p>
-            </article>
-            <article class="proof">
-              <p class="proof-label">Real matcha, lightly sweet</p>
-              <p class="proof-line">Caffeine that comes naturally from matcha. Lightly sweetened, not sugar-free.</p>
-            </article>
-          </div>
-        </section>
-      </div>
-
-      <section class="gallery" aria-label="Mai still life">
+      <section class="still" aria-label="Mai still life">
         <div class="container">
           <!--
             TODO(Sam): replace after shoot.
@@ -225,205 +153,21 @@
             The pinch — flaky sea salt next to a chawan of whisked matcha.
             Denver — a can on a café counter by a window onto grey water.
           -->
-          <div class="horizon horizon--tiny" aria-hidden="true">
-            <span class="horizon-sun"></span>
-            <span class="horizon-line"></span>
-          </div>
-          <h2 class="section-title">Still. Light. Real matcha.</h2>
-          <div class="carousel" data-carousel>
-            <div class="carousel-viewport">
-              <ul class="carousel-track">
-                <li class="carousel-slide is-active">
-                  <figure>
-                    <picture>
-                      <source srcset="assets/gallery-2.avif" type="image/avif" />
-                      <source srcset="assets/gallery-2.webp" type="image/webp" />
-                      <img
-                        src="assets/gallery-2.jpg"
-                        alt="Mai can with a ceramic bowl of matcha and a bamboo whisk"
-                        width="1200"
-                        height="800"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </picture>
-                    <figcaption>Can, bowl, whisk. Same quiet ritual.</figcaption>
-                  </figure>
-                </li>
-                <li class="carousel-slide">
-                  <figure>
-                    <picture>
-                      <source srcset="assets/gallery-3.avif" type="image/avif" />
-                      <source srcset="assets/gallery-3.webp" type="image/webp" />
-                      <img
-                        src="assets/gallery-3.jpg"
-                        alt="Ceramic bowl of frothy matcha with a bamboo whisk"
-                        width="1200"
-                        height="800"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </picture>
-                    <figcaption>Whisked in the bowl. Then the can.</figcaption>
-                  </figure>
-                </li>
-                <li class="carousel-slide">
-                  <figure>
-                    <picture>
-                      <source srcset="assets/gallery-4.avif" type="image/avif" />
-                      <source srcset="assets/gallery-4.webp" type="image/webp" />
-                      <img
-                        src="assets/gallery-4.jpg"
-                        alt="Two Mai cans and a bowl of matcha on a table"
-                        width="1200"
-                        height="800"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </picture>
-                    <figcaption>Two cans. A quieter table.</figcaption>
-                  </figure>
-                </li>
-              </ul>
-            </div>
-            <div class="carousel-controls">
-              <button type="button" class="carousel-btn" data-carousel-prev aria-label="Previous image">Previous</button>
-              <div class="carousel-dots" data-carousel-dots></div>
-              <button type="button" class="carousel-btn" data-carousel-next>Next</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="compare-block" aria-labelledby="compare-title">
-        <div class="container">
-          <div class="horizon horizon--tiny" aria-hidden="true">
-            <span class="horizon-sun"></span>
-            <span class="horizon-line"></span>
-          </div>
-          <h2 id="compare-title" class="section-title">Not an energy drink. Not a soda.</h2>
-
-          <div class="compare-cards">
-            <article class="vs-card">
-              <h3>Mai vs Energy drink</h3>
-              <dl>
-                <div class="vs-row">
-                  <dt>Caffeine</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> Naturally from matcha</dd>
-                  <dd><span class="vs-name">Energy drink.</span> Synthetic, often stacked</dd>
-                </div>
-                <div class="vs-row">
-                  <dt>Sweetness</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> About 4g of sugar. Lightly sweetened.</dd>
-                  <dd><span class="vs-name">Energy drink.</span> Usually high</dd>
-                </div>
-                <div class="vs-row">
-                  <dt>Bubbles</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> Low. Quiet, like sea spray.</dd>
-                  <dd><span class="vs-name">Energy drink.</span> High</dd>
-                </div>
-                <div class="vs-row">
-                  <dt>Crash</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> No crash. Even energy.</dd>
-                  <dd><span class="vs-name">Energy drink.</span> Often</dd>
-                </div>
-              </dl>
-            </article>
-            <article class="vs-card">
-              <h3>Mai vs Black coffee</h3>
-              <dl>
-                <div class="vs-row">
-                  <dt>Caffeine</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> Naturally from matcha</dd>
-                  <dd><span class="vs-name">Black coffee.</span> Coffee</dd>
-                </div>
-                <div class="vs-row">
-                  <dt>Sweetness</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> About 4g of sugar. Lightly sweetened.</dd>
-                  <dd><span class="vs-name">Black coffee.</span> None, unless you add it</dd>
-                </div>
-                <div class="vs-row">
-                  <dt>Bubbles</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> Low. Quiet, like sea spray.</dd>
-                  <dd><span class="vs-name">Black coffee.</span> None</dd>
-                </div>
-                <div class="vs-row">
-                  <dt>Crash</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> No crash. Even energy.</dd>
-                  <dd><span class="vs-name">Black coffee.</span> For some</dd>
-                </div>
-              </dl>
-            </article>
-            <article class="vs-card">
-              <h3>Mai vs Sweet matcha soda</h3>
-              <dl>
-                <div class="vs-row">
-                  <dt>Caffeine</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> Naturally from matcha</dd>
-                  <dd><span class="vs-name">Sweet matcha soda.</span> Matcha, or matcha flavor</dd>
-                </div>
-                <div class="vs-row">
-                  <dt>Sweetness</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> About 4g of sugar. Lightly sweetened.</dd>
-                  <dd><span class="vs-name">Sweet matcha soda.</span> High. Built like soda.</dd>
-                </div>
-                <div class="vs-row">
-                  <dt>Bubbles</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> Low. Quiet, like sea spray.</dd>
-                  <dd><span class="vs-name">Sweet matcha soda.</span> Loud</dd>
-                </div>
-                <div class="vs-row">
-                  <dt>Crash</dt>
-                  <dd class="vs-mai"><span class="vs-name">Mai.</span> No crash. Even energy.</dd>
-                  <dd><span class="vs-name">Sweet matcha soda.</span> The sweet kind</dd>
-                </div>
-              </dl>
-            </article>
-          </div>
-
-          <div class="compare-scroll">
-            <table class="compare">
-              <thead>
-                <tr>
-                  <th scope="col"><span class="sr-only">Measure</span></th>
-                  <th scope="col" class="is-mai">Mai</th>
-                  <th scope="col">Energy drink</th>
-                  <th scope="col">Black coffee</th>
-                  <th scope="col">Sweet matcha soda</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Caffeine</th>
-                  <td class="is-mai">Naturally from matcha</td>
-                  <td>Synthetic, often stacked</td>
-                  <td>Coffee</td>
-                  <td>Matcha, or matcha flavor</td>
-                </tr>
-                <tr>
-                  <th scope="row">Sweetness</th>
-                  <td class="is-mai">About 4g of sugar. Lightly sweetened.</td>
-                  <td>Usually high</td>
-                  <td>None, unless you add it</td>
-                  <td>High. Built like soda.</td>
-                </tr>
-                <tr>
-                  <th scope="row">Bubbles</th>
-                  <td class="is-mai">Low. Quiet, like sea spray.</td>
-                  <td>High</td>
-                  <td>None</td>
-                  <td>Loud</td>
-                </tr>
-                <tr>
-                  <th scope="row">Crash</th>
-                  <td class="is-mai">No crash. Even energy.</td>
-                  <td>Often</td>
-                  <td>For some</td>
-                  <td>The sweet kind</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <figure class="still-frame">
+            <picture>
+              <source srcset="assets/gallery-3.avif" type="image/avif" />
+              <source srcset="assets/gallery-3.webp" type="image/webp" />
+              <img
+                src="assets/gallery-3.jpg"
+                alt="Ceramic bowl of frothy matcha with a bamboo whisk"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <figcaption>Whisked in the bowl. Then the can.</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -444,108 +188,26 @@
                   decoding="async"
                 />
               </picture>
-              <img
-                class="founders-badge"
-                src="assets/founders.svg"
-                alt=""
-                width="400"
-                height="400"
-              />
+              <img class="founders-badge" src="assets/founders.svg" alt="" width="400" height="400" />
             </div>
             <figcaption>Two cans. The drink two friends wanted.</figcaption>
           </figure>
           <div>
-            <div class="horizon horizon--tiny" aria-hidden="true">
-              <span class="horizon-sun"></span>
-              <span class="horizon-line"></span>
-            </div>
             <p class="kicker">Two friends</p>
             <h2 id="founders-title">Sam and Stephen wanted a calmer can.</h2>
-            <p>
-              College friends. Both a little too sensitive to caffeine. Mai is the drink they wished already existed. Then they added the salt.
-            </p>
+            <p>College friends. Then they added a pinch of sea salt.</p>
             <a class="text-link" href="story.html">Read the story</a>
           </div>
         </div>
       </section>
 
-      <section class="progress" aria-label="Where we are">
-        <div class="container">
-          <p>Where we are: final prototype round, and we’ve started looking for a co-packer. The waitlist hears first.</p>
-        </div>
-      </section>
-
       <section id="cafes" class="cafe-block" aria-labelledby="cafes-title">
-        <div class="container cafe-grid">
+        <div class="container cafe-line">
           <div>
-            <div class="horizon horizon--tiny" aria-hidden="true">
-              <span class="horizon-sun"></span>
-              <span class="horizon-line"></span>
-            </div>
             <h2 id="cafes-title">Pouring in Denver first.</h2>
-            <p>
-              Cafés first, then specialty shops. If you stock drinks people linger over, we’d like to talk. No wholesale portal, just a conversation.
-            </p>
-            <p><a href="https://www.instagram.com/drink.maimatcha/">Follow along @drink.maimatcha</a></p>
+            <p>Cafés first, then specialty shops.</p>
           </div>
-          <div class="join" data-mai-form-wrap>
-            <form class="cafe-form" data-mai-form="cafe" method="POST">
-              <input type="hidden" name="_subject" value="Mai café / retail inquiry" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" value="https://drinkmai.com/?joined=cafe" />
-              <div class="hp" aria-hidden="true">
-                <label for="hp-cafe">Leave blank</label>
-                <input id="hp-cafe" type="text" name="_honey" tabindex="-1" autocomplete="off" />
-              </div>
-              <input type="hidden" name="form" value="Café / retail" />
-              <input type="hidden" name="page" value="Home" />
-
-              <div class="field">
-                <label for="venue">Venue</label>
-                <input id="venue" name="venue" type="text" autocomplete="organization" required />
-              </div>
-              <div class="field">
-                <label for="city-cafe">City</label>
-                <input id="city-cafe" name="city" type="text" autocomplete="address-level2" required />
-              </div>
-              <div class="field">
-                <label for="email-cafe">Email</label>
-                <input
-                  id="email-cafe"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  inputmode="email"
-                  required
-                />
-              </div>
-              <div class="field">
-                <label for="note">Note <span class="optional">(optional)</span></label>
-                <textarea id="note" name="note" rows="3"></textarea>
-              </div>
-              <button class="button" type="submit">Tell us you’re interested</button>
-            </form>
-            <div class="form-success" data-mai-success hidden role="status">
-              <p>Got it. We’ll write when we’re ready to talk about stocking Mai.</p>
-            </div>
-            <p class="form-error" data-mai-error hidden role="alert"></p>
-          </div>
-        </div>
-      </section>
-
-      <section class="share-band">
-        <div class="container">
-          <div class="horizon horizon--tiny" aria-hidden="true">
-            <span class="horizon-sun"></span>
-            <span class="horizon-line"></span>
-          </div>
-          <h2>Know someone who needs less chaos?</h2>
-          <p>Send them Mai. The first drop is a waitlist, not a shop yet.</p>
-          <div class="share-row" data-share>
-            <button type="button" class="button-ghost" data-share-copy>Copy link</button>
-            <button type="button" class="button-ghost" data-share-native hidden>Share</button>
-          </div>
+          <button type="button" class="button" data-join-open data-join-cafe data-inline-cta>I’m a café / shop</button>
         </div>
       </section>
     </main>
@@ -562,7 +224,7 @@
     </footer>
 
     <div class="sticky-cta" data-sticky-cta hidden>
-      <a class="button" href="#waitlist">Join the first drop</a>
+      <button type="button" class="button" data-join-open>Join the first drop</button>
     </div>
 
     <script src="script.js"></script>
