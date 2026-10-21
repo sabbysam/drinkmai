@@ -35,9 +35,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
+      />
+    </noscript>
     <link rel="stylesheet" href="styles.css" />
     <script type="application/ld+json">
       {
@@ -57,7 +65,7 @@
 
     <header class="site-header">
       <div class="container header-inner">
-        <a class="wordmark" href="/" aria-label="Mai home">ma<span class="tittle">ı</span></a>
+        <a class="wordmark" href="/">ma<span class="tittle">ı</span></a>
         <nav class="nav" aria-label="Primary">
           <a class="nav-link" href="story.html">Story</a>
           <a class="nav-link" href="the-drop.html">FAQ</a>
@@ -280,9 +288,9 @@
               </ul>
             </div>
             <div class="carousel-controls">
-              <button type="button" class="carousel-btn" data-carousel-prev aria-label="Previous image">Prev</button>
+              <button type="button" class="carousel-btn" data-carousel-prev aria-label="Previous image">Previous</button>
               <div class="carousel-dots" data-carousel-dots></div>
-              <button type="button" class="carousel-btn" data-carousel-next aria-label="Next image">Next</button>
+              <button type="button" class="carousel-btn" data-carousel-next>Next</button>
             </div>
           </div>
         </div>
@@ -533,7 +541,7 @@
 
     <footer class="footer">
       <div class="container footer-inner">
-        <a class="wordmark" href="/" aria-label="Mai home">ma<span class="tittle">ı</span></a>
+        <a class="wordmark" href="/">ma<span class="tittle">ı</span></a>
         <nav class="footer-links" aria-label="Footer">
           <a href="https://www.instagram.com/drink.maimatcha/">Follow along @drink.maimatcha</a>
           <a href="mailto:hello@drinkmai.com">hello@drinkmai.com</a>
