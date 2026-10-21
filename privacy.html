@@ -22,7 +22,98 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20261021b" />
+      <script>
+      /* Opens the join sheet while script.js is still downloading. */
+      (function () {
+        function sheet() { return document.getElementById("join-modal"); }
+        function rememberDismiss() {
+          try { localStorage.setItem("mai-popup-dismissed", "1"); } catch (err) { /* ignore */ }
+        }
+        function shut(box) {
+          document.body.classList.remove("modal-open");
+          rememberDismiss();
+          if (typeof box.close === "function" && box.open) box.close();
+          else box.removeAttribute("open");
+        }
+        document.addEventListener("click", function (event) {
+          var node = event.target;
+          if (!node || !node.closest) return;
+          var box = sheet();
+          if (!box) return;
+          var openBtn = node.closest("[data-join-open]");
+          var closeBtn = node.closest("[data-join-close]");
+          var revealBtn = node.closest("[data-join-reveal]");
+          if (closeBtn) { shut(box); return; }
+          if (revealBtn) {
+            var intro = box.querySelector("[data-join-intro]");
+            var form = box.querySelector("form");
+            var card = box.querySelector("[data-join-card]");
+            if (intro) intro.hidden = true;
+            if (form) form.hidden = false;
+            if (card) card.classList.add("is-form");
+            var email = box.querySelector("#email-join");
+            if (email) email.focus();
+            return;
+          }
+          if (openBtn) {
+            var cafe = openBtn.hasAttribute("data-join-cafe");
+            box.setAttribute("data-join-mode", cafe ? "cafe" : "intro");
+            var introEl = box.querySelector("[data-join-intro]");
+            var formEl = box.querySelector("form");
+            var cardEl = box.querySelector("[data-join-card]");
+            var headline = box.querySelector("#join-title");
+            var toggle = box.querySelector("[data-cafe-toggle]");
+            var fields = box.querySelector("[data-cafe-fields]");
+            var venue = box.querySelector("#venue-join");
+            var note = box.querySelector("#note-join");
+            if (cafe) {
+              if (toggle) toggle.checked = true;
+              if (fields) fields.hidden = false;
+              if (venue) { venue.disabled = false; venue.required = true; }
+              if (note) note.disabled = false;
+              if (introEl) introEl.hidden = true;
+              if (formEl) formEl.hidden = false;
+              if (cardEl) cardEl.classList.add("is-form");
+              if (headline) headline.innerHTML = "Pouring in<br />Denver first.";
+            } else if (headline && !headline.closest(".is-thanks")) {
+              if (introEl) introEl.hidden = false;
+              if (formEl) formEl.hidden = true;
+              if (cardEl) cardEl.classList.remove("is-form");
+              headline.innerHTML = "Join the<br />first drop";
+              if (toggle) toggle.checked = false;
+              if (fields) fields.hidden = true;
+            }
+            document.body.classList.add("modal-open");
+            if (typeof box.showModal === "function") {
+              if (!box.open) box.showModal();
+            } else {
+              box.setAttribute("open", "");
+            }
+            return;
+          }
+          if (event.target === box) shut(box);
+        }, true);
+        document.addEventListener("change", function (event) {
+          var input = event.target;
+          if (!input || !input.hasAttribute || !input.hasAttribute("data-cafe-toggle")) return;
+          var box = sheet();
+          if (!box) return;
+          var on = !!input.checked;
+          var fields = box.querySelector("[data-cafe-fields]");
+          var venue = box.querySelector("#venue-join");
+          var note = box.querySelector("#note-join");
+          if (fields) fields.hidden = !on;
+          if (venue) { venue.disabled = !on; venue.required = on; }
+          if (note) note.disabled = !on;
+        }, true);
+        document.addEventListener("close", function (event) {
+          if (!event.target || event.target.id !== "join-modal") return;
+          document.body.classList.remove("modal-open");
+          rememberDismiss();
+        }, true);
+      })();
+    </script>
   </head>
 
   <body>
@@ -73,6 +164,85 @@
         </nav>
       </div>
     </footer>
-    <script src="script.js"></script>
+    <dialog id="join-modal" class="join-modal" aria-labelledby="join-title">
+      <div class="join-frame">
+        <button type="button" class="join-x" data-join-close aria-label="Close">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <div class="join-card" data-join-card>
+          <picture class="join-photo">
+            <source srcset="assets/mai-hero.avif" type="image/avif" />
+            <source srcset="assets/mai-hero.webp" type="image/webp" />
+            <img src="assets/mai-hero.jpg" alt="" width="1200" height="800" />
+          </picture>
+          <div class="join-shade" aria-hidden="true"></div>
+          <div class="join-copy">
+            <h2 id="join-title" class="join-headline">Join the<br />first drop</h2>
+            <div data-join-intro>
+              <button type="button" class="join-outline" data-join-reveal>Join the first drop</button>
+            </div>
+            <div data-mai-form-wrap>
+              <form class="join-form" data-mai-form="waitlist" method="POST" action="https://formsubmit.co/hello@drinkmai.com" hidden>
+                <input type="hidden" name="_subject" value="Mai first drop waitlist" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" value="https://drinkmai.com/?joined=1" />
+                <div class="hp" aria-hidden="true">
+                  <label for="hp-join">Leave blank</label>
+                  <input id="hp-join" type="text" name="_honey" tabindex="-1" autocomplete="off" />
+                </div>
+                <input type="hidden" name="form" value="First drop waitlist" />
+                <input type="hidden" name="page" value="Home" />
+                <label class="join-field"><span>Email</span>
+                  <input id="email-join" name="email" type="email" autocomplete="email" inputmode="email" required />
+                </label>
+                <div class="join-split">
+                  <label class="join-field"><span>City <span class="optional">(optional)</span></span>
+                    <select id="city-join" name="city">
+                      <option value="Denver" selected>Denver</option>
+                      <option value="Portland">Portland</option>
+                      <option value="San Francisco">San Francisco</option>
+                      <option value="Los Angeles">Los Angeles</option>
+                      <option value="Seattle">Seattle</option>
+                      <option value="New York">New York</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </label>
+                  <label class="join-field"><span>Interest <span class="optional">(optional)</span></span>
+                    <select id="interest-join" name="interest">
+                      <option value="">Optional</option>
+                      <option value="Drinker">Drinker</option>
+                      <option value="Café">Café</option>
+                      <option value="Retail shop">Retail shop</option>
+                    </select>
+                  </label>
+                </div>
+                <label class="join-check"><input type="checkbox" data-cafe-toggle /> I’m a café / shop</label>
+                <div class="join-cafe" data-cafe-fields hidden>
+                  <label class="join-field"><span>Venue</span>
+                    <input id="venue-join" name="venue" type="text" autocomplete="organization" disabled />
+                  </label>
+                  <label class="join-field"><span>Note <span class="optional">(optional)</span></span>
+                    <textarea id="note-join" name="note" rows="2" disabled></textarea>
+                  </label>
+                </div>
+                <button class="join-outline" type="submit" data-join-submit>Join the first drop</button>
+              </form>
+              <div class="join-thanks" data-mai-success data-success="waitlist" hidden role="status">
+                <p>You’re on the list. We’ll email you when the first drop is ready.</p>
+                <p><a href="https://www.instagram.com/drink.maimatcha/">Follow along @drink.maimatcha</a></p>
+              </div>
+              <div class="join-thanks" data-mai-success data-success="cafe" hidden role="status">
+                <p>Got it. We’ll write when we’re ready to talk about stocking Mai.</p>
+              </div>
+              <p class="form-error" data-mai-error hidden role="alert"></p>
+            </div>
+          </div>
+          <p class="join-privacy">We use your information in accordance with our <a href="privacy.html">privacy policy</a>.</p>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="script.js?v=20261021b"></script>
   </body>
 </html>
