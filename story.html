@@ -3,39 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Story | Mai Sparkling Matcha</title>
+    <title>Story | Mai</title>
     <meta
       name="description"
-      content="Most energy drinks are loud. Mai is deliberate. Sam and Stephen made a lightly sparkling matcha for calm, sustained energy."
+      content="The story of Sam, Stephen, and a calmer can, with a pinch of sea salt."
     />
     <link rel="canonical" href="https://drinkmai.com/story.html" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Mai" />
     <meta property="og:url" content="https://drinkmai.com/story.html" />
-    <meta property="og:title" content="Story | Mai Sparkling Matcha" />
+    <meta property="og:title" content="Story | Mai" />
     <meta
       property="og:description"
-      content="Most energy drinks are loud. Mai is deliberate. The story of Sam, Stephen, and a calmer can."
+      content="The story of Sam, Stephen, and a calmer can, with a pinch of sea salt."
     />
     <meta property="og:image" content="https://drinkmai.com/assets/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="A cream Mai sparkling matcha can in front of a peach sun." />
+    <meta property="og:image:alt" content="Mai can, ceramic matcha bowl, and bamboo whisk on a pale surface, with a thin horizon line and a half-risen peach sun." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Story | Mai Sparkling Matcha" />
+    <meta name="twitter:title" content="Story | Mai" />
     <meta
       name="twitter:description"
-      content="Most energy drinks are loud. Mai is deliberate."
+      content="The story of Sam, Stephen, and a calmer can, with a pinch of sea salt."
     />
     <meta name="twitter:image" content="https://drinkmai.com/assets/og.jpg" />
     <meta name="theme-color" content="#f3eee5" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="assets/mai-hero.avif" type="image/avif" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
+      />
+    </noscript>
     <link rel="stylesheet" href="styles.css" />
   </head>
 
@@ -44,193 +53,161 @@
 
     <header class="site-header">
       <div class="container header-inner">
-        <a class="wordmark" href="index.html" aria-label="Mai home">ma<span class="tittle">ı</span></a>
+        <a class="wordmark" href="/">ma<span class="tittle">ı</span></a>
         <nav class="nav" aria-label="Primary">
           <a class="nav-link is-active" href="story.html" aria-current="page">Story</a>
           <a class="nav-link" href="the-drop.html">FAQ</a>
-          <a class="nav-link" href="mailto:hello@drinkmai.com">Contact</a>
+          <a class="nav-link" href="/#cafes">Cafés</a>
         </nav>
-        <a class="nav-cta" href="index.html#waitlist">Join the drop</a>
+        <a class="nav-cta" href="/#waitlist">Join the drop</a>
       </div>
     </header>
 
     <main id="main">
-      <section class="fold story-fold">
+      <section class="hero">
         <div class="container story-grid">
-          <div class="story-copy">
-            <h1>Most energy drinks<br />are loud.<br />Mai is deliberate.</h1>
+          <div class="hero-copy">
+            <h1>Most energy drinks are loud.<br />Mai is deliberate.</h1>
             <p class="lede">
-              We built Mai for clear mornings, deep work, and long days that demand
-              steadiness over spikes. Real matcha. Light carbonation. Zero sugar rush.
+              We built Mai for clear mornings, deep work, and long days that need steadiness, not spikes. Real matcha. Quiet bubbles. A pinch of sea salt.
             </p>
-            <a class="button" href="index.html#waitlist">Join the first drop</a>
+            <a class="button" href="/#waitlist">Join the first drop</a>
           </div>
-
           <figure class="product">
-            <img
-              class="product-shot"
-              src="assets/mai-hero.jpg"
-              alt="Mai sparkling matcha can with a ceramic matcha bowl and bamboo whisk"
-              width="1200"
-              height="800"
-            />
+            <!-- TODO(Sam): replace after shoot — can at a 3/4 angle on pale stone or driftwood, cream background, cold condensation, a few flakes of sea salt, low morning side light. -->
+            <picture>
+              <source srcset="assets/mai-hero.avif" type="image/avif" />
+              <source srcset="assets/mai-hero.webp" type="image/webp" />
+              <img
+                src="assets/mai-hero.jpg"
+                alt="Mai can, a ceramic matcha bowl, and a bamboo whisk on a pale surface"
+                width="1200"
+                height="800"
+                fetchpriority="high"
+              />
+            </picture>
+            <div class="bubbles" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+            </div>
           </figure>
         </div>
-
-        <section class="values" aria-label="What Mai is for">
-          <div class="container values-grid">
-            <p class="value">Clear mornings.</p>
-            <p class="value">Deep work.</p>
-            <p class="value">No crash.</p>
-          </div>
-        </section>
-      </section>
-
-      <section class="gallery" aria-label="Mai still life">
-        <div class="container">
-          <p class="kicker">The can</p>
-          <h2>Still. Light. Real matcha.</h2>
-          <div class="carousel" data-carousel>
-            <div class="carousel-viewport">
-              <ul class="carousel-track">
-                <li class="carousel-slide is-active">
-                  <figure>
-                    <img
-                      src="assets/mai-hero.jpg"
-                      alt="Mai sparkling matcha can with a ceramic matcha bowl and bamboo whisk"
-                      width="1200"
-                      height="800"
-                    />
-                    <figcaption>The locked still-life. Real can. Real matcha.</figcaption>
-                  </figure>
-                </li>
-                <li class="carousel-slide">
-                  <figure>
-                    <img
-                      src="assets/gallery-2.jpg"
-                      alt="Mai sparkling matcha can with a ceramic bowl of frothy matcha and a bamboo whisk"
-                      width="1200"
-                      height="800"
-                    />
-                    <figcaption>Can, bowl, whisk. Same quiet ritual.</figcaption>
-                  </figure>
-                </li>
-                <li class="carousel-slide">
-                  <figure>
-                    <img
-                      src="assets/gallery-3.jpg"
-                      alt="Overhead view of a ceramic bowl of frothy matcha with a bamboo whisk"
-                      width="1200"
-                      height="800"
-                    />
-                    <figcaption>Whisked in the bowl. Then the can.</figcaption>
-                  </figure>
-                </li>
-                <li class="carousel-slide">
-                  <figure>
-                    <img
-                      src="assets/gallery-4.jpg"
-                      alt="Two Mai sparkling matcha cans and a bowl of matcha on a sunlit cafe table"
-                      width="1200"
-                      height="800"
-                    />
-                    <figcaption>Two cans. A quieter table.</figcaption>
-                  </figure>
-                </li>
-              </ul>
-            </div>
-            <div class="carousel-controls">
-              <button type="button" class="carousel-btn" data-carousel-prev aria-label="Previous image">Prev</button>
-              <div class="carousel-dots" data-carousel-dots></div>
-              <button type="button" class="carousel-btn" data-carousel-next aria-label="Next image">Next</button>
-            </div>
-          </div>
+        <div class="horizon horizon--across" aria-hidden="true">
+          <span class="horizon-sun"></span>
+          <span class="horizon-line"></span>
         </div>
       </section>
 
-      <section class="founders">
-        <div class="container founders-layout">
-          <figure class="founders-frame">
-            <div class="media-slot media-slot--founders media-slot--mark">
+      <section class="people" aria-labelledby="people-title">
+        <div class="container people-grid">
+          <figure class="founders-photo">
+            <!-- TODO(Sam): replace after shoot — real photo of Sam and Stephen, 4:5, outdoor coastal light. Keep assets/founders.svg as a small badge on the photo. -->
+            <div class="founders-frame">
+              <picture>
+                <source srcset="assets/gallery-4.avif" type="image/avif" />
+                <source srcset="assets/gallery-4.webp" type="image/webp" />
+                <img
+                  src="assets/gallery-4.jpg"
+                  alt="Two Mai cans and a bowl of matcha on a table"
+                  width="800"
+                  height="1000"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <img
+                class="founders-badge"
                 src="assets/founders.svg"
-                alt="Line illustration of two cans standing together in front of a peach sun"
+                alt=""
                 width="400"
                 height="400"
               />
             </div>
             <figcaption>Two cans. The drink two friends wanted.</figcaption>
           </figure>
-          <div class="founders-inner">
+          <div>
+            <div class="horizon horizon--tiny" aria-hidden="true">
+              <span class="horizon-sun"></span>
+              <span class="horizon-line"></span>
+            </div>
             <p class="kicker">The people</p>
-            <h2>Sam and Stephen met in college.</h2>
+            <h2 id="people-title">Sam and Stephen met in college.</h2>
             <p>
-              Both like the idea of caffeine more than what it usually does to them — the jitter,
-              the crash, the drinks that treat energy like a stunt. They wanted something they
-              could open on a clear morning and still feel like themselves at four in the afternoon.
+              Both like the idea of caffeine more than what it usually does to them — the jitter, the crash, the drinks that treat energy like a stunt. They wanted something they could open on a clear morning and still feel like themselves at four in the afternoon.
             </p>
             <p>
-              Matcha was the closest. The sparkling cans on the shelf were not. Too loud. Too
-              sweet. Too much like soda wearing a green costume.
+              Matcha was the closest. The sparkling cans on the shelf were not. Too loud. Too sweet. Too much like soda wearing a green costume.
             </p>
             <p>
-              So they made Mai. Lightly sparkling. Real matcha. A light sweetness. Built for deep
-              work and long days, not for a spike. That’s the whole story. Two friends. One drink
-              they actually wanted to keep around.
+              So they made Mai. Lightly sparkling, real matcha, a light sweetness. Then, round after round in a food lab in Denver, the cans they kept reaching for were the ones with a pinch of sea salt. It made the matcha taste brighter and rounder, like the first breath of air on a cold coast. That’s the whole story. Two friends. One drink they actually wanted to keep around.
             </p>
           </div>
         </div>
       </section>
 
-      <section class="belief">
-        <div class="container belief-grid">
+      <section class="drink" aria-labelledby="drink-title">
+        <div class="container drink-grid">
           <div>
+            <div class="horizon horizon--tiny" aria-hidden="true">
+              <span class="horizon-sun"></span>
+              <span class="horizon-line"></span>
+            </div>
             <p class="kicker">The drink</p>
-            <h2>Not an energy drink. Not a heavy latte.</h2>
+            <h2 id="drink-title">Not an energy drink. Not a heavy latte.</h2>
             <p>
-              Mai is premium lightly sparkling matcha. Clean and short: water, real matcha, a
-              light touch of sweetness, quiet carbonation. Calm energy you can take with you.
+              Mai is premium, lightly sparkling matcha. A short list built around real matcha and a pinch of sea salt, with a light touch of sweetness and quiet carbonation. The full ingredient list comes with the first drop.
             </p>
+            <!--
+              ON HOLD until the flavor is locked. Do not enable.
+              TODO(Sam): replace [Flavor name] when the flavor is locked.
+              <p>[Flavor name]: bright citrus up front, a pinch of sea salt, matcha finish.</p>
+            -->
+            <!--
+              ON HOLD until shelf-life testing is done. Do not enable.
+              <p>Tilt gently, then pour over ice.</p>
+            -->
           </div>
           <ul class="belief-list">
             <li>
               <strong>Real matcha.</strong>
-              The kind meant for focus — not flavoring in a loud can.
+              The kind meant for focus, not flavoring in a loud can.
             </li>
             <li>
-              <strong>Light carbonation.</strong>
-              Crisp enough to feel awake. Soft enough to sip through work.
+              <strong>A pinch of sea salt.</strong>
+              Softens the bitter edge, brightens the finish.
+            </li>
+            <li>
+              <strong>Quiet bubbles.</strong>
+              Crisp enough to feel awake, soft enough to sip through work.
             </li>
             <li>
               <strong>Lightly sweetened.</strong>
-              About 4g per can. A little lift. Not a sugar rush.
+              A little lift. Not a sugar rush.
             </li>
           </ul>
         </div>
       </section>
 
-      <section class="story-cta">
+      <section class="story-close">
         <div class="container">
-          <h2>Join the first drop.</h2>
-          <p>Early access when we launch. Flavors as they come. Member pricing for the list.</p>
-          <a class="button" href="index.html#waitlist">Get first-drop access</a>
+          <a class="button" href="/#waitlist">Join the first drop</a>
         </div>
       </section>
     </main>
 
     <footer class="footer">
       <div class="container footer-inner">
-        <a class="wordmark" href="index.html" aria-label="Mai home">ma<span class="tittle">ı</span></a>
+        <a class="wordmark" href="/">ma<span class="tittle">ı</span></a>
         <nav class="footer-links" aria-label="Footer">
-          <a href="https://www.instagram.com/drink.maimatcha/">Instagram</a>
-          <a class="footer-mail" href="mailto:hello@drinkmai.com">hello@drinkmai.com</a>
+          <a href="https://www.instagram.com/drink.maimatcha/">Follow along @drink.maimatcha</a>
+          <a href="mailto:hello@drinkmai.com">hello@drinkmai.com</a>
           <a href="privacy.html">Privacy</a>
         </nav>
       </div>
     </footer>
 
-    <div class="sticky-cta" data-sticky-cta>
-      <a class="button" href="index.html#waitlist">Join the first drop</a>
+    <div class="sticky-cta" data-sticky-cta hidden>
+      <a class="button" href="/#waitlist">Join the first drop</a>
     </div>
 
     <script src="script.js"></script>

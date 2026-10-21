@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Mai">
-  <rect width="32" height="32" rx="8" fill="#f3eee5"/>
-  <circle cx="22" cy="9" r="5" fill="#e8b494"/>
-  <text x="7" y="24" font-family="Georgia, serif" font-size="16" fill="#1f4a35">m</text>
+  <rect width="32" height="32" fill="#f3eee5"/>
+  <circle cx="16" cy="17" r="6.5" fill="#e8b494"/>
+  <rect x="0" y="17" width="32" height="15" fill="#f3eee5"/>
+  <rect x="3" y="16.35" width="26" height="1.5" fill="#a9c3bb"/>
 </svg>
