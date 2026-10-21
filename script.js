@@ -1,10 +1,24 @@
 (function () {
-  const SHARE_URL = "https://drinkmai.com";
-  const SHARE_TEXT = "Calm energy. No chaos. Mai is lightly sparkling matcha — join the first drop.";
-  const ENDPOINT = "https://formsubmit.co/ajax/hello@drinkmai.com";
-  const STORAGE = "mai-joined";
+  /**
+   * Waitlist provider: Formsubmit, for now.
+   * Mail goes to hello@drinkmai.com.
+   * This is the only endpoint. Replace it when the provider changes.
+   */
+  var MAI_FORM_ENDPOINT = "https://formsubmit.co/hello@drinkmai.com";
 
-  const params = new URLSearchParams(window.location.search);
+  var SHARE_URL = "https://drinkmai.com";
+  var SHARE_TEXT = "Light as sea spray. Calm as matcha. Join the first drop.";
+  var STORAGE = "mai-joined";
+
+  function formAjaxEndpoint(endpoint) {
+    var marker = "://formsubmit.co/";
+    var at = endpoint.indexOf(marker);
+    if (at === -1) return null;
+    if (endpoint.indexOf("://formsubmit.co/ajax/") !== -1) return endpoint;
+    return endpoint.slice(0, at) + marker + "ajax/" + endpoint.slice(at + marker.length);
+  }
+
+  var params = new URLSearchParams(window.location.search);
 
   function storageGet() {
     try { return localStorage.getItem(STORAGE); } catch (err) { return null; }
@@ -23,10 +37,10 @@
   }
 
   function showSuccess(wrap, kind) {
-    const form = wrap.querySelector("form");
-    const success = wrap.querySelector("[data-mai-success]");
-    const captions = wrap.querySelectorAll("[data-mai-caption]");
-    const error = wrap.querySelector("[data-mai-error]");
+    var form = wrap.querySelector("form");
+    var success = wrap.querySelector("[data-mai-success]");
+    var captions = wrap.querySelectorAll("[data-mai-caption]");
+    var error = wrap.querySelector("[data-mai-error]");
     if (form) form.hidden = true;
     captions.forEach(function (caption) { caption.hidden = true; });
     if (error) error.hidden = true;
@@ -35,23 +49,27 @@
   }
 
   function setNext(form) {
-    const next = form.querySelector('input[name="_next"]');
+    var next = form.querySelector('input[name="_next"]');
     if (!next) return;
-    const url = new URL(window.location.href);
-    const kind = form.getAttribute("data-mai-form") === "cafe" ? "cafe" : "1";
-    url.searchParams.set("joined", kind);
+    var url = new URL(window.location.href);
     url.hash = "";
+    url.search = "";
+    var kind = form.getAttribute("data-mai-form") === "cafe" ? "cafe" : "1";
+    url.searchParams.set("joined", kind);
     next.value = url.toString();
   }
 
   async function postForm(form) {
-    const honey = form.querySelector('input[name="_honey"]');
+    var honey = form.querySelector('input[name="_honey"]');
     if (honey && honey.value) return { ok: true, bot: true };
 
-    const body = new FormData(form);
-    const ctrl = new AbortController();
-    const timer = window.setTimeout(function () { ctrl.abort(); }, 6000);
-    const res = await fetch(ENDPOINT, {
+    var ajax = formAjaxEndpoint(MAI_FORM_ENDPOINT);
+    if (!ajax) throw new Error("No ajax endpoint");
+
+    var body = new FormData(form);
+    var ctrl = new AbortController();
+    var timer = window.setTimeout(function () { ctrl.abort(); }, 6000);
+    var res = await fetch(ajax, {
       method: "POST",
       headers: { Accept: "application/json" },
       body: body,
@@ -59,23 +77,24 @@
     });
     window.clearTimeout(timer);
 
-    const type = res.headers.get("content-type") || "";
+    var type = res.headers.get("content-type") || "";
     if (!type.includes("json")) throw new Error("Not JSON");
 
-    let payload = null;
+    var payload = null;
     try { payload = await res.json(); } catch (err) { payload = null; }
 
     if (!res.ok) {
-      const msg = payload && (payload.message || payload.error);
+      var msg = payload && (payload.message || payload.error);
       throw new Error(msg || "Request failed");
     }
     return payload || { ok: true };
   }
 
   document.querySelectorAll("form[data-mai-form]").forEach(function (form) {
+    form.action = MAI_FORM_ENDPOINT;
     setNext(form);
-    const wrap = form.closest("[data-mai-form-wrap]") || form.parentElement;
-    const kind = form.getAttribute("data-mai-form") === "cafe" ? "cafe" : "waitlist";
+    var wrap = form.closest("[data-mai-form-wrap]") || form.parentElement;
+    var kind = form.getAttribute("data-mai-form") === "cafe" ? "cafe" : "waitlist";
 
     if (kind === "waitlist" && alreadyJoined()) showSuccess(wrap, "waitlist");
     if (kind === "cafe" && cafeJoined()) showSuccess(wrap, "cafe");
@@ -87,14 +106,14 @@
         return;
       }
 
-      const button = form.querySelector('button[type="submit"]');
-      const original = button ? button.textContent : "";
+      var button = form.querySelector('button[type="submit"]');
+      var original = button ? button.textContent : "";
       if (button) {
         button.disabled = true;
-        button.textContent = "Joining…";
+        button.textContent = "Sending…";
       }
 
-      const error = wrap.querySelector("[data-mai-error]");
+      var error = wrap.querySelector("[data-mai-error]");
       if (error) error.hidden = true;
 
       postForm(form)
@@ -102,7 +121,6 @@
           showSuccess(wrap, kind);
         })
         .catch(function () {
-          // AJAX is often Cloudflare-challenged; native POST still reaches Formsubmit.
           if (button) {
             button.disabled = false;
             button.textContent = original;
@@ -112,15 +130,9 @@
     });
   });
 
-  const shareHtml =
-    '<button type="button" class="button-ghost" data-share-copy>Copy link</button>' +
-    '<button type="button" class="button-ghost" data-share-native hidden>Share</button>';
-
   document.querySelectorAll("[data-share]").forEach(function (row) {
-    if (!row.innerHTML.trim()) row.innerHTML = shareHtml;
-
-    const copyBtn = row.querySelector("[data-share-copy]");
-    const nativeBtn = row.querySelector("[data-share-native]");
+    var copyBtn = row.querySelector("[data-share-copy]");
+    var nativeBtn = row.querySelector("[data-share-native]");
 
     if (nativeBtn && typeof navigator.share === "function") {
       nativeBtn.hidden = false;
@@ -134,7 +146,7 @@
         copyBtn.textContent = "Link copied";
         window.setTimeout(function () { copyBtn.textContent = "Copy link"; }, 1800);
 
-        const ta = document.createElement("textarea");
+        var ta = document.createElement("textarea");
         ta.value = SHARE_URL;
         ta.setAttribute("readonly", "");
         ta.style.cssText = "position:fixed;left:-9999px;top:0";
@@ -151,9 +163,8 @@
     }
   });
 
-  const sticky = document.querySelector("[data-sticky-cta]");
-  const waitlist = document.querySelector("#waitlist");
-  const waitlistIsForm = !!(waitlist && waitlist.querySelector("form[data-mai-form]"));
+  var sticky = document.querySelector("[data-sticky-cta]");
+  var formWraps = document.querySelectorAll("[data-mai-form-wrap]");
 
   function hideSticky() {
     if (!sticky) return;
@@ -163,7 +174,7 @@
 
   function revealSticky() {
     if (!sticky) return;
-    if (window.matchMedia("(max-width: 719px)").matches) {
+    if (window.matchMedia("(max-width: 859px)").matches) {
       sticky.hidden = false;
       document.body.classList.add("has-sticky");
     } else {
@@ -172,60 +183,41 @@
   }
 
   if (sticky) {
-    if (waitlistIsForm && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver(function (entries) {
-        const onScreen = entries.some(function (entry) { return entry.isIntersecting; });
-        if (onScreen || alreadyJoined()) hideSticky();
+    if (formWraps.length && "IntersectionObserver" in window) {
+      var visibleForms = new Set();
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) visibleForms.add(entry.target);
+          else visibleForms.delete(entry.target);
+        });
+        if (visibleForms.size || alreadyJoined()) hideSticky();
         else revealSticky();
-      }, { threshold: 0.18 });
-      io.observe(waitlist);
-    } else if (!waitlistIsForm) {
+      }, { threshold: 0.2 });
+      formWraps.forEach(function (wrap) { io.observe(wrap); });
+    } else {
       revealSticky();
     }
 
     window.addEventListener("resize", function () {
-      if (!window.matchMedia("(max-width: 719px)").matches) hideSticky();
+      if (!window.matchMedia("(max-width: 859px)").matches) hideSticky();
     });
   }
 
-  document.querySelectorAll("[data-slot-img]").forEach(function (img) {
-    const slot = img.closest(".media-slot");
-    if (slot) slot.classList.add("is-empty");
-
-    function missing() {
-      img.hidden = true;
-      if (slot) slot.classList.add("is-empty");
-    }
-
-    function present() {
-      if (!img.naturalWidth) {
-        missing();
-        return;
-      }
-      img.hidden = false;
-      if (slot) slot.classList.remove("is-empty");
-    }
-
-    img.addEventListener("error", missing);
-    img.addEventListener("load", present);
-    if (img.complete) present();
-  });
-
   document.querySelectorAll("[data-carousel]").forEach(function (root) {
-    const track = root.querySelector(".carousel-track");
-    const slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
-    const dotsWrap = root.querySelector("[data-carousel-dots]");
-    const prev = root.querySelector("[data-carousel-prev]");
-    const next = root.querySelector("[data-carousel-next]");
+    var track = root.querySelector(".carousel-track");
+    var slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
+    var dotsWrap = root.querySelector("[data-carousel-dots]");
+    var prev = root.querySelector("[data-carousel-prev]");
+    var next = root.querySelector("[data-carousel-next]");
     if (!track || slides.length < 2) return;
 
-    let index = 0;
-    let startX = 0;
-    let deltaX = 0;
-    let dragging = false;
+    var index = 0;
+    var startX = 0;
+    var deltaX = 0;
+    var dragging = false;
 
     slides.forEach(function (_, i) {
-      const dot = document.createElement("button");
+      var dot = document.createElement("button");
       dot.type = "button";
       dot.className = "carousel-dot" + (i === 0 ? " is-active" : "");
       dot.setAttribute("aria-label", "Show image " + (i + 1));
@@ -233,7 +225,7 @@
       if (dotsWrap) dotsWrap.appendChild(dot);
     });
 
-    const dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll(".carousel-dot")) : [];
+    var dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll(".carousel-dot")) : [];
 
     function go(n) {
       index = (n + slides.length) % slides.length;
@@ -243,6 +235,8 @@
       });
       dots.forEach(function (dot, i) {
         dot.classList.toggle("is-active", i === index);
+        if (i === index) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
       });
     }
 
@@ -279,19 +273,6 @@
       onMove(event.changedTouches[0].clientX);
     }, { passive: true });
     track.addEventListener("touchend", onEnd);
-
-    track.addEventListener("pointerdown", function (event) {
-      if (event.pointerType === "touch") return;
-      onStart(event.clientX);
-    });
-    window.addEventListener("pointermove", function (event) {
-      if (event.pointerType === "touch") return;
-      onMove(event.clientX);
-    });
-    window.addEventListener("pointerup", function (event) {
-      if (event.pointerType === "touch") return;
-      onEnd();
-    });
 
     go(0);
   });
