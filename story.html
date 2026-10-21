@@ -59,7 +59,7 @@
           <a class="nav-link" href="the-drop.html">FAQ</a>
           <a class="nav-link" href="/#cafes">Cafés</a>
         </nav>
-        <a class="nav-cta" href="/#waitlist">Join the drop</a>
+        <button type="button" class="nav-cta" data-join-open>Join the drop</button>
       </div>
     </header>
 
@@ -69,9 +69,9 @@
           <div class="hero-copy">
             <h1>Most energy drinks are loud.<br />Mai is deliberate.</h1>
             <p class="lede">
-              We built Mai for clear mornings, deep work, and long days that need steadiness, not spikes. Real matcha. Quiet bubbles. A pinch of sea salt.
+              Real matcha. Quiet bubbles. A pinch of sea salt. Steadiness, not spikes.
             </p>
-            <a class="button" data-inline-cta href="/#waitlist">Join the first drop</a>
+            <button type="button" class="button" data-join-open data-inline-cta>Join the first drop</button>
           </div>
           <figure class="product">
             <!-- TODO(Sam): replace after shoot — can at a 3/4 angle on pale stone or driftwood, cream background, cold condensation, a few flakes of sea salt, low morning side light. -->
@@ -97,6 +97,10 @@
           <span class="horizon-line"></span>
         </div>
       </section>
+
+      <svg class="wave" viewBox="0 0 1440 32" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 20c120 8 240-14 360-8s240 16 360 8 240-18 360-8 240 14 360 8" fill="none" stroke="currentColor" stroke-width="1.25" />
+      </svg>
 
       <section class="people" aria-labelledby="people-title">
         <div class="container people-grid">
@@ -126,20 +130,13 @@
             <figcaption>Two cans. The drink two friends wanted.</figcaption>
           </figure>
           <div>
-            <div class="horizon horizon--tiny" aria-hidden="true">
-              <span class="horizon-sun"></span>
-              <span class="horizon-line"></span>
-            </div>
             <p class="kicker">The people</p>
             <h2 id="people-title">Sam and Stephen met in college.</h2>
             <p>
-              Both like the idea of caffeine more than what it usually does to them — the jitter, the crash, the drinks that treat energy like a stunt. They wanted something they could open on a clear morning and still feel like themselves at four in the afternoon.
+              Caffeine usually did too much. The jitter, the crash. They wanted a can for a clear morning that still felt like themselves later.
             </p>
             <p>
-              Matcha was the closest. The sparkling cans on the shelf were not. Too loud. Too sweet. Too much like soda wearing a green costume.
-            </p>
-            <p>
-              So they made Mai. Lightly sparkling, real matcha, a light sweetness. Then, round after round in a food lab in Denver, the cans they kept reaching for were the ones with a pinch of sea salt. It made the matcha taste brighter and rounder, like the first breath of air on a cold coast. That’s the whole story. Two friends. One drink they actually wanted to keep around.
+              They made Mai in a food lab in Denver. Lightly sparkling matcha, a light sweetness. The cans they kept reaching for had a pinch of sea salt. Brighter. Rounder. That’s the story.
             </p>
           </div>
         </div>
@@ -148,15 +145,9 @@
       <section class="drink" aria-labelledby="drink-title">
         <div class="container drink-grid">
           <div>
-            <div class="horizon horizon--tiny" aria-hidden="true">
-              <span class="horizon-sun"></span>
-              <span class="horizon-line"></span>
-            </div>
             <p class="kicker">The drink</p>
             <h2 id="drink-title">Not an energy drink. Not a heavy latte.</h2>
-            <p>
-              Mai is premium, lightly sparkling matcha. A short list built around real matcha and a pinch of sea salt, with a light touch of sweetness and quiet carbonation. The full ingredient list comes with the first drop.
-            </p>
+            <p>Real matcha, a pinch of sea salt, quiet bubbles. The full ingredient list comes with the first drop.</p>
             <!--
               ON HOLD until the flavor is locked. Do not enable.
               TODO(Sam): replace [Flavor name] when the flavor is locked.
@@ -181,8 +172,8 @@
               Crisp enough to feel awake, soft enough to sip through work.
             </li>
             <li>
-              <strong>Lightly sweetened.</strong>
-              A little lift. Not a sugar rush.
+              <strong>About 4g of sugar.</strong>
+              Lightly sweetened. Not a sugar rush.
             </li>
           </ul>
         </div>
@@ -190,7 +181,7 @@
 
       <section class="story-close">
         <div class="container">
-          <a class="button" data-inline-cta href="/#waitlist">Join the first drop</a>
+          <button type="button" class="button" data-join-open data-inline-cta>Join the first drop</button>
         </div>
       </section>
     </main>
@@ -207,7 +198,7 @@
     </footer>
 
     <div class="sticky-cta" data-sticky-cta hidden>
-      <a class="button" href="/#waitlist">Join the first drop</a>
+      <button type="button" class="button" data-join-open>Join the first drop</button>
     </div>
 
     <script src="script.js"></script>

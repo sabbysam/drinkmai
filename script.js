@@ -9,6 +9,15 @@
   var SHARE_URL = "https://drinkmai.com";
   var SHARE_TEXT = "Light as sea spray. Calm as matcha. Join the first drop.";
   var STORAGE = "mai-joined";
+  var DISMISS = "mai-popup-dismissed";
+
+  var path = location.pathname.replace(/\/index\.html$/, "/");
+  var onHome = path === "/" || path === "";
+
+  if (location.hash === "#waitlist" && !onHome) {
+    location.replace("/#waitlist");
+    return;
+  }
 
   function formAjaxEndpoint(endpoint) {
     var marker = "://formsubmit.co/";
@@ -20,53 +29,298 @@
 
   var params = new URLSearchParams(window.location.search);
 
-  function storageGet() {
-    try { return localStorage.getItem(STORAGE); } catch (err) { return null; }
+  function storageGet(key) {
+    try { return localStorage.getItem(key); } catch (err) { return null; }
   }
 
-  function storageSet(value) {
-    try { localStorage.setItem(STORAGE, value); } catch (err) { /* ignore */ }
+  function storageSet(key, value) {
+    try { localStorage.setItem(key, value); } catch (err) { /* ignore */ }
   }
 
   function alreadyJoined() {
-    return params.get("joined") === "1" || params.get("joined") === "true" || storageGet() === "waitlist";
+    return params.get("joined") === "1" || params.get("joined") === "true" || storageGet(STORAGE) === "waitlist";
   }
 
   function cafeJoined() {
-    return params.get("joined") === "cafe" || storageGet() === "cafe";
+    return params.get("joined") === "cafe" || storageGet(STORAGE) === "cafe";
   }
 
-  function showSuccess(wrap, kind) {
-    var form = wrap.querySelector("form");
-    var success = wrap.querySelector("[data-mai-success]");
-    var captions = wrap.querySelectorAll("[data-mai-caption]");
-    var error = wrap.querySelector("[data-mai-error]");
-    if (form) form.hidden = true;
-    captions.forEach(function (caption) { caption.hidden = true; });
-    if (error) error.hidden = true;
-    if (success) success.hidden = false;
-    if (kind) storageSet(kind);
+  function dismissed() {
+    return storageGet(DISMISS) === "1" || alreadyJoined() || cafeJoined();
   }
 
-  function setNext(form) {
+  function pageName() {
+    if (path.indexOf("404") !== -1) return "404";
+    if (path.indexOf("story") !== -1) return "Story";
+    if (path.indexOf("the-drop") !== -1) return "FAQ";
+    if (path.indexOf("privacy") !== -1) return "Privacy";
+    return "Home";
+  }
+
+  document.body.insertAdjacentHTML("beforeend", [
+    '<dialog id="join-modal" class="join-modal" aria-labelledby="join-title">',
+    '  <div class="join-frame">',
+    '    <button type="button" class="join-x" data-join-close aria-label="Close">',
+    '      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
+    '    </button>',
+    '    <div class="join-card" data-join-card>',
+    '      <picture class="join-photo">',
+    '        <source srcset="assets/mai-hero.avif" type="image/avif" />',
+    '        <source srcset="assets/mai-hero.webp" type="image/webp" />',
+    '        <img src="assets/mai-hero.jpg" alt="" width="1200" height="800" />',
+    '      </picture>',
+    '      <div class="join-shade" aria-hidden="true"></div>',
+    '      <div class="join-copy">',
+    '        <h2 id="join-title" class="join-headline">Join the<br />first drop</h2>',
+    '        <div data-join-intro>',
+    '          <button type="button" class="join-outline" data-join-reveal>Join the first drop</button>',
+    '        </div>',
+    '        <div data-mai-form-wrap>',
+    '          <form class="join-form" data-mai-form="waitlist" method="POST" hidden>',
+    '            <input type="hidden" name="_subject" value="Mai first drop waitlist" />',
+    '            <input type="hidden" name="_captcha" value="false" />',
+    '            <input type="hidden" name="_template" value="table" />',
+    '            <input type="hidden" name="_next" value="https://drinkmai.com/?joined=1" />',
+    '            <div class="hp" aria-hidden="true">',
+    '              <label for="hp-join">Leave blank</label>',
+    '              <input id="hp-join" type="text" name="_honey" tabindex="-1" autocomplete="off" />',
+    '            </div>',
+    '            <input type="hidden" name="form" value="First drop waitlist" />',
+    '            <input type="hidden" name="page" value="Home" />',
+    '            <label class="join-field"><span>Email</span>',
+    '              <input id="email-join" name="email" type="email" autocomplete="email" inputmode="email" required />',
+    '            </label>',
+    '            <div class="join-split">',
+    '              <label class="join-field"><span>City <span class="optional">(optional)</span></span>',
+    '                <select id="city-join" name="city">',
+    '                  <option value="Denver" selected>Denver</option>',
+    '                  <option value="Portland">Portland</option>',
+    '                  <option value="San Francisco">San Francisco</option>',
+    '                  <option value="Los Angeles">Los Angeles</option>',
+    '                  <option value="Seattle">Seattle</option>',
+    '                  <option value="New York">New York</option>',
+    '                  <option value="Other">Other</option>',
+    '                </select>',
+    '              </label>',
+    '              <label class="join-field"><span>Interest <span class="optional">(optional)</span></span>',
+    '                <select id="interest-join" name="interest">',
+    '                  <option value="">Optional</option>',
+    '                  <option value="Drinker">Drinker</option>',
+    '                  <option value="Café">Café</option>',
+    '                  <option value="Retail shop">Retail shop</option>',
+    '                </select>',
+    '              </label>',
+    '            </div>',
+    '            <label class="join-check"><input type="checkbox" data-cafe-toggle /> I’m a café / shop</label>',
+    '            <div class="join-cafe" data-cafe-fields hidden>',
+    '              <label class="join-field"><span>Venue</span>',
+    '                <input id="venue-join" name="venue" type="text" autocomplete="organization" disabled />',
+    '              </label>',
+    '              <label class="join-field"><span>Note <span class="optional">(optional)</span></span>',
+    '                <textarea id="note-join" name="note" rows="2" disabled></textarea>',
+    '              </label>',
+    '            </div>',
+    '            <button class="join-outline" type="submit" data-join-submit>Join the first drop</button>',
+    '          </form>',
+    '          <div class="join-thanks" data-mai-success data-success="waitlist" hidden role="status">',
+    '            <p>You’re on the list. We’ll email you when the first drop is ready.</p>',
+    '            <p><a href="https://www.instagram.com/drink.maimatcha/">Follow along @drink.maimatcha</a></p>',
+    '          </div>',
+    '          <div class="join-thanks" data-mai-success data-success="cafe" hidden role="status">',
+    '            <p>Got it. We’ll write when we’re ready to talk about stocking Mai.</p>',
+    '          </div>',
+    '          <p class="form-error" data-mai-error hidden role="alert"></p>',
+    '        </div>',
+    '      </div>',
+    '      <p class="join-privacy">We use your information in accordance with our <a href="privacy.html">privacy policy</a>.</p>',
+    '    </div>',
+    '  </div>',
+    '</dialog>'
+  ].join(""));
+
+  var dialog = document.getElementById("join-modal");
+  var card = dialog.querySelector("[data-join-card]");
+  var headline = document.getElementById("join-title");
+  var intro = dialog.querySelector("[data-join-intro]");
+  var form = dialog.querySelector("form[data-mai-form]");
+  var wrap = dialog.querySelector("[data-mai-form-wrap]");
+  var cafeToggle = dialog.querySelector("[data-cafe-toggle]");
+  var cafeFields = dialog.querySelector("[data-cafe-fields]");
+  var venue = dialog.querySelector("#venue-join");
+  var note = dialog.querySelector("#note-join");
+  var interest = dialog.querySelector("#interest-join");
+  var subject = form.querySelector('input[name="_subject"]');
+  var formKind = form.querySelector('input[name="form"]');
+  var pageInput = form.querySelector('input[name="page"]');
+  var submitBtn = dialog.querySelector("[data-join-submit]");
+  var revealBtn = dialog.querySelector("[data-join-reveal]");
+  var lastFocus = null;
+  var autoDone = false;
+
+  pageInput.value = pageName();
+  form.action = MAI_FORM_ENDPOINT;
+
+  function setNext() {
     var next = form.querySelector('input[name="_next"]');
     if (!next) return;
     var url = new URL(window.location.href);
     url.hash = "";
     url.search = "";
-    var kind = form.getAttribute("data-mai-form") === "cafe" ? "cafe" : "1";
-    url.searchParams.set("joined", kind);
+    url.searchParams.set("joined", cafeToggle.checked ? "cafe" : "1");
     next.value = url.toString();
   }
 
-  async function postForm(form) {
-    var honey = form.querySelector('input[name="_honey"]');
+  function syncCafe() {
+    var on = cafeToggle.checked;
+    cafeFields.hidden = !on;
+    venue.disabled = !on;
+    note.disabled = !on;
+    venue.required = on;
+    subject.value = on ? "Mai café / retail inquiry" : "Mai first drop waitlist";
+    formKind.value = on ? "Café / retail" : "First drop waitlist";
+    form.setAttribute("data-mai-form", on ? "cafe" : "waitlist");
+    submitBtn.textContent = on ? "Tell us you’re interested" : "Join the first drop";
+    if (on && !interest.value) interest.value = "Café";
+    setNext();
+  }
+
+  function showSuccess(kind) {
+    intro.hidden = true;
+    form.hidden = true;
+    headline.hidden = false;
+    headline.textContent = kind === "cafe" ? "We’ll be in touch." : "You’re on the list.";
+    wrap.querySelectorAll("[data-mai-success]").forEach(function (node) {
+      node.hidden = node.getAttribute("data-success") !== kind;
+    });
+    var error = wrap.querySelector("[data-mai-error]");
+    if (error) error.hidden = true;
+    storageSet(STORAGE, kind);
+    storageSet(DISMISS, "1");
+    card.classList.add("is-form", "is-thanks");
+  }
+
+  function showIntro() {
+    headline.hidden = false;
+    headline.innerHTML = "Join the<br />first drop";
+    intro.hidden = false;
+    form.hidden = true;
+    wrap.querySelectorAll("[data-mai-success]").forEach(function (node) { node.hidden = true; });
+    card.classList.remove("is-form", "is-thanks");
+    cafeToggle.checked = false;
+    syncCafe();
+  }
+
+  function showForm(cafe) {
+    headline.hidden = false;
+    headline.innerHTML = cafe ? "Pouring in<br />Denver first." : "Join the<br />first drop";
+    intro.hidden = true;
+    form.hidden = false;
+    wrap.querySelectorAll("[data-mai-success]").forEach(function (node) { node.hidden = true; });
+    card.classList.add("is-form");
+    card.classList.remove("is-thanks");
+    cafeToggle.checked = !!cafe;
+    syncCafe();
+  }
+
+  function openJoin(mode) {
+    if (!dialog) return;
+    lastFocus = document.activeElement;
+    autoDone = true;
+    if (mode === "success-cafe" || (mode === "cafe" && cafeJoined())) {
+      showSuccess("cafe");
+    } else if (mode === "success" || ((mode === "intro" || mode === "form") && alreadyJoined())) {
+      showSuccess("waitlist");
+    } else if (mode === "cafe") {
+      showForm(true);
+    } else if (mode === "form") {
+      showForm(false);
+    } else {
+      showIntro();
+    }
+    if (typeof dialog.showModal === "function") {
+      if (!dialog.open) dialog.showModal();
+    } else {
+      dialog.setAttribute("open", "");
+    }
+    document.body.classList.add("modal-open");
+    hideSticky();
+    window.setTimeout(function () {
+      var target = null;
+      if (!form.hidden) target = dialog.querySelector("#email-join");
+      else if (!intro.hidden) target = revealBtn;
+      else target = dialog.querySelector("[data-join-close]");
+      if (target) target.focus();
+    }, 0);
+  }
+
+  function closeJoin() {
+    if (dialog.open && typeof dialog.close === "function") dialog.close();
+    else dialog.removeAttribute("open");
+  }
+
+  dialog.addEventListener("close", function () {
+    storageSet(DISMISS, "1");
+    document.body.classList.remove("modal-open");
+    if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+    refreshSticky();
+  });
+
+  function focusables() {
+    var nodes = dialog.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled])");
+    return Array.prototype.filter.call(nodes, function (el) {
+      if (el.tabIndex < 0) return false;
+      if (el.closest("[hidden]")) return false;
+      var style = window.getComputedStyle(el);
+      return style.visibility !== "hidden" && style.display !== "none";
+    });
+  }
+
+  dialog.addEventListener("keydown", function (event) {
+    if (event.key !== "Tab" || !dialog.open) return;
+    var items = focusables();
+    if (!items.length) return;
+    var first = items[0];
+    var last = items[items.length - 1];
+    var active = document.activeElement;
+    if (event.shiftKey && (active === first || !dialog.contains(active))) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && (active === last || !dialog.contains(active))) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  dialog.addEventListener("click", function (event) {
+    if (event.target === dialog) closeJoin();
+  });
+
+  dialog.querySelector("[data-join-close]").addEventListener("click", closeJoin);
+
+  revealBtn.addEventListener("click", function () {
+    showForm(false);
+    var email = dialog.querySelector("#email-join");
+    if (email) email.focus();
+  });
+
+  cafeToggle.addEventListener("change", syncCafe);
+
+  document.querySelectorAll("[data-join-open]").forEach(function (btn) {
+    btn.setAttribute("aria-haspopup", "dialog");
+    btn.setAttribute("aria-controls", "join-modal");
+    btn.addEventListener("click", function () {
+      openJoin(btn.hasAttribute("data-join-cafe") ? "cafe" : "intro");
+    });
+  });
+
+  async function postForm(target) {
+    var honey = target.querySelector('input[name="_honey"]');
     if (honey && honey.value) return { ok: true, bot: true };
 
     var ajax = formAjaxEndpoint(MAI_FORM_ENDPOINT);
     if (!ajax) throw new Error("No ajax endpoint");
 
-    var body = new FormData(form);
+    var body = new FormData(target);
     var ctrl = new AbortController();
     var timer = window.setTimeout(function () { ctrl.abort(); }, 6000);
     var res = await fetch(ajax, {
@@ -90,45 +344,57 @@
     return payload || { ok: true };
   }
 
-  document.querySelectorAll("form[data-mai-form]").forEach(function (form) {
-    form.action = MAI_FORM_ENDPOINT;
-    setNext(form);
-    var wrap = form.closest("[data-mai-form-wrap]") || form.parentElement;
-    var kind = form.getAttribute("data-mai-form") === "cafe" ? "cafe" : "waitlist";
+  setNext();
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    syncCafe();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
-    if (kind === "waitlist" && alreadyJoined()) showSuccess(wrap, "waitlist");
-    if (kind === "cafe" && cafeJoined()) showSuccess(wrap, "cafe");
+    var original = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    var error = wrap.querySelector("[data-mai-error]");
+    if (error) error.hidden = true;
 
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      var button = form.querySelector('button[type="submit"]');
-      var original = button ? button.textContent : "";
-      if (button) {
-        button.disabled = true;
-        button.textContent = "Sending…";
-      }
-
-      var error = wrap.querySelector("[data-mai-error]");
-      if (error) error.hidden = true;
-
-      postForm(form)
-        .then(function () {
-          showSuccess(wrap, kind);
-        })
-        .catch(function () {
-          if (button) {
-            button.disabled = false;
-            button.textContent = original;
-          }
-          HTMLFormElement.prototype.submit.call(form);
-        });
-    });
+    var kind = cafeToggle.checked ? "cafe" : "waitlist";
+    postForm(form)
+      .then(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = original;
+        showSuccess(kind);
+      })
+      .catch(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = original;
+        HTMLFormElement.prototype.submit.call(form);
+      });
   });
+
+  if (params.get("joined") === "cafe") {
+    openJoin("success-cafe");
+  } else if (params.get("joined") === "1" || params.get("joined") === "true") {
+    openJoin("success");
+  } else if (location.hash === "#waitlist") {
+    openJoin(alreadyJoined() ? "success" : "intro");
+  } else if (!dismissed() && !location.hash) {
+    var timer = window.setTimeout(tryAuto, 8000);
+    function tryAuto() {
+      if (autoDone || dismissed() || dialog.open) return;
+      autoDone = true;
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(timer);
+      openJoin("intro");
+    }
+    function onScroll() {
+      if (autoDone || dismissed() || dialog.open) return;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max > 48 && window.scrollY / max >= 0.5) tryAuto();
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
 
   document.querySelectorAll("[data-share]").forEach(function (row) {
     var copyBtn = row.querySelector("[data-share-copy]");
@@ -164,7 +430,7 @@
   });
 
   var sticky = document.querySelector("[data-sticky-cta]");
-  var formWraps = document.querySelectorAll("[data-mai-form-wrap], [data-inline-cta]");
+  var inlineCtas = document.querySelectorAll("[data-inline-cta]");
 
   function hideSticky() {
     if (!sticky) return;
@@ -174,6 +440,10 @@
 
   function revealSticky() {
     if (!sticky) return;
+    if (dialog.open || alreadyJoined()) {
+      hideSticky();
+      return;
+    }
     if (window.matchMedia("(max-width: 859px)").matches) {
       sticky.hidden = false;
       document.body.classList.add("has-sticky");
@@ -182,24 +452,29 @@
     }
   }
 
+  function refreshSticky() {
+    if (!sticky) return;
+    if (dialog.open || alreadyJoined()) hideSticky();
+  }
+
   if (sticky) {
-    if (formWraps.length && "IntersectionObserver" in window) {
-      var visibleForms = new Set();
+    if (inlineCtas.length && "IntersectionObserver" in window) {
+      var visibleCtas = new Set();
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
-          if (entry.isIntersecting) visibleForms.add(entry.target);
-          else visibleForms.delete(entry.target);
+          if (entry.isIntersecting) visibleCtas.add(entry.target);
+          else visibleCtas.delete(entry.target);
         });
-        if (visibleForms.size || alreadyJoined()) hideSticky();
+        if (visibleCtas.size || alreadyJoined() || dialog.open) hideSticky();
         else revealSticky();
       }, { threshold: 0.2 });
-      formWraps.forEach(function (wrap) { io.observe(wrap); });
-    } else {
+      inlineCtas.forEach(function (el) { io.observe(el); });
+    } else if (!alreadyJoined()) {
       revealSticky();
     }
 
     window.addEventListener("resize", function () {
-      if (!window.matchMedia("(max-width: 859px)").matches) hideSticky();
+      if (!window.matchMedia("(max-width: 859px)").matches || dialog.open) hideSticky();
     });
   }
 

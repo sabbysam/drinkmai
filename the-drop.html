@@ -6,7 +6,7 @@
     <title>The drop | Mai</title>
     <meta
       name="description"
-      content="What Mai is, how sweet it is, why there’s salt in it, and how to join the first drop."
+      content="What Mai is, how sweet it is, and why there’s a pinch of sea salt. Denver cafés first."
     />
     <link rel="canonical" href="https://drinkmai.com/the-drop.html" />
     <meta property="og:type" content="website" />
@@ -15,7 +15,7 @@
     <meta property="og:title" content="The drop | Mai" />
     <meta
       property="og:description"
-      content="What Mai is, how sweet it is, why there’s salt in it, and how to join the first drop."
+      content="What Mai is, how sweet it is, and why there’s a pinch of sea salt. Denver cafés first."
     />
     <meta property="og:image" content="https://drinkmai.com/assets/og.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -25,7 +25,7 @@
     <meta name="twitter:title" content="The drop | Mai" />
     <meta
       name="twitter:description"
-      content="What Mai is, how sweet it is, why there’s salt in it, and how to join the first drop."
+      content="What Mai is, how sweet it is, and why there’s a pinch of sea salt. Denver cafés first."
     />
     <meta name="twitter:image" content="https://drinkmai.com/assets/og.jpg" />
     <meta name="theme-color" content="#f3eee5" />
@@ -58,100 +58,17 @@
           <a class="nav-link is-active" href="the-drop.html" aria-current="page">FAQ</a>
           <a class="nav-link" href="/#cafes">Cafés</a>
         </nav>
-        <a class="nav-cta" href="#waitlist">Join the drop</a>
+        <button type="button" class="nav-cta" data-join-open>Join the drop</button>
       </div>
     </header>
 
     <main id="main">
       <section class="drop-hero">
         <div class="container">
-          <p class="kicker">The first drop</p>
-          <h1>Early access.<br />Member pricing.<br />The first drop.</h1>
-          <p class="lede">
-            Mai isn’t for sale yet. The site’s job is simple: get you on the list so you’re first when the cans are real. We’ll email you about launch — not a weekly dump.
-          </p>
-        </div>
-      </section>
-
-      <section class="perks" aria-label="What you get">
-        <div class="container perk-grid">
-          <article class="perk">
-            <h2>Early access.</h2>
-            <p>You’ll hear before we open — so you can actually get the first drop.</p>
-          </article>
-          <article class="perk">
-            <h2>Flavors later.</h2>
-            <p>Classic first. More cans as we make them. The list hears first.</p>
-          </article>
-          <article class="perk">
-            <h2>Member pricing.</h2>
-            <p>People who join now get the friend price when we start selling. No fake countdown.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="waitlist" class="drop-wait" aria-labelledby="drop-wait-title">
-        <div class="container">
-          <h2 id="drop-wait-title">Join the first drop</h2>
-          <div class="join" data-mai-form-wrap>
-            <form class="waitlist-form" data-mai-form="waitlist" method="POST">
-              <input type="hidden" name="_subject" value="Mai first drop waitlist" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" value="https://drinkmai.com/the-drop.html?joined=1" />
-              <div class="hp" aria-hidden="true">
-                <label for="hp-drop">Leave blank</label>
-                <input id="hp-drop" type="text" name="_honey" tabindex="-1" autocomplete="off" />
-              </div>
-              <input type="hidden" name="form" value="First drop waitlist" />
-              <input type="hidden" name="page" value="The drop" />
-
-              <div class="field">
-                <label for="email-drop">Email</label>
-                <input
-                  id="email-drop"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  inputmode="email"
-                  required
-                />
-              </div>
-
-              <div class="field">
-                <label for="city-drop">City <span class="optional">(optional)</span></label>
-                <select id="city-drop" name="city">
-                  <option value="Denver" selected>Denver</option>
-                  <option value="Portland">Portland</option>
-                  <option value="San Francisco">San Francisco</option>
-                  <option value="Los Angeles">Los Angeles</option>
-                  <option value="Seattle">Seattle</option>
-                  <option value="New York">New York</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              <fieldset>
-                <legend>I’m interested as <span class="optional">(optional)</span></legend>
-                <div class="choices">
-                  <label class="choice"><input type="radio" name="interest" value="Drinker" /> Drinker</label>
-                  <label class="choice"><input type="radio" name="interest" value="Café" /> Café</label>
-                  <label class="choice"><input type="radio" name="interest" value="Retail shop" /> Retail shop</label>
-                </div>
-              </fieldset>
-
-              <button class="button" type="submit">Join the first drop</button>
-            </form>
-            <p class="form-caption" data-mai-caption>
-              Early access and member pricing for the waitlist. We’ll email you when the first drop is ready.
-            </p>
-            <p class="launch-tease" data-mai-caption>Denver cafés first.</p>
-            <div class="form-success" data-mai-success hidden role="status">
-              <p>You’re on the list. We’ll email you when the first drop is ready.</p>
-              <p><a href="https://www.instagram.com/drink.maimatcha/">Follow along @drink.maimatcha</a></p>
-            </div>
-            <p class="form-error" data-mai-error hidden role="alert"></p>
-          </div>
+          <p class="kicker">Questions</p>
+          <h1>FAQ</h1>
+          <p class="lede">Lightly sparkling matcha with a pinch of real sea salt. Denver cafés first.</p>
+          <button type="button" class="button" data-join-open data-inline-cta>Join the first drop</button>
         </div>
       </section>
 
@@ -160,33 +77,23 @@
           <h2 id="faq-title">FAQ</h2>
           <details class="acc-item">
             <summary>What is Mai?</summary>
-            <p>
-              Lightly sparkling matcha with a pinch of real sea salt. Calm energy, quiet bubbles, a light sweetness. The drink two college friends, Sam and Stephen, wanted when caffeine usually did too much.
-            </p>
+            <p>Lightly sparkling matcha with a pinch of real sea salt. Quiet bubbles, a light sweetness, calm energy.</p>
           </details>
           <details class="acc-item">
             <summary>Is it salty?</summary>
-            <p>
-              No. It’s a pinch, there to round the matcha and soften its bitter edge, not to make the can taste salty.
-            </p>
+            <p>No. A pinch, to round the matcha and soften the bitter edge. Not a salty can.</p>
           </details>
           <details class="acc-item">
             <summary>Is it a sports drink?</summary>
-            <p>
-              No. The sea salt is there for flavor, not for workouts or recovery. Mai is a sparkling matcha.
-            </p>
+            <p>No. The sea salt is for flavor. Mai is a sparkling matcha.</p>
           </details>
           <details class="acc-item">
             <summary>Is there caffeine?</summary>
-            <p>
-              Yes. It comes naturally from the matcha, with no added or synthetic caffeine and no energy-drink stack. Even energy, no crash.
-            </p>
+            <p>Yes. It comes naturally from the matcha. No added caffeine, no energy-drink stack. No crash.</p>
           </details>
           <details class="acc-item">
             <summary>How sweet is it?</summary>
-            <p>
-              About 4g of sugar per can. Lightly sweetened, so it’s not unsweetened and not sugar-free. Real sweetness, just a little.
-            </p>
+            <p>About 4g of sugar per can. Lightly sweetened, so it’s not unsweetened and not sugar-free.</p>
           </details>
           <details class="acc-item">
             <summary>How bubbly is it?</summary>
@@ -194,15 +101,11 @@
           </details>
           <details class="acc-item">
             <summary>What’s in it?</summary>
-            <p>
-              A short list built around real matcha and a pinch of sea salt. No synthetic caffeine. The full ingredient list comes with the first drop.
-            </p>
+            <p>Real matcha and a pinch of sea salt. No synthetic caffeine. The full list comes with the first drop.</p>
           </details>
           <details class="acc-item">
             <summary>When does it launch?</summary>
-            <p>
-              We haven’t set a date. Right now we’re in our final prototype round and looking for a co-packer. The waitlist hears first.
-            </p>
+            <p>No date yet. Final prototype round, and we’re looking for a co-packer. The waitlist hears first.</p>
           </details>
           <details class="acc-item">
             <summary>Where will it be sold?</summary>
@@ -227,7 +130,7 @@
         <div class="container">
           <p class="cafe-pointer">
             Stocking a café or shop?
-            <a class="text-link" href="/#cafes">Tell us you’re interested.</a>
+            <button type="button" class="text-link join-text" data-join-open data-join-cafe>Tell us you’re interested.</button>
           </p>
         </div>
       </section>
@@ -245,7 +148,7 @@
     </footer>
 
     <div class="sticky-cta" data-sticky-cta hidden>
-      <a class="button" href="#waitlist">Join the first drop</a>
+      <button type="button" class="button" data-join-open>Join the first drop</button>
     </div>
 
     <script src="script.js"></script>
