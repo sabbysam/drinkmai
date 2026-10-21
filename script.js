@@ -57,6 +57,8 @@
     return "Home";
   }
 
+  function start() {
+  if (!document.getElementById("join-modal") && document.body) {
   document.body.insertAdjacentHTML("beforeend", [
     '<dialog id="join-modal" class="join-modal" aria-labelledby="join-title">',
     '  <div class="join-frame">',
@@ -137,8 +139,10 @@
     '  </div>',
     '</dialog>'
   ].join(""));
+  }
 
   var dialog = document.getElementById("join-modal");
+  if (!dialog) return;
   var card = dialog.querySelector("[data-join-card]");
   var headline = document.getElementById("join-title");
   var intro = dialog.querySelector("[data-join-intro]");
@@ -379,6 +383,13 @@
     openJoin("success");
   } else if (location.hash === "#waitlist") {
     openJoin(alreadyJoined() ? "success" : "intro");
+  } else if (dialog.open) {
+    autoDone = true;
+    if (dialog.getAttribute("data-join-mode") === "cafe") showForm(true);
+    else if (!form.hidden) {
+      card.classList.add("is-form");
+      syncCafe();
+    }
   } else if (!dismissed() && !location.hash) {
     var timer = window.setTimeout(tryAuto, 8000);
     function tryAuto() {
@@ -551,4 +562,8 @@
 
     go(0);
   });
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+  else start();
 })();
