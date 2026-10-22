@@ -313,7 +313,8 @@
     btn.setAttribute("aria-haspopup", "dialog");
     btn.setAttribute("aria-controls", "join-modal");
     btn.addEventListener("click", function () {
-      openJoin(btn.hasAttribute("data-join-cafe") ? "cafe" : "intro");
+      var straight = document.body.hasAttribute("data-join-straight") || btn.hasAttribute("data-join-email");
+      openJoin(btn.hasAttribute("data-join-cafe") ? "cafe" : straight ? "form" : "intro");
     });
   });
 
@@ -382,13 +383,18 @@
   } else if (params.get("joined") === "1" || params.get("joined") === "true") {
     openJoin("success");
   } else if (location.hash === "#waitlist") {
-    openJoin(alreadyJoined() ? "success" : "intro");
+    openJoin(alreadyJoined() ? "success" : (document.body.hasAttribute("data-join-straight") ? "form" : "intro"));
   } else if (dialog.open) {
     autoDone = true;
     if (dialog.getAttribute("data-join-mode") === "cafe") showForm(true);
+    else if (dialog.getAttribute("data-join-mode") === "form") showForm(false);
     else if (!form.hidden) {
       card.classList.add("is-form");
       syncCafe();
+    }
+    if (!form.hidden) {
+      var emailOpen = dialog.querySelector("#email-join");
+      if (emailOpen) emailOpen.focus();
     }
   } else if (!dismissed() && !location.hash) {
     var timer = window.setTimeout(tryAuto, 8000);
@@ -397,7 +403,7 @@
       autoDone = true;
       window.removeEventListener("scroll", onScroll);
       window.clearTimeout(timer);
-      openJoin("intro");
+      openJoin(document.body.hasAttribute("data-join-straight") ? "form" : "intro");
     }
     function onScroll() {
       if (autoDone || dismissed() || dialog.open) return;
