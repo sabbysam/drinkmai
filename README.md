@@ -38,7 +38,7 @@ One join sheet, a modal on every page. It posts to a Google Apps Script web app 
 
 “Join the first drop” opens the sheet. A café or shop can check “I’m a café / shop” in that same sheet to add venue and a note. There is no second form and no separate signup page. `#waitlist` on any page other than home redirects to `/#waitlist`, which opens the sheet.
 
-The sheet auto-opens once, after about 8 seconds or halfway down the page, unless it was already dismissed or someone already joined (`localStorage` keys `mai-popup-dismissed` and `mai-joined`).
+The sheet auto-opens once, as soon as someone scrolls down about 120px from where the page loaded (or after 25 seconds), unless it was already dismissed or someone already joined (`localStorage` keys `mai-popup-dismissed-2` and `mai-joined`). On home the header is just the wordmark; the hero’s “Join the first drop” button is the main way in.
 
 How it posts: `fetch` with `mode: "no-cors"` and `ajax=1`, because Apps Script replies through a redirect without CORS headers. Success shows in the sheet. If the request fails, the sheet shows an error and the form stays filled. The script drops submissions with no valid email and anything that fills the `_honey` field. Without JavaScript the form posts normally and the script shows a short thank-you page linking back to `?joined=1` or `?joined=cafe`.
 
