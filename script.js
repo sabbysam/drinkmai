@@ -74,7 +74,7 @@
     '        <span class="join-lantern join-lantern-ink"></span>',
     '        <picture>',
     '          <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />',
-    '          <img class="join-can" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="257" height="702" />',
+    '          <img class="join-can" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="101" height="295" />',
     '        </picture>',
     '      </div>',
     '      <div class="join-shade" aria-hidden="true"></div>',

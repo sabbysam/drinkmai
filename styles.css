@@ -324,7 +324,7 @@ p { margin: 0 0 1rem; }
 }
 
 .product img {
-  width: min(100%, 216px);
+  width: min(100%, 96px);
   height: auto;
 }
 
@@ -1367,10 +1367,10 @@ body.modal-open { overflow: hidden; }
   position: absolute;
   left: 50%;
   top: 50%;
-  height: 78%;
-  width: auto;
-  max-height: 460px;
-  max-width: none;
+  height: auto;
+  width: 96px;
+  max-height: 270px;
+  max-width: 96px;
   transform: translate(-50%, -50%);
   object-fit: contain;
   object-position: center;
@@ -1769,7 +1769,16 @@ body.home-sea .spray-lanterns .join-wire {
 
 body.home-sea .spray-lanterns .join-lantern-sea { left: 4%; }
 body.home-sea .spray-lanterns .join-lantern-coral { left: 42%; }
-body.home-sea .spray-lanterns .join-lantern-ink { left: 80%; }
+body.home-sea .spray-lanterns .join-lantern-yuzu {
+  left: 80%;
+  width: 1.15rem;
+  --paper: #f6edd4;
+  --glow: rgba(232, 199, 102, 0.34);
+  --drop: 0.42rem;
+  animation-duration: 9.2s;
+  animation-delay: -2s;
+}
+body.home-sea .spray-lanterns .join-lantern-yuzu::after { height: 1.45rem; }
 
 body.home-sea .spray-copy {
   position: relative;
@@ -1838,7 +1847,7 @@ body.home-sea .spray-kana {
 body.home-sea .spray-can {
   position: relative;
   z-index: 1;
-  width: 216px;
+  width: 96px;
   max-width: 100%;
   height: auto;
 }
@@ -1855,7 +1864,7 @@ body.home-sea .spray-words {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 2.25rem;
   padding: 4rem 1.5rem;
 }
 
@@ -1889,6 +1898,22 @@ body.home-sea .spray-words .jp {
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   letter-spacing: 0.04em;
   line-height: 1.15;
+}
+
+body.home-sea .spray-words .is-yuzu::after {
+  content: "";
+  display: block;
+  width: 1.25rem;
+  height: 1px;
+  margin: 0.55rem auto 0;
+  background: #e8c766;
+}
+
+body.home-sea .spray-yuzu {
+  display: block;
+  width: 44px;
+  height: auto;
+  flex: none;
 }
 
 body.home-sea .spray-dew {
@@ -1940,7 +1965,7 @@ body.home-sea .spray-pair {
 }
 
 body.home-sea .spray-pair .spray-can {
-  width: 120px;
+  width: 88px;
 }
 
 body.home-sea .spray-friends h2 {
@@ -1992,7 +2017,7 @@ body.home-sea .spray-denver-actions {
     font-size: clamp(2.55rem, 11vw, 3.25rem);
   }
 
-  body.home-sea .spray-can { width: 168px; }
+  body.home-sea .spray-can { width: 96px; }
 
   body.home-sea .spray-words {
     flex-direction: column;
@@ -2007,9 +2032,11 @@ body.home-sea .spray-denver-actions {
 
   body.home-sea .spray-dew { width: 84px; }
 
+  body.home-sea .spray-yuzu { width: 36px; }
+
   body.home-sea .spray-pair { gap: 1.25rem; }
 
-  body.home-sea .spray-pair .spray-can { width: 104px; }
+  body.home-sea .spray-pair .spray-can { width: 80px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
