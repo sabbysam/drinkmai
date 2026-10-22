@@ -371,6 +371,11 @@
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
     var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var WOBBLE_MAX = 10 * Math.PI / 180;
+    var WOBBLE_GAIN = (8 * Math.PI / 180) / 780;
+    function readScroll() {
+      return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    }
     var st = {
       yaw: 0,
       pitch: 0.16,
@@ -378,27 +383,18 @@
       drag: false,
       lx: 0,
       ly: 0,
-      spin: false,
-      paused: false,
+      turned: false,
       moved: 0,
+      wobble: 0,
+      wobbleV: 0,
+      scrollY: readScroll(),
+      scrollV: 0,
       pts: new Map(),
       pinch: 0,
       visible: true,
       aim: null
     };
     root._maiCan = st;
-
-    function enableSpin() {
-      if (reduceMotion || st.paused) return;
-      st.spin = true;
-    }
-    function onScrollArm() {
-      if (window.scrollY <= 1 && document.documentElement.scrollTop <= 1) return;
-      enableSpin();
-      window.removeEventListener("scroll", onScrollArm);
-    }
-    window.addEventListener("scroll", onScrollArm, { passive: true });
-    if (window.scrollY > 1) enableSpin();
 
     var aP = gl.getAttribLocation(pr, "p");
     var aN = gl.getAttribLocation(pr, "n");
@@ -428,8 +424,30 @@
           st.pitch = st.aim.pitch;
           st.aim = null;
         }
-      } else if (st.spin && !st.drag) {
-        st.yaw += dt * 0.38;
+      } else if (!st.drag && !st.turned && !reduceMotion) {
+        var y = readScroll();
+        var inst = (y - st.scrollY) / Math.max(dt, 0.008);
+        st.scrollY = y;
+        st.scrollV += (inst - st.scrollV) * (1 - Math.exp(-dt * 12));
+        var target = st.scrollV * WOBBLE_GAIN;
+        if (target > WOBBLE_MAX) target = WOBBLE_MAX;
+        else if (target < -WOBBLE_MAX) target = -WOBBLE_MAX;
+        var omega = 14;
+        var zeta = 0.78;
+        var acc = omega * omega * (target - st.wobble) - 2 * zeta * omega * st.wobbleV;
+        st.wobbleV += acc * dt;
+        st.wobble += st.wobbleV * dt;
+        if (st.wobble > WOBBLE_MAX) {
+          st.wobble = WOBBLE_MAX;
+          if (st.wobbleV > 0) st.wobbleV = 0;
+        } else if (st.wobble < -WOBBLE_MAX) {
+          st.wobble = -WOBBLE_MAX;
+          if (st.wobbleV < 0) st.wobbleV = 0;
+        }
+        st.yaw = st.wobble;
+      } else if (!st.drag) {
+        st.scrollY = readScroll();
+        st.scrollV = 0;
       }
       var dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
       var w = Math.max(1, Math.round(cv.clientWidth * dpr));
@@ -467,6 +485,8 @@
     }
     function kick() {
       if (!shown || running || !st.visible || document.hidden) return;
+      st.scrollY = readScroll();
+      st.scrollV = 0;
       last = performance.now();
       raf = requestAnimationFrame(frame);
     }
@@ -521,7 +541,6 @@
       st.pinch = 0;
       st.aim = null;
       st.moved = 0;
-      st.spin = false;
       cv.classList.add("is-grabbing");
     });
     cv.addEventListener("pointermove", function (e) {
@@ -547,12 +566,7 @@
       if (st.pts.size === 0) {
         st.drag = false;
         cv.classList.remove("is-grabbing");
-        if (st.moved < 8) {
-          st.paused = true;
-          st.spin = false;
-        } else if (!st.paused) {
-          st.spin = true;
-        }
+        if (st.moved >= 8) st.turned = true;
       }
       st.pinch = 0;
       var rest = Array.from(st.pts.values())[0];
