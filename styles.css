@@ -1282,20 +1282,6 @@ body.modal-open { overflow: hidden; }
   background-size: 128px 128px;
 }
 
-.join-scene::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  left: 50%;
-  top: var(--can-y);
-  width: 148px;
-  height: 148px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: #e39aaa;
-  pointer-events: none;
-}
-
 .join-can {
   position: absolute;
   z-index: 1;
