@@ -31,13 +31,7 @@
     <meta name="twitter:image" content="https://drinkmai.com/assets/og.jpg" />
     <meta name="theme-color" content="#efe4d2" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link
-      rel="preload"
-      as="image"
-      href="assets/can/mai-2x.webp"
-      type="image/webp"
-      imagesrcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x"
-    />
+    <link rel="preload" as="image" href="assets/can/mai.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -52,7 +46,7 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&family=Shippori+Mincho:wght@500;600&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261022g" />
+    <link rel="stylesheet" href="styles.css?v=20261022h" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -192,15 +186,9 @@
 
     <main id="main">
       <section class="spray-hero" id="waitlist" aria-label="Mai">
-        <div class="spray-lanterns" aria-hidden="true">
-          <span class="join-wire"></span>
-          <span class="join-lantern join-lantern-sea"></span>
-          <span class="join-lantern join-lantern-coral"></span>
-          <span class="join-lantern join-lantern-yuzu"></span>
-        </div>
         <div class="spray-copy">
           <p class="spray-kicker">Sparkling matcha · yuzu · a pinch of sea salt</p>
-          <h1>Light as sea spray.<br />Calm as matcha.</h1>
+          <h1><span class="spray-line">Light as sea spray.</span><br />Calm as matcha.</h1>
           <button type="button" class="button" data-join-open data-join-email data-inline-cta>Join the first drop</button>
           <p class="spray-where">Denver first</p>
           <noscript>
@@ -208,19 +196,14 @@
           </noscript>
         </div>
         <div class="spray-slot">
-          <p class="spray-kana" aria-hidden="true">マイ</p>
-          <picture>
-            <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
-            <img
-              class="spray-can"
-              src="assets/can/mai-1x.png"
-              srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x"
-              alt="Mai sparkling matcha yuzu can"
-              width="101"
-              height="295"
-              fetchpriority="high"
-            />
-          </picture>
+          <img
+            class="spray-can"
+            src="assets/can/mai.svg"
+            alt="Mai sparkling matcha yuzu can"
+            width="220"
+            height="640"
+            fetchpriority="high"
+          />
         </div>
       </section>
 
@@ -240,27 +223,17 @@
             <path d="M27.2 14.8c3.4 1.5 7 2.1 10.6 1.3"/>
           </g>
         </svg>
-        <picture>
-          <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
-          <img class="spray-dew" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="101" height="295" />
-        </picture>
       </section>
 
       <section class="spray-tide" aria-label="潮風">
         <h2 lang="ja">潮風</h2>
-        <img class="spray-moon" src="assets/can/matcha-2x.webp" srcset="assets/can/matcha-1x.webp 1x, assets/can/matcha-2x.webp 2x" alt="" width="296" height="296" />
+        <img class="spray-bowl" src="assets/can/chasen.svg" alt="" width="360" height="320" />
       </section>
 
       <section class="spray-friends">
         <div class="spray-pair">
-          <picture>
-            <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
-            <img class="spray-can" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="101" height="295" />
-          </picture>
-          <picture>
-            <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
-            <img class="spray-can" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="101" height="295" />
-          </picture>
+          <img class="spray-can" src="assets/can/mai.svg" alt="" width="220" height="640" />
+          <img class="spray-can" src="assets/can/mai.svg" alt="" width="220" height="640" />
         </div>
         <h2>Two friends. One calmer can.</h2>
         <a class="text-link" href="story.html">Our story</a>
@@ -304,10 +277,7 @@
             <span class="join-lantern join-lantern-sea"></span>
             <span class="join-lantern join-lantern-coral"></span>
             <span class="join-lantern join-lantern-ink"></span>
-            <picture>
-              <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
-              <img class="join-can" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="101" height="295" />
-            </picture>
+            <img class="join-can" src="assets/can/mai.svg" alt="" width="220" height="640" />
           </div>
           <div class="join-shade" aria-hidden="true"></div>
           <div class="join-copy">
@@ -339,7 +309,6 @@
                       <option value="Portland">Portland</option>
                       <option value="San Francisco">San Francisco</option>
                       <option value="Los Angeles">Los Angeles</option>
-                      <option value="Seattle">Seattle</option>
                       <option value="New York">New York</option>
                       <option value="Other">Other</option>
                     </select>
@@ -379,6 +348,6 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=20261022g"></script>
+    <script src="script.js?v=20261022h"></script>
   </body>
 </html>

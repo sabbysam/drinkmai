@@ -44,7 +44,7 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261022g" />
+    <link rel="stylesheet" href="styles.css?v=20261022h" />
       <script>
       /* Opens the join sheet while script.js is still downloading. */
       (function () {
@@ -165,7 +165,7 @@
           <a class="nav-link is-active" href="the-drop.html" aria-current="page">FAQ</a>
           <a class="nav-link" href="/#cafes">Cafés</a>
         </nav>
-        <button type="button" class="nav-cta" data-join-open>Join the drop</button>
+        <button type="button" class="nav-cta" data-join-open>Join the first drop</button>
       </div>
     </header>
 
@@ -173,15 +173,15 @@
       <section class="drop-hero">
         <div class="container">
           <p class="kicker">Questions</p>
-          <h1>FAQ</h1>
+          <h1 id="faq-title">FAQ</h1>
           <p class="lede">Lightly sparkling matcha with a pinch of real sea salt. Denver cafés first.</p>
           <button type="button" class="button" data-join-open data-inline-cta>Join the first drop</button>
         </div>
       </section>
 
       <section id="faq" class="faq" aria-labelledby="faq-title">
-        <div class="container faq-list">
-          <h2 id="faq-title">FAQ</h2>
+        <div class="container">
+          <div class="faq-list">
           <details class="acc-item">
             <summary>What is Mai?</summary>
             <p>Lightly sparkling matcha with a pinch of real sea salt. Quiet bubbles, a light sweetness, calm energy.</p>
@@ -230,6 +230,7 @@
               <p></p>
             </details>
           -->
+          </div>
         </div>
       </section>
 
@@ -270,10 +271,7 @@
             <span class="join-lantern join-lantern-sea"></span>
             <span class="join-lantern join-lantern-coral"></span>
             <span class="join-lantern join-lantern-ink"></span>
-            <picture>
-              <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
-              <img class="join-can" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="101" height="295" />
-            </picture>
+            <img class="join-can" src="assets/can/mai.svg" alt="" width="220" height="640" />
           </div>
           <div class="join-shade" aria-hidden="true"></div>
           <div class="join-copy">
@@ -305,7 +303,6 @@
                       <option value="Portland">Portland</option>
                       <option value="San Francisco">San Francisco</option>
                       <option value="Los Angeles">Los Angeles</option>
-                      <option value="Seattle">Seattle</option>
                       <option value="New York">New York</option>
                       <option value="Other">Other</option>
                     </select>
@@ -345,6 +342,6 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=20261022g"></script>
+    <script src="script.js?v=20261022h"></script>
   </body>
 </html>
