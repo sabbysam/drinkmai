@@ -379,6 +379,8 @@
       lx: 0,
       ly: 0,
       spin: false,
+      paused: false,
+      moved: 0,
       pts: new Map(),
       pinch: 0,
       visible: true,
@@ -387,7 +389,7 @@
     root._maiCan = st;
 
     function enableSpin() {
-      if (reduceMotion) return;
+      if (reduceMotion || st.paused) return;
       st.spin = true;
     }
     function onScrollArm() {
@@ -518,7 +520,8 @@
       st.ly = e.clientY;
       st.pinch = 0;
       st.aim = null;
-      enableSpin();
+      st.moved = 0;
+      st.spin = false;
       cv.classList.add("is-grabbing");
     });
     cv.addEventListener("pointermove", function (e) {
@@ -531,8 +534,11 @@
         st.pinch = dd;
         return;
       }
-      st.yaw += (e.clientX - st.lx) * 0.01;
-      st.pitch = Math.max(-1.05, Math.min(1.05, st.pitch + (e.clientY - st.ly) * 0.008));
+      var dx = e.clientX - st.lx;
+      var dy = e.clientY - st.ly;
+      st.moved += Math.abs(dx) + Math.abs(dy);
+      st.yaw += dx * 0.01;
+      st.pitch = Math.max(-1.05, Math.min(1.05, st.pitch + dy * 0.008));
       st.lx = e.clientX;
       st.ly = e.clientY;
     });
@@ -541,6 +547,12 @@
       if (st.pts.size === 0) {
         st.drag = false;
         cv.classList.remove("is-grabbing");
+        if (st.moved < 8) {
+          st.paused = true;
+          st.spin = false;
+        } else if (!st.paused) {
+          st.spin = true;
+        }
       }
       st.pinch = 0;
       var rest = Array.from(st.pts.values())[0];

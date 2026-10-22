@@ -9,7 +9,8 @@
   var SHARE_URL = "https://drinkmai.com";
   var SHARE_TEXT = "Light as sea spray. Calm as matcha. Join the first drop.";
   var STORAGE = "mai-joined";
-  var DISMISS = "mai-popup-dismissed";
+  var DISMISS = "mai-popup-dismissed-2";
+  var SESSION = "mai-popup-shown-2";
 
   var path = location.pathname.replace(/\/index\.html$/, "/");
   var onHome = path === "/" || path === "";
@@ -50,11 +51,11 @@
   }
 
   function sessionSeen() {
-    try { return sessionStorage.getItem("mai-popup-shown") === "1"; } catch (err) { return false; }
+    try { return sessionStorage.getItem(SESSION) === "1"; } catch (err) { return false; }
   }
 
   function markSession() {
-    try { sessionStorage.setItem("mai-popup-shown", "1"); } catch (err) { /* ignore */ }
+    try { sessionStorage.setItem(SESSION, "1"); } catch (err) { /* ignore */ }
   }
 
   function pageName() {
@@ -422,16 +423,22 @@
       var emailOpen = dialog.querySelector("#email-join");
       if (emailOpen) emailOpen.focus();
     }
-  } else if (!dismissed() && !sessionSeen() && !location.hash) {
+  } else if (!dismissed() && !sessionSeen()) {
     var timer = window.setTimeout(tryAuto, 25000);
+    function scrollPos() {
+      return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    }
     function scrolledEnough() {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      return max > 48 && window.scrollY / max >= 0.5;
+      var full = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+      var view = window.innerHeight || document.documentElement.clientHeight;
+      var max = full - view;
+      return max > 48 && scrollPos() / max >= 0.4;
     }
     function tryAuto() {
       if (autoDone || dismissed() || sessionSeen() || dialog.open) return;
       autoDone = true;
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("scroll", onScroll);
       window.clearTimeout(timer);
       markSession();
       openJoin(document.body.hasAttribute("data-join-straight") ? "form" : "intro");
@@ -441,6 +448,8 @@
       if (scrolledEnough()) tryAuto();
     }
     window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
   }
 
   document.querySelectorAll("[data-share]").forEach(function (row) {
