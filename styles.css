@@ -1825,14 +1825,15 @@ body.home-sea .spray-words {
   align-items: center;
   justify-content: center;
   gap: 2.75rem;
-  padding: 2.25rem 1.5rem;
+  padding: 7.5rem 1.5rem 2.25rem;
+  overflow: visible;
 }
 
 body.home-sea .spray-words ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem 3rem;
+  gap: 6.5rem 3.25rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1874,9 +1875,9 @@ body.home-sea .word-art {
   position: absolute;
   z-index: 2;
   left: 50%;
-  bottom: calc(100% + 1px);
-  width: 58px;
-  height: 32px;
+  bottom: calc(100% + 8px);
+  width: 95px;
+  height: 80px;
   transform: translateX(-50%);
   overflow: visible;
   opacity: 0;
@@ -1890,55 +1891,59 @@ body.home-sea .word-hit:focus .word-art {
 }
 
 body.home-sea .word-whisk {
-  transform-origin: 36px 8px;
+  transform-origin: 52px 4px;
   transform-box: view-box;
-  animation: word-whisk 1.25s ease-in-out infinite;
+  animation: word-whisk 1.3s ease-in-out infinite;
 }
 
 body.home-sea .word-froth {
-  transform-origin: 36px 25px;
+  transform-origin: 52px 62px;
   transform-box: view-box;
-  animation: word-froth 1.25s ease-in-out infinite;
+  animation: word-froth 1.3s ease-in-out infinite;
 }
 
 body.home-sea .word-squeeze {
-  transform-origin: 36px 14px;
+  transform-origin: 52px 36px;
   transform-box: view-box;
   animation: word-squeeze 1.35s ease-in-out infinite;
 }
 
 body.home-sea .word-drop {
   transform-box: view-box;
-  animation: word-drop 1.35s ease-in infinite;
+  animation: word-drop 1.3s ease-in infinite;
 }
 
-body.home-sea .word-drop-2 { animation-delay: 0.2s; }
-body.home-sea .word-drop-3 { animation-delay: 0.38s; }
+body.home-sea .word-drop-2 { animation-delay: 0.22s; }
+body.home-sea .word-drop-3 { animation-delay: 0.42s; }
+body.home-sea .word-drop-4 { animation-delay: 0.58s; }
 
 body.home-sea .word-wave {
-  transform-origin: 36px 27px;
+  transform-origin: 48px 68px;
   transform-box: view-box;
   animation: word-wave 1.4s ease-in-out infinite;
 }
 
 body.home-sea .word-mist circle {
   transform-box: view-box;
-  animation: word-mist 1.4s ease-out infinite;
 }
 
-body.home-sea .word-mist-2 { animation-delay: 0.15s; }
-body.home-sea .word-mist-3 { animation-delay: 0.32s; }
-body.home-sea .word-mist-4 { animation-delay: 0.22s; }
-body.home-sea .word-mist-5 { animation-delay: 0.4s; }
+body.home-sea .word-mist-1 { animation: word-spray-l 1.4s ease-out infinite; }
+body.home-sea .word-mist-2 { animation: word-spray-u 1.4s ease-out infinite; animation-delay: 0.12s; }
+body.home-sea .word-mist-3 { animation: word-spray-u 1.4s ease-out infinite; animation-delay: 0.28s; }
+body.home-sea .word-mist-4 { animation: word-spray-r 1.4s ease-out infinite; animation-delay: 0.18s; }
+body.home-sea .word-mist-5 { animation: word-spray-r 1.4s ease-out infinite; animation-delay: 0.36s; }
+body.home-sea .word-mist-6 { animation: word-spray-l 1.4s ease-out infinite; animation-delay: 0.46s; }
 
 body.home-sea .word-bub {
   transform-box: view-box;
-  animation: word-bub 1.45s ease-in infinite;
+  animation: word-bub 1.5s ease-in infinite;
 }
 
-body.home-sea .word-bub-2 { animation-delay: 0.28s; }
-body.home-sea .word-bub-3 { animation-delay: 0.5s; }
-body.home-sea .word-bub-4 { animation-delay: 0.16s; }
+body.home-sea .word-bub-2 { animation-delay: 0.22s; }
+body.home-sea .word-bub-3 { animation-delay: 0.48s; }
+body.home-sea .word-bub-4 { animation-delay: 0.12s; }
+body.home-sea .word-bub-5 { animation-delay: 0.62s; }
+body.home-sea .word-bub-6 { animation-delay: 0.34s; }
 
 body.home-sea .word-art * { animation-play-state: paused; }
 
@@ -1948,42 +1953,55 @@ body.home-sea .word-hit:focus .word-art * {
 }
 
 @keyframes word-whisk {
-  0%, 100% { transform: rotate(-7deg); }
-  50% { transform: rotate(7deg); }
+  0%, 100% { transform: rotate(-18deg); }
+  50% { transform: rotate(18deg); }
 }
 
 @keyframes word-froth {
-  0%, 100% { opacity: 0.45; transform: translateY(0.6px); }
-  50% { opacity: 1; transform: translateY(-0.8px); }
+  0%, 100% { opacity: 0.4; transform: translate(3px, 2px); }
+  50% { opacity: 1; transform: translate(-4px, -3px); }
 }
 
 @keyframes word-squeeze {
   0%, 100% { transform: scale(1, 1); }
-  42% { transform: scale(1.045, 0.9); }
-  62% { transform: scale(0.99, 1.02); }
+  38% { transform: scale(1.2, 0.66); }
+  58% { transform: scale(0.96, 1.08); }
 }
 
 @keyframes word-drop {
-  0% { transform: translateY(0); opacity: 0; }
+  0% { transform: translateY(-4px); opacity: 0; }
   16% { opacity: 1; }
-  100% { transform: translateY(8px); opacity: 0; }
+  100% { transform: translateY(18px); opacity: 0; }
 }
 
 @keyframes word-wave {
-  0%, 100% { transform: translateX(-1.5px); }
-  50% { transform: translateX(1.5px); }
+  0%, 100% { transform: translateX(-5px) rotate(-3deg); }
+  50% { transform: translateX(5px) rotate(3deg); }
 }
 
-@keyframes word-mist {
-  0% { transform: translateY(2px); opacity: 0; }
-  25% { opacity: 0.9; }
-  100% { transform: translateY(-7px); opacity: 0; }
+@keyframes word-spray-l {
+  0% { transform: translate(0, 6px); opacity: 0; }
+  22% { opacity: 1; }
+  100% { transform: translate(-16px, -26px); opacity: 0; }
+}
+
+@keyframes word-spray-u {
+  0% { transform: translate(0, 8px); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(1px, -32px); opacity: 0; }
+}
+
+@keyframes word-spray-r {
+  0% { transform: translate(0, 6px); opacity: 0; }
+  22% { opacity: 1; }
+  100% { transform: translate(18px, -22px); opacity: 0; }
 }
 
 @keyframes word-bub {
-  0% { transform: translateY(4px); opacity: 0; }
-  22% { opacity: 1; }
-  100% { transform: translateY(-12px); opacity: 0; }
+  0% { transform: translateY(12px) scale(0.86); opacity: 0; }
+  12% { opacity: 1; }
+  68% { opacity: 0.95; }
+  100% { transform: translateY(-36px) scale(1.04); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2000,6 +2018,7 @@ body.home-sea .word-hit:focus .word-art * {
   body.home-sea .word-mist circle,
   body.home-sea .word-bub {
     opacity: 1;
+    transform: none;
   }
 }
 
@@ -2152,13 +2171,13 @@ body.home-sea .spray-denver-actions {
   }
 
   body.home-sea .spray-words {
-    padding: 1.75rem 1.15rem;
+    padding: 5.75rem 1.15rem 1.75rem;
   }
 
   body.home-sea .spray-words ul {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 9.5rem));
-    gap: 1.35rem 1.25rem;
+    gap: 5.25rem 1.25rem;
   }
 
   body.home-sea .spray-words li {
@@ -2166,8 +2185,8 @@ body.home-sea .spray-denver-actions {
   }
 
   body.home-sea .word-art {
-    width: 36px;
-    height: 20px;
+    width: 76px;
+    height: 64px;
   }
 }
 
