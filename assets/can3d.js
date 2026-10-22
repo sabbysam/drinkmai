@@ -151,7 +151,7 @@
     spaced(g, "REAL MATCHA \u00b7 YUZU", cx, 296, 2);
     spaced(g, "A PINCH OF SEA SALT", cx, 318, 2);
     g.font = "400 44px " + SERIF;
-    g.fillText("caffeine from real matcha", cx, 374);
+    g.fillText("natural caffeine", cx, 374);
     g.font = "700 15px " + SANS;
     spaced(g, "FROM REAL MATCHA", cx, 397, 3);
     g.font = "italic 400 26px " + SERIF;
