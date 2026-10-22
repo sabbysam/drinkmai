@@ -1754,9 +1754,17 @@ body.home-sea .poster-badge {
 }
 
 body.home-sea .poster-field .button {
-  background: #1f4a35;
-  border-color: #1f4a35;
-  color: #f6efe4;
+  background: #f6efe4;
+  border-color: #f6efe4;
+  color: #1f4a35;
+}
+
+@media (hover: hover) {
+  body.home-sea .poster-field .button:hover {
+    background: #e39aaa;
+    border-color: #e39aaa;
+    color: #1f4a35;
+  }
 }
 
 body.home-sea .spray-where { margin-top: 0.9rem; }
