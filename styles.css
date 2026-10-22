@@ -15,11 +15,12 @@
   --sans: Outfit, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --header-h: 4.25rem;
   --measure: 40rem;
-  /* 4:3 steps: eyebrow, pink words, headline. Section titles use the headline step. */
-  --type-eyebrow: 2.25rem;
-  --type-words: 3rem;
-  --type-headline: 4rem;
-  --type-lh: 1.2;
+  /* Hero lockup: small eyebrow, display headline, UI button, then the pink words. */
+  --type-eyebrow: 0.875rem;
+  --type-ui: 1.15rem;
+  --type-words: 2.5rem;
+  --type-title: 3.5rem;
+  --type-headline: 4.75rem;
 }
 
 * { box-sizing: border-box; }
@@ -956,9 +957,9 @@ button.join-text {
 .drop-hero { padding: 1.5rem 0 0.5rem; }
 
 .drop-hero h1 {
-  font-size: var(--type-headline);
+  font-size: var(--type-title);
   font-weight: 500;
-  line-height: var(--type-lh);
+  line-height: 1.1;
 }
 
 .footer {
@@ -1723,14 +1724,14 @@ body.home-sea .spray-copy {
   z-index: 3;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
   width: auto;
   max-width: none;
   min-width: 0;
   height: 100%;
   padding-top: 8.25rem;
-  padding-bottom: 7.5rem;
+  padding-bottom: 6.5rem;
 }
 
 body.home-sea .spray-lead {
@@ -1742,20 +1743,22 @@ body.home-sea .spray-lead {
 }
 
 body.home-sea .spray-kicker {
-  margin: 0;
+  margin: 0 0 0.7rem;
   font-family: var(--sans);
   font-size: var(--type-eyebrow);
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: var(--type-lh);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
   color: #f6efe4;
 }
 
 body.home-sea .spray-copy h1 {
-  margin: 0.5rem 0 1rem;
+  margin: 0 0 1.15rem;
   font-weight: 500;
   font-size: var(--type-headline);
-  line-height: var(--type-lh);
+  line-height: 1.02;
   letter-spacing: -0.03em;
   color: #f6efe4;
 }
@@ -1766,10 +1769,9 @@ body.home-sea .poster-field .button {
   background: #f6efe4;
   border-color: #f6efe4;
   color: #1f4a35;
-  font-size: var(--type-eyebrow);
-  line-height: var(--type-lh);
-  min-height: 0;
-  padding: 0.35rem 1.15rem;
+  font-size: var(--type-ui);
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 @media (hover: hover) {
@@ -1820,21 +1822,19 @@ body.home-sea .spray-denver {
 
 body.home-sea .spray-words {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   width: 100%;
   margin: 0;
-  padding: 8.25rem 0 0;
+  padding: 6.25rem 0 0;
   overflow: visible;
 }
 
 body.home-sea .spray-words ul {
   display: grid;
-  grid-template-columns: max-content max-content;
-  justify-content: space-between;
-  align-items: end;
-  gap: 8.25rem 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  justify-items: start;
+  align-items: baseline;
+  column-gap: 1.5rem;
+  row-gap: 6.75rem;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -1846,17 +1846,18 @@ body.home-sea .spray-words li {
   font-size: var(--type-words);
   font-weight: 500;
   letter-spacing: -0.02em;
-  line-height: var(--type-lh);
+  line-height: 1;
   text-align: left;
   color: #e7a8b6;
 }
 
 body.home-sea .spray-words .is-yuzu::after {
   content: "";
-  display: block;
-  width: 2.25rem;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.28rem);
+  width: 100%;
   height: 3px;
-  margin: 0.35rem 0 0;
   background: #efb6c2;
 }
 
@@ -1878,8 +1879,8 @@ body.home-sea .word-art {
   z-index: 2;
   left: 50%;
   bottom: calc(100% + 8px);
-  width: 132px;
-  height: 112px;
+  width: 104px;
+  height: 88px;
   transform: translateX(-50%);
   overflow: visible;
   opacity: 0;
@@ -2143,8 +2144,8 @@ body.home-sea .spray-friends h2 {
   max-width: 16ch;
   margin: 0.5rem 0 0;
   font-weight: 500;
-  font-size: var(--type-headline);
-  line-height: var(--type-lh);
+  font-size: var(--type-title);
+  line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
@@ -2160,8 +2161,8 @@ body.home-sea .spray-denver {
 body.home-sea .spray-denver h2 {
   margin: 0 0 1.25rem;
   font-weight: 500;
-  font-size: var(--type-headline);
-  line-height: var(--type-lh);
+  font-size: var(--type-title);
+  line-height: 1.1;
   letter-spacing: -0.02em;
   color: #1f4a35;
 }
@@ -2206,9 +2207,15 @@ body.home-sea .spray-denver-actions {
   }
 
   body.home-sea .spray-copy {
-    padding-top: 6.75rem;
+    justify-content: flex-start;
+    padding-top: 6.5rem;
     padding-bottom: 0;
     height: auto;
+  }
+
+  body.home-sea .spray-kicker {
+    letter-spacing: 0.08em;
+    white-space: normal;
   }
 
   body.home-sea .spray-line { white-space: normal; }
@@ -2247,24 +2254,28 @@ body.home-sea .spray-denver-actions {
   body.home-sea .l5 { left: 78%; top: 8px; --body: 58px; --wide: 36px; --drop: 10px; }
 
   body.home-sea .spray-words {
-    padding: 6.25rem 0 0;
+    margin-top: 1.15rem;
+    padding: 4.75rem 0 0;
   }
 
   body.home-sea .spray-words ul {
-    gap: 6.25rem 1rem;
+    row-gap: 4.75rem;
+    column-gap: 0.75rem;
   }
 
   body.home-sea .word-art {
-    width: 96px;
-    height: 82px;
+    width: 84px;
+    height: 70px;
   }
 }
 
 @media (max-width: 860px) {
   :root {
-    --type-eyebrow: 1.125rem;
-    --type-words: 1.5rem;
-    --type-headline: 2rem;
+    --type-eyebrow: 0.75rem;
+    --type-ui: 1.15rem;
+    --type-words: 1.35rem;
+    --type-title: 2rem;
+    --type-headline: 2.5rem;
   }
 }
 
