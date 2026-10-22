@@ -33,8 +33,9 @@
     <link
       rel="preload"
       as="image"
-      href="assets/can/mai.svg"
-      type="image/svg+xml"
+      href="assets/can/mai-2x.webp"
+      type="image/webp"
+      imagesrcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -50,7 +51,7 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261022h" />
+    <link rel="stylesheet" href="styles.css?v=20261022i" />
       <script>
       /* Opens the join sheet while script.js is still downloading. */
       (function () {
@@ -187,7 +188,17 @@
           </div>
           <figure class="product">
             <!-- TODO(Sam): replace after shoot — can at a 3/4 angle on pale stone or driftwood, cream background, cold condensation, a few flakes of sea salt, low morning side light. -->
-            <img src="assets/can/mai.svg" alt="Mai can" width="220" height="640" fetchpriority="high" />
+            <picture>
+              <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
+              <img
+                src="assets/can/mai-1x.png"
+                srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x"
+                alt="Mai can"
+                width="96"
+                height="287"
+                fetchpriority="high"
+              />
+            </picture>
             <div class="bubbles" aria-hidden="true">
               <span></span><span></span><span></span><span></span>
               <span></span><span></span><span></span><span></span>
@@ -315,7 +326,10 @@
             <span class="join-lantern join-lantern-sea"></span>
             <span class="join-lantern join-lantern-coral"></span>
             <span class="join-lantern join-lantern-ink"></span>
-            <img class="join-can" src="assets/can/mai.svg" alt="" width="220" height="640" />
+            <picture>
+              <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
+              <img class="join-can" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="96" height="287" />
+            </picture>
           </div>
           <div class="join-shade" aria-hidden="true"></div>
           <div class="join-copy">
@@ -386,6 +400,6 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=20261022h"></script>
+    <script src="script.js?v=20261022i"></script>
   </body>
 </html>
