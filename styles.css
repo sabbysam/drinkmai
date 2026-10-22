@@ -15,10 +15,11 @@
   --sans: Outfit, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --header-h: 4.25rem;
   --measure: 40rem;
-  /* Hero lockup: small eyebrow, display headline, UI button, then the pink words. */
+  /* Hero lockup: small eyebrow, display headline, UI button, then the ingredient line. */
   --type-eyebrow: 0.875rem;
   --type-ui: 1.15rem;
-  --type-words: 2.5rem;
+  --type-words: 1.875rem;
+  --stack-gap: 3rem;
   --type-title: 3.5rem;
   --type-headline: 4.75rem;
 }
@@ -1755,7 +1756,7 @@ body.home-sea .spray-kicker {
 }
 
 body.home-sea .spray-copy h1 {
-  margin: 0 0 1.15rem;
+  margin: 0 0 var(--stack-gap);
   font-weight: 500;
   font-size: var(--type-headline);
   line-height: 1.02;
@@ -1823,42 +1824,37 @@ body.home-sea .spray-denver {
 body.home-sea .spray-words {
   position: relative;
   width: 100%;
-  margin: 0;
-  padding: 6.25rem 0 0;
+  margin: var(--stack-gap) 0 0;
+  padding: 0;
   overflow: visible;
 }
 
 body.home-sea .spray-words ul {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: start;
+  display: flex;
+  flex-wrap: nowrap;
   align-items: baseline;
-  column-gap: 1.5rem;
-  row-gap: 6.75rem;
+  gap: 0.55rem;
   width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-body.home-sea .spray-words li {
+body.home-sea .spray-words li,
+body.home-sea .word-dot {
   font-family: var(--serif);
+  font-style: italic;
   font-size: var(--type-words);
   font-weight: 500;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   line-height: 1;
   text-align: left;
-  color: #e7a8b6;
+  color: #f6efe4;
 }
 
-body.home-sea .spray-words .is-yuzu::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: calc(100% + 0.28rem);
-  width: 100%;
-  height: 3px;
-  background: #efb6c2;
+body.home-sea .word-dot {
+  pointer-events: none;
+  user-select: none;
 }
 
 body.home-sea .word-hit {
@@ -1866,21 +1862,23 @@ body.home-sea .word-hit {
   display: inline-block;
   border-radius: 2px;
   outline: none;
+  cursor: default;
+  text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
 
 body.home-sea .word-hit:focus-visible {
-  outline: 2px solid #f6efe4;
-  outline-offset: 5px;
+  outline: 1px solid rgba(246, 239, 228, 0.85);
+  outline-offset: 3px;
 }
 
 body.home-sea .word-art {
   position: absolute;
   z-index: 2;
   left: 50%;
-  bottom: calc(100% + 8px);
-  width: 104px;
-  height: 88px;
+  bottom: calc(100% + 6px);
+  width: 40px;
+  height: 34px;
   transform: translateX(-50%);
   overflow: visible;
   opacity: 0;
@@ -2253,19 +2251,14 @@ body.home-sea .spray-denver-actions {
   body.home-sea .l1 { left: 22%; top: 6px; --body: 58px; --wide: 36px; --drop: 10px; }
   body.home-sea .l5 { left: 78%; top: 8px; --body: 58px; --wide: 36px; --drop: 10px; }
 
-  body.home-sea .spray-words {
-    margin-top: 1.15rem;
-    padding: 4.75rem 0 0;
-  }
-
   body.home-sea .spray-words ul {
-    row-gap: 4.75rem;
-    column-gap: 0.75rem;
+    flex-wrap: nowrap;
+    gap: 0.4rem;
   }
 
   body.home-sea .word-art {
-    width: 84px;
-    height: 70px;
+    width: 36px;
+    height: 30px;
   }
 }
 
@@ -2273,9 +2266,19 @@ body.home-sea .spray-denver-actions {
   :root {
     --type-eyebrow: 0.75rem;
     --type-ui: 1.15rem;
-    --type-words: 1.35rem;
+    --type-words: 1.05rem;
     --type-title: 2rem;
     --type-headline: 2.5rem;
+  }
+}
+
+@media (max-width: 340px) {
+  :root {
+    --type-words: 0.9rem;
+  }
+
+  body.home-sea .spray-words ul {
+    gap: 0.28rem;
   }
 }
 
