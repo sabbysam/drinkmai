@@ -1282,6 +1282,11 @@ body.modal-open { overflow: hidden; }
   background-size: 128px 128px;
 }
 
+.join-scene::after {
+  content: none;
+  display: none;
+}
+
 .join-can {
   position: absolute;
   z-index: 1;
@@ -2037,7 +2042,7 @@ body.home-sea .string-mob { display: none; }
 
 body.home-sea .poster-lantern {
   --paper: #f6efe4;
-  --glow: rgba(255, 214, 176, 0.28);
+  --glow: rgba(217, 138, 98, 0.95);
   --drop: 14px;
   --body: 72px;
   --wide: 44px;
@@ -2054,23 +2059,23 @@ body.home-sea .poster-lantern {
 body.home-sea .poster-lantern::before {
   content: "";
   position: absolute;
-  z-index: 2;
+  z-index: 0;
   left: 50%;
   top: calc(var(--drop) + var(--body) / 2);
-  width: calc(var(--wide) * 1.85);
-  height: calc(var(--body) * 1.2);
+  width: calc(var(--wide) * 3.6);
+  height: calc(var(--body) * 2.05);
   border-radius: 50%;
   background: radial-gradient(
-    ellipse at 50% 46%,
-    rgba(255, 228, 196, 0.72) 0%,
-    rgba(232, 176, 140, 0.34) 34%,
-    rgba(226, 164, 122, 0.1) 56%,
-    rgba(226, 164, 122, 0) 74%
+    ellipse at 50% 50%,
+    rgba(255, 214, 170, 0.98) 0%,
+    rgba(217, 138, 98, 0.72) 26%,
+    rgba(217, 138, 98, 0.38) 48%,
+    rgba(217, 138, 98, 0) 74%
   );
-  filter: blur(4px);
-  opacity: 0.88;
+  filter: blur(10px);
+  opacity: 0.72;
   transform: translate(-50%, -50%);
-  animation: lantern-glow 9s ease-in-out infinite;
+  animation: lantern-glow 4s ease-in-out infinite;
   will-change: opacity;
   pointer-events: none;
 }
@@ -2094,11 +2099,11 @@ body.home-sea .poster-lantern::after {
     inset 0 -7px 0 #e8b494,
     inset 10px 0 12px rgba(92, 70, 52, 0.08),
     inset -10px 0 12px rgba(92, 70, 52, 0.08),
-    0 0 18px var(--glow);
+    0 0 28px 8px var(--glow);
 }
 
 body.home-sea .l1 { left: 9%; top: 6px; --body: 64px; --wide: 40px; --drop: 12px; }
-body.home-sea .l1::before { animation-duration: 9s; animation-delay: -1.2s; }
+body.home-sea .l1::before { animation-duration: 3.4s; animation-delay: -0.6s; }
 body.home-sea .l2 {
   left: 27%;
   top: 28px;
@@ -2108,7 +2113,7 @@ body.home-sea .l2 {
   --drop: 16px;
   animation-duration: 7.2s;
 }
-body.home-sea .l2::before { animation-duration: 11.2s; animation-delay: -4.8s; }
+body.home-sea .l2::before { animation-duration: 4.7s; animation-delay: -2.1s; }
 body.home-sea .l3 {
   left: 48%;
   top: 38px;
@@ -2118,7 +2123,7 @@ body.home-sea .l3 {
   --drop: 14px;
   animation-duration: 8.8s;
 }
-body.home-sea .l3::before { animation-duration: 8.6s; animation-delay: -2.4s; }
+body.home-sea .l3::before { animation-duration: 3.8s; animation-delay: -1.4s; }
 body.home-sea .l4 {
   left: 69%;
   top: 26px;
@@ -2128,7 +2133,7 @@ body.home-sea .l4 {
   --drop: 14px;
   animation-duration: 6.8s;
 }
-body.home-sea .l4::before { animation-duration: 12s; animation-delay: -7.1s; }
+body.home-sea .l4::before { animation-duration: 5s; animation-delay: -3.3s; }
 body.home-sea .l5 {
   left: 89%;
   top: 8px;
@@ -2137,7 +2142,7 @@ body.home-sea .l5 {
   --drop: 12px;
   animation-duration: 9s;
 }
-body.home-sea .l5::before { animation-duration: 10s; animation-delay: -5.5s; }
+body.home-sea .l5::before { animation-duration: 4.2s; animation-delay: -2.8s; }
 
 @keyframes lantern-sway {
   0%, 100% { transform: rotate(-1.1deg); }
@@ -2145,14 +2150,17 @@ body.home-sea .l5::before { animation-duration: 10s; animation-delay: -5.5s; }
 }
 
 @keyframes lantern-glow {
-  0% { opacity: 0.8; }
-  25% { opacity: 1; }
-  50% { opacity: 0.78; }
-  75% { opacity: 1; }
-  86% { opacity: 0.9; animation-timing-function: linear; }
-  86.7% { opacity: 0.75; animation-timing-function: linear; }
-  87.5% { opacity: 0.9; }
-  100% { opacity: 0.8; }
+  0% { opacity: 0.5; }
+  22% { opacity: 1; }
+  40% { opacity: 0.58; animation-timing-function: linear; }
+  43% { opacity: 0.45; animation-timing-function: linear; }
+  46% { opacity: 0.72; }
+  58% { opacity: 0.96; animation-timing-function: linear; }
+  60.5% { opacity: 0.48; animation-timing-function: linear; }
+  63% { opacity: 0.8; animation-timing-function: linear; }
+  65.5% { opacity: 0.45; animation-timing-function: linear; }
+  68.5% { opacity: 0.86; }
+  100% { opacity: 0.5; }
 }
 
 body.home-sea .spray-friends {
@@ -2177,7 +2185,7 @@ body.home-sea .spray-friends .text-link { font-size: 1.125rem; }
 body.home-sea .spray-denver {
   padding: 3rem 1.25rem 3.25rem;
   border-top: 0;
-  background: #e39aaa;
+  background: #d98a62;
   text-align: center;
 }
 
@@ -2365,7 +2373,7 @@ body.home-sea .can3d.is-live .can3d-fallback {
   }
 
   body.home-sea .poster-lantern::before {
-    opacity: 0.88;
+    opacity: 0.72;
   }
 }
 
