@@ -1282,20 +1282,6 @@ body.modal-open { overflow: hidden; }
   background-size: 128px 128px;
 }
 
-.join-scene::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  left: 50%;
-  top: var(--can-y);
-  width: 148px;
-  height: 148px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: #e39aaa;
-  pointer-events: none;
-}
-
 .join-can {
   position: absolute;
   z-index: 1;
@@ -2023,6 +2009,11 @@ body.home-sea .word-hit:focus .word-art * {
   }
 
   body.home-sea .poster-lantern { animation: none; }
+
+  body.home-sea .poster-lantern::before {
+    animation: none;
+    opacity: 0.88;
+  }
 }
 
 body.home-sea .poster-lanterns {
@@ -2046,31 +2037,50 @@ body.home-sea .string-mob { display: none; }
 
 body.home-sea .poster-lantern {
   --paper: #f6efe4;
-  --glow: transparent;
+  --glow: rgba(255, 214, 176, 0.28);
   --drop: 14px;
   --body: 72px;
   --wide: 44px;
   position: absolute;
   width: var(--wide);
   margin-left: calc(var(--wide) / -2);
+  padding-top: var(--drop);
   transform-origin: top center;
+  background: linear-gradient(rgba(246, 239, 228, 0.88), rgba(246, 239, 228, 0.88)) center top / 1px var(--drop) no-repeat;
   animation: lantern-sway 8.2s ease-in-out infinite;
   pointer-events: none;
 }
 
 body.home-sea .poster-lantern::before {
   content: "";
-  display: block;
-  width: 1px;
-  height: var(--drop);
-  margin: 0 auto;
-  background: rgba(246, 239, 228, 0.88);
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: calc(var(--drop) + var(--body) / 2);
+  width: calc(var(--wide) * 1.85);
+  height: calc(var(--body) * 1.2);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 46%,
+    rgba(255, 228, 196, 0.72) 0%,
+    rgba(232, 176, 140, 0.34) 34%,
+    rgba(226, 164, 122, 0.1) 56%,
+    rgba(226, 164, 122, 0) 74%
+  );
+  filter: blur(4px);
+  opacity: 0.88;
+  transform: translate(-50%, -50%);
+  animation: lantern-glow 9s ease-in-out infinite;
+  will-change: opacity;
+  pointer-events: none;
 }
 
 body.home-sea .poster-lantern::after {
   content: "";
   display: block;
   height: var(--body);
+  position: relative;
+  z-index: 1;
   border-radius: 50%;
   background-color: var(--paper);
   background-image: repeating-linear-gradient(
@@ -2088,6 +2098,7 @@ body.home-sea .poster-lantern::after {
 }
 
 body.home-sea .l1 { left: 9%; top: 6px; --body: 64px; --wide: 40px; --drop: 12px; }
+body.home-sea .l1::before { animation-duration: 9s; animation-delay: -1.2s; }
 body.home-sea .l2 {
   left: 27%;
   top: 28px;
@@ -2097,16 +2108,17 @@ body.home-sea .l2 {
   --drop: 16px;
   animation-duration: 7.2s;
 }
+body.home-sea .l2::before { animation-duration: 11.2s; animation-delay: -4.8s; }
 body.home-sea .l3 {
   left: 48%;
   top: 38px;
   --paper: #f8e7ea;
-  --glow: rgba(227, 154, 170, 0.5);
   --body: 74px;
   --wide: 46px;
   --drop: 14px;
   animation-duration: 8.8s;
 }
+body.home-sea .l3::before { animation-duration: 8.6s; animation-delay: -2.4s; }
 body.home-sea .l4 {
   left: 69%;
   top: 26px;
@@ -2116,6 +2128,7 @@ body.home-sea .l4 {
   --drop: 14px;
   animation-duration: 6.8s;
 }
+body.home-sea .l4::before { animation-duration: 12s; animation-delay: -7.1s; }
 body.home-sea .l5 {
   left: 89%;
   top: 8px;
@@ -2124,10 +2137,22 @@ body.home-sea .l5 {
   --drop: 12px;
   animation-duration: 9s;
 }
+body.home-sea .l5::before { animation-duration: 10s; animation-delay: -5.5s; }
 
 @keyframes lantern-sway {
   0%, 100% { transform: rotate(-1.1deg); }
   50% { transform: rotate(1.3deg); }
+}
+
+@keyframes lantern-glow {
+  0% { opacity: 0.8; }
+  25% { opacity: 1; }
+  50% { opacity: 0.78; }
+  75% { opacity: 1; }
+  86% { opacity: 0.9; animation-timing-function: linear; }
+  86.7% { opacity: 0.75; animation-timing-function: linear; }
+  87.5% { opacity: 0.9; }
+  100% { opacity: 0.8; }
 }
 
 body.home-sea .spray-friends {
@@ -2332,6 +2357,15 @@ body.home-sea .can3d.is-live .can3d-fallback {
 @media (prefers-reduced-motion: reduce) {
   body.home-sea .can3d-view {
     display: none;
+  }
+
+  body.home-sea .poster-lantern,
+  body.home-sea .poster-lantern::before {
+    animation: none;
+  }
+
+  body.home-sea .poster-lantern::before {
+    opacity: 0.88;
   }
 }
 
