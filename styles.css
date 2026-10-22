@@ -2282,3 +2282,95 @@ body.home-sea .spray-denver-actions {
   }
 }
 
+body.home-sea .can3d {
+  position: relative;
+  width: 320px;
+  height: 750px;
+  max-width: 100%;
+}
+
+body.home-sea .can3d-fallback,
+body.home-sea .can3d-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body.home-sea .can3d .spray-can {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+body.home-sea .can3d-view {
+  display: block;
+  background: transparent;
+  touch-action: none;
+  cursor: grab;
+}
+
+body.home-sea .can3d-view[hidden],
+body.home-sea .can3d-nav[hidden] {
+  display: none;
+}
+
+body.home-sea .can3d-view.is-grabbing { cursor: grabbing; }
+
+body.home-sea .can3d.is-live .can3d-fallback {
+  visibility: hidden;
+}
+
+body.home-sea .can3d-nav {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: -1.65rem;
+  display: flex;
+  gap: 0.9rem;
+  transform: translateX(-50%);
+}
+
+body.home-sea .can3d-nav button {
+  appearance: none;
+  margin: 0;
+  padding: 0.1rem 0.05rem;
+  border: 0;
+  background: transparent;
+  color: #f6efe4;
+  font-family: var(--sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+body.home-sea .can3d-nav button[aria-pressed="true"] {
+  text-decoration: underline;
+  text-underline-offset: 0.28em;
+  text-decoration-thickness: 1px;
+}
+
+body.home-sea .can3d-nav button:focus-visible {
+  outline: 1px solid rgba(246, 239, 228, 0.85);
+  outline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  body.home-sea .can3d {
+    width: 220px;
+    height: 530px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.home-sea .can3d-view,
+  body.home-sea .can3d-nav {
+    display: none;
+  }
+}
+
