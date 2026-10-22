@@ -4,7 +4,7 @@
    * sheet in Google Drive. Each one becomes a row there and emails the team.
    * This is the only endpoint. Replace it when the provider changes.
    */
-  var MAI_FORM_ENDPOINT = "__MAI_SIGNUPS_URL__";
+  var MAI_FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzAApV9JJIrnMDqb7frgjvPsKt3FBzTGr20s77TyDJYcAGqQ8irx1ucuNhXkNFsJ3Ju9A/exec";
 
   var SHARE_URL = "https://drinkmai.com";
   var SHARE_TEXT = "Light as sea spray. Calm as matcha. Join the first drop.";
