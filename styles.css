@@ -2377,3 +2377,136 @@ body.home-sea .can3d.is-live .can3d-fallback {
   }
 }
 
+
+/* Hero ingredient words: links down to the ingredient cards */
+body.home-sea .word-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body.home-sea .word-link:hover,
+body.home-sea .word-link:focus-visible {
+  border-bottom-color: rgba(246, 239, 228, 0.6);
+}
+
+body.home-sea .word-link:focus-visible {
+  outline: 1px solid rgba(246, 239, 228, 0.85);
+  outline-offset: 3px;
+}
+
+/* What's in the can */
+body.home-sea .spray-ingredients {
+  padding: 3.75rem 1.25rem 4rem;
+  background: #efe4d2;
+  text-align: center;
+  scroll-margin-top: var(--header-h);
+}
+
+body.home-sea .spray-ingredients h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: var(--type-title);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #1f4a35;
+}
+
+body.home-sea .ingredients-sub {
+  margin: 0.75rem 0 0;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  color: #3e5747;
+}
+
+body.home-sea .ingredient-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 68rem;
+  margin: 2.5rem auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+body.home-sea .ingredient-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.75rem 1.25rem 1.6rem;
+  background: #f6efe4;
+  border: 1px solid rgba(92, 70, 52, 0.16);
+  border-radius: 14px;
+}
+
+body.home-sea .ingredient-art {
+  width: 104px;
+  height: 88px;
+  overflow: visible;
+}
+
+body.home-sea .ingredient-card h3 {
+  margin: 0.85rem 0 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 1.1;
+  color: #1f4a35;
+}
+
+body.home-sea .ingredient-card p {
+  max-width: 22ch;
+  margin: 0.6rem 0 0;
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #3e5747;
+}
+
+/* Same art as the hero once had, inked for a cream card */
+body.home-sea .ingredient-art [stroke="#f6efe4"] { stroke: #1f4a35; }
+body.home-sea .ingredient-art [fill="#f6efe4"] { fill: #1f4a35; }
+body.home-sea .ingredient-art [stroke="#efb6c2"] { stroke: #d98a62; }
+body.home-sea .ingredient-art [fill="#efb6c2"] { fill: #d98a62; }
+body.home-sea .ingredient-art [stroke="#f0c27a"] { stroke: #d49a43; }
+body.home-sea .ingredient-art [fill="#f0c27a"] { fill: #d49a43; }
+
+/* Still until the card scrolls in, is hovered, or is tapped */
+body.home-sea .ingredient-card:not(.is-playing):not(:hover) .ingredient-art * {
+  animation: none;
+}
+
+@media (max-width: 960px) {
+  body.home-sea .ingredient-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  body.home-sea .spray-ingredients {
+    padding: 2.75rem 1rem 3rem;
+  }
+
+  body.home-sea .ingredient-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  body.home-sea .ingredient-card {
+    padding: 1.4rem 1.25rem 1.3rem;
+  }
+
+  body.home-sea .ingredient-card h3 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.home-sea .ingredient-art * {
+    animation: none !important;
+  }
+}

@@ -607,6 +607,38 @@
 
     go(0);
   });
+
+  /* What's in the can: each card plays its animation once as it scrolls in,
+     again on tap, and while hovered (CSS). */
+  var ingredientCards = Array.prototype.slice.call(document.querySelectorAll(".ingredient-card"));
+  var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (ingredientCards.length && !calm) {
+    var playCard = function (card, delay) {
+      clearTimeout(card._maiPlay);
+      clearTimeout(card._maiStop);
+      card._maiPlay = setTimeout(function () {
+        card.classList.add("is-playing");
+        card._maiStop = setTimeout(function () {
+          card.classList.remove("is-playing");
+        }, 3000);
+      }, delay || 0);
+    };
+
+    ingredientCards.forEach(function (card) {
+      card.addEventListener("click", function () { playCard(card, 0); });
+    });
+
+    if ("IntersectionObserver" in window) {
+      var cardIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          playCard(entry.target, ingredientCards.indexOf(entry.target) * 180);
+          cardIo.unobserve(entry.target);
+        });
+      }, { threshold: 0.5 });
+      ingredientCards.forEach(function (card) { cardIo.observe(card); });
+    }
+  }
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
