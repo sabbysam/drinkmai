@@ -2284,8 +2284,9 @@ body.home-sea .spray-denver-actions {
 
 body.home-sea .can3d {
   position: relative;
-  width: 320px;
-  height: 750px;
+  height: min(70vh, calc(100vh - 18.5rem));
+  aspect-ratio: 320 / 750;
+  width: auto;
   max-width: 100%;
 }
 
@@ -2302,7 +2303,7 @@ body.home-sea .can3d .spray-can {
   height: 100%;
   max-width: none;
   object-fit: contain;
-  object-position: center bottom;
+  object-position: center;
 }
 
 body.home-sea .can3d-view {
@@ -2324,8 +2325,7 @@ body.home-sea .can3d.is-live .can3d-fallback {
 
 @media (max-width: 860px) {
   body.home-sea .can3d {
-    width: 220px;
-    height: 530px;
+    height: 55vh;
   }
 }
 

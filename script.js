@@ -49,6 +49,14 @@
     return storageGet(DISMISS) === "1" || alreadyJoined() || cafeJoined();
   }
 
+  function sessionSeen() {
+    try { return sessionStorage.getItem("mai-popup-shown") === "1"; } catch (err) { return false; }
+  }
+
+  function markSession() {
+    try { sessionStorage.setItem("mai-popup-shown", "1"); } catch (err) { /* ignore */ }
+  }
+
   function pageName() {
     if (path.indexOf("404") !== -1) return "404";
     if (path.indexOf("story") !== -1) return "Story";
@@ -68,8 +76,8 @@
     '    <div class="join-card" data-join-card>',
     '      <div class="join-scene" aria-hidden="true">',
     '        <picture>',
-    '          <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />',
-    '          <img class="join-can" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="96" height="287" />',
+    '          <source type="image/webp" srcset="assets/can/mai-front.webp" />',
+    '          <img class="join-can" src="assets/can/mai-front.png" alt="" width="96" height="225" />',
     '        </picture>',
     '      </div>',
     '      <div class="join-shade" aria-hidden="true"></div>',
@@ -414,19 +422,23 @@
       var emailOpen = dialog.querySelector("#email-join");
       if (emailOpen) emailOpen.focus();
     }
-  } else if (!dismissed() && !location.hash) {
-    var timer = window.setTimeout(tryAuto, 8000);
+  } else if (!dismissed() && !sessionSeen() && !location.hash) {
+    var timer = window.setTimeout(tryAuto, 25000);
+    function scrolledEnough() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      return max > 48 && window.scrollY / max >= 0.5;
+    }
     function tryAuto() {
-      if (autoDone || dismissed() || dialog.open) return;
+      if (autoDone || dismissed() || sessionSeen() || dialog.open) return;
       autoDone = true;
       window.removeEventListener("scroll", onScroll);
       window.clearTimeout(timer);
+      markSession();
       openJoin(document.body.hasAttribute("data-join-straight") ? "form" : "intro");
     }
     function onScroll() {
-      if (autoDone || dismissed() || dialog.open) return;
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      if (max > 48 && window.scrollY / max >= 0.5) tryAuto();
+      if (autoDone || dismissed() || sessionSeen() || dialog.open) return;
+      if (scrolledEnough()) tryAuto();
     }
     window.addEventListener("scroll", onScroll, { passive: true });
   }

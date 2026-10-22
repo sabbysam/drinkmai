@@ -370,20 +370,33 @@
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var st = {
-      yaw: 0.42,
+      yaw: 0,
       pitch: 0.16,
       dist: 8.05,
       drag: false,
       lx: 0,
       ly: 0,
-      spin: true,
+      spin: false,
       pts: new Map(),
       pinch: 0,
       visible: true,
       aim: null
     };
     root._maiCan = st;
+
+    function enableSpin() {
+      if (reduceMotion) return;
+      st.spin = true;
+    }
+    function onScrollArm() {
+      if (window.scrollY <= 1 && document.documentElement.scrollTop <= 1) return;
+      enableSpin();
+      window.removeEventListener("scroll", onScrollArm);
+    }
+    window.addEventListener("scroll", onScrollArm, { passive: true });
+    if (window.scrollY > 1) enableSpin();
 
     var aP = gl.getAttribLocation(pr, "p");
     var aN = gl.getAttribLocation(pr, "n");
@@ -490,14 +503,11 @@
       root.dataset.canProbe = probe[0] + "," + probe[1] + "," + probe[2];
       if (fallback) fallback.setAttribute("aria-hidden", "true");
       cv.removeAttribute("hidden");
-      root.classList.add("is-live");
       shown = true;
-      kick();
+      last = performance.now();
+      frame(last);
+      root.classList.add("is-live");
     });
-
-    function onUser() {
-      st.spin = false;
-    }
 
     cv.addEventListener("pointerdown", function (e) {
       if (e.pointerType === "mouse" && e.button !== 0) return;
@@ -508,7 +518,7 @@
       st.ly = e.clientY;
       st.pinch = 0;
       st.aim = null;
-      onUser();
+      enableSpin();
       cv.classList.add("is-grabbing");
     });
     cv.addEventListener("pointermove", function (e) {
