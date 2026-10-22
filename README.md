@@ -34,16 +34,15 @@ Pages deploys from `main` at `/` to the custom domain in `CNAME` (`drinkmai.com`
 
 ## Waitlist
 
-One join sheet, a modal on every page. It posts through [Formsubmit](https://formsubmit.co) to `hello@drinkmai.com`. The endpoint lives in one place: `MAI_FORM_ENDPOINT` at the top of `script.js`. Swap that string when the provider changes.
+One join sheet, a modal on every page. It posts to a Google Apps Script web app bound to the **Mai signups** sheet in Sam’s Google Drive. Each signup becomes a row there (Submitted, Type, Email, City, Interest, Venue, Note, Page) and sends an email to Sam. The script keeps no copy in this repo; edit it from the sheet (Extensions → Apps Script). The endpoint lives in one place: `MAI_FORM_ENDPOINT` at the top of `script.js` (the static `action` on each page’s form matches it for no-JS). Swap that string when the provider changes.
 
 “Join the first drop” opens the sheet. A café or shop can check “I’m a café / shop” in that same sheet to add venue and a note. There is no second form and no separate signup page. `#waitlist` on any page other than home redirects to `/#waitlist`, which opens the sheet.
 
 The sheet auto-opens once, after about 8 seconds or halfway down the page, unless it was already dismissed or someone already joined (`localStorage` keys `mai-popup-dismissed` and `mai-joined`).
 
-The first live submission to a new Formsubmit address sends an activation email to `hello@drinkmai.com`. Open it, or later signups will not arrive.
+How it posts: `fetch` with `mode: "no-cors"` and `ajax=1`, because Apps Script replies through a redirect without CORS headers. Success shows in the sheet. If the request fails, the sheet shows an error and the form stays filled. The script drops submissions with no valid email and anything that fills the `_honey` field. Without JavaScript the form posts normally and the script shows a short thank-you page linking back to `?joined=1` or `?joined=cafe`.
 
-A test submit should land in that inbox:
+A test submit should add a row to the sheet and send an email:
 
-- Waitlist subject: `Mai first drop waitlist` (email, optional city, optional interest).
-- Café subject: `Mai café / retail inquiry` (email, optional city, optional interest, venue, optional note).
-- Success stays in the sheet when the ajax call works. If it falls back to a full post, Formsubmit returns to `?joined=1` (waitlist) or `?joined=cafe` (café).
+- Waitlist subject: `Mai waitlist: <email>`.
+- Café subject: `Mai café inquiry: <venue>`.

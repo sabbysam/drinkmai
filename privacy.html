@@ -153,8 +153,7 @@
           If you say you’re a café or shop, we also ask for the venue, plus a note if you want to leave one.
         </p>
         <p>
-          It goes through Formsubmit to
-          <a href="mailto:hello@drinkmai.com">hello@drinkmai.com</a>.
+          It’s saved to a private Google Sheet that only we can see, and we get an email when you sign up.
           We use it to email you about the first drop and member pricing, and to reply if you asked about stocking Mai. We don’t sell your email. This site doesn’t run analytics or ad tracking.
         </p>
         <p>
@@ -195,7 +194,7 @@
               <button type="button" class="join-submit" data-join-reveal>Join the first drop</button>
             </div>
             <div data-mai-form-wrap>
-              <form class="join-form" data-mai-form="waitlist" method="POST" action="https://formsubmit.co/hello@drinkmai.com" hidden>
+              <form class="join-form" data-mai-form="waitlist" method="POST" action="__MAI_SIGNUPS_URL__" hidden>
                 <input type="hidden" name="_subject" value="Mai first drop waitlist" />
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_template" value="table" />
@@ -256,6 +255,6 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=20261022one"></script>
+    <script src="script.js?v=20261022sheet"></script>
   </body>
 </html>

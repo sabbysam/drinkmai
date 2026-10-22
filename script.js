@@ -1,10 +1,10 @@
 (function () {
   /**
-   * Waitlist provider: Formsubmit, for now.
-   * Mail goes to hello@drinkmai.com.
+   * Signups go to a Google Apps Script web app bound to the "Mai signups"
+   * sheet in Google Drive. Each one becomes a row there and emails the team.
    * This is the only endpoint. Replace it when the provider changes.
    */
-  var MAI_FORM_ENDPOINT = "https://formsubmit.co/hello@drinkmai.com";
+  var MAI_FORM_ENDPOINT = "__MAI_SIGNUPS_URL__";
 
   var SHARE_URL = "https://drinkmai.com";
   var SHARE_TEXT = "Light as sea spray. Calm as matcha. Join the first drop.";
@@ -18,14 +18,6 @@
   if (location.hash === "#waitlist" && !onHome) {
     location.replace("/#waitlist");
     return;
-  }
-
-  function formAjaxEndpoint(endpoint) {
-    var marker = "://formsubmit.co/";
-    var at = endpoint.indexOf(marker);
-    if (at === -1) return null;
-    if (endpoint.indexOf("://formsubmit.co/ajax/") !== -1) return endpoint;
-    return endpoint.slice(0, at) + marker + "ajax/" + endpoint.slice(at + marker.length);
   }
 
   var params = new URLSearchParams(window.location.search);
@@ -349,31 +341,20 @@
     var honey = target.querySelector('input[name="_honey"]');
     if (honey && honey.value) return { ok: true, bot: true };
 
-    var ajax = formAjaxEndpoint(MAI_FORM_ENDPOINT);
-    if (!ajax) throw new Error("No ajax endpoint");
-
-    var body = new FormData(target);
+    var body = new URLSearchParams(new FormData(target));
+    body.set("ajax", "1");
     var ctrl = new AbortController();
-    var timer = window.setTimeout(function () { ctrl.abort(); }, 6000);
-    var res = await fetch(ajax, {
+    var timer = window.setTimeout(function () { ctrl.abort(); }, 12000);
+    // Apps Script answers through a redirect without CORS headers, so the
+    // response is opaque. A resolved request means the row was written.
+    await fetch(MAI_FORM_ENDPOINT, {
       method: "POST",
-      headers: { Accept: "application/json" },
+      mode: "no-cors",
       body: body,
       signal: ctrl.signal
     });
     window.clearTimeout(timer);
-
-    var type = res.headers.get("content-type") || "";
-    if (!type.includes("json")) throw new Error("Not JSON");
-
-    var payload = null;
-    try { payload = await res.json(); } catch (err) { payload = null; }
-
-    if (!res.ok) {
-      var msg = payload && (payload.message || payload.error);
-      throw new Error(msg || "Request failed");
-    }
-    return payload || { ok: true };
+    return { ok: true };
   }
 
   setNext();
@@ -401,7 +382,11 @@
       .catch(function () {
         submitBtn.disabled = false;
         submitBtn.textContent = original;
-        HTMLFormElement.prototype.submit.call(form);
+        var failed = wrap.querySelector("[data-mai-error]");
+        if (failed) {
+          failed.textContent = "That didn’t send. Try again, or email hello@drinkmai.com.";
+          failed.hidden = false;
+        }
       });
   });
 
