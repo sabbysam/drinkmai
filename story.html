@@ -20,7 +20,7 @@
     <meta property="og:image" content="https://drinkmai.com/assets/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Mai can, ceramic matcha bowl, and bamboo whisk on a pale surface, with a thin horizon line and a half-risen peach sun." />
+    <meta property="og:image:alt" content="Mai sparkling matcha can on warm paper." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Story | Mai" />
     <meta
@@ -30,7 +30,13 @@
     <meta name="twitter:image" content="https://drinkmai.com/assets/og.jpg" />
     <meta name="theme-color" content="#f3eee5" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="preload" as="image" href="assets/mai-hero.avif" type="image/avif" />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/can/mai-2x.webp"
+      type="image/webp"
+      imagesrcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -45,7 +51,7 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261022d" />
+    <link rel="stylesheet" href="styles.css?v=20261022e" />
       <script>
       /* Opens the join sheet while script.js is still downloading. */
       (function () {
@@ -183,13 +189,13 @@
           <figure class="product">
             <!-- TODO(Sam): replace after shoot — can at a 3/4 angle on pale stone or driftwood, cream background, cold condensation, a few flakes of sea salt, low morning side light. -->
             <picture>
-              <source srcset="assets/mai-hero.avif" type="image/avif" />
-              <source srcset="assets/mai-hero.webp" type="image/webp" />
+              <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
               <img
-                src="assets/mai-hero.jpg"
-                alt="Mai can, a ceramic matcha bowl, and a bamboo whisk on a pale surface"
-                width="1200"
-                height="800"
+                src="assets/can/mai-1x.png"
+                srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x"
+                alt="Mai can"
+                width="257"
+                height="702"
                 fetchpriority="high"
               />
             </picture>
@@ -215,11 +221,11 @@
             <!-- TODO(Sam): replace after shoot — real photo of Sam and Stephen, 4:5, outdoor coastal light. Keep assets/founders.svg as a small badge on the photo. -->
             <div class="founders-frame">
               <picture>
-                <source srcset="assets/gallery-4.avif" type="image/avif" />
-                <source srcset="assets/gallery-4.webp" type="image/webp" />
+                <source type="image/webp" srcset="assets/can/two-cans-1x.webp 1x, assets/can/two-cans.webp 2x" />
                 <img
-                  src="assets/gallery-4.jpg"
-                  alt="Two Mai cans and a bowl of matcha on a table"
+                  src="assets/can/two-cans.jpg"
+                  srcset="assets/can/two-cans-1x.jpg 1x, assets/can/two-cans.jpg 2x"
+                  alt="Two Mai cans"
                   width="800"
                   height="1000"
                   loading="lazy"
@@ -321,8 +327,8 @@
             <span class="join-lantern join-lantern-coral"></span>
             <span class="join-lantern join-lantern-ink"></span>
             <picture>
-              <source srcset="assets/sea-spray/can-dew.webp" type="image/webp" />
-              <img class="join-can" src="assets/sea-spray/can-dew.png" alt="" width="195" height="469" />
+              <source type="image/webp" srcset="assets/can/mai-1x.webp 1x, assets/can/mai-2x.webp 2x" />
+              <img class="join-can" src="assets/can/mai-1x.png" srcset="assets/can/mai-1x.png 1x, assets/can/mai-2x.png 2x" alt="" width="257" height="702" />
             </picture>
           </div>
           <div class="join-shade" aria-hidden="true"></div>
@@ -395,6 +401,6 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=20261022d"></script>
+    <script src="script.js?v=20261022e"></script>
   </body>
 </html>
