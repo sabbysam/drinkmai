@@ -22,7 +22,7 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261022a" />
+    <link rel="stylesheet" href="styles.css?v=20261022d" />
       <script>
       /* Opens the join sheet while script.js is still downloading. */
       (function () {
@@ -45,6 +45,14 @@
           var closeBtn = node.closest("[data-join-close]");
           var revealBtn = node.closest("[data-join-reveal]");
           if (closeBtn) { shut(box); return; }
+          var moreBtn = node.closest("[data-join-more]");
+          if (moreBtn && box.contains(moreBtn)) {
+            var panel = box.querySelector("[data-join-more-panel]");
+            var open = panel ? panel.hidden : false;
+            if (panel) panel.hidden = !open;
+            moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+            return;
+          }
           if (revealBtn) {
             var intro = box.querySelector("[data-join-intro]");
             var form = box.querySelector("form");
@@ -76,6 +84,10 @@
               if (formEl) formEl.hidden = false;
               if (cardEl) cardEl.classList.add("is-form");
               if (headline) headline.innerHTML = "Pouring in<br />Denver first.";
+              var moreOn = box.querySelector("[data-join-more]");
+              var panelOn = box.querySelector("[data-join-more-panel]");
+              if (panelOn) panelOn.hidden = false;
+              if (moreOn) moreOn.setAttribute("aria-expanded", "true");
             } else if (headline && !headline.closest(".is-thanks")) {
               if (introEl) introEl.hidden = false;
               if (formEl) formEl.hidden = true;
@@ -83,6 +95,10 @@
               headline.innerHTML = "Join the<br />first drop";
               if (toggle) toggle.checked = false;
               if (fields) fields.hidden = true;
+              var moreOff = box.querySelector("[data-join-more]");
+              var panelOff = box.querySelector("[data-join-more-panel]");
+              if (panelOff) panelOff.hidden = true;
+              if (moreOff) moreOff.setAttribute("aria-expanded", "false");
             }
             document.body.classList.add("modal-open");
             if (typeof box.showModal === "function") {
@@ -170,16 +186,23 @@
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
         </button>
         <div class="join-card" data-join-card>
-          <picture class="join-photo">
-            <source srcset="assets/mai-hero.avif" type="image/avif" />
-            <source srcset="assets/mai-hero.webp" type="image/webp" />
-            <img src="assets/mai-hero.jpg" alt="" width="1200" height="800" />
-          </picture>
+          <div class="join-scene" aria-hidden="true">
+            <span class="join-wire"></span>
+            <span class="join-lantern join-lantern-paper"></span>
+            <span class="join-lantern join-lantern-sea"></span>
+            <span class="join-lantern join-lantern-coral"></span>
+            <span class="join-lantern join-lantern-ink"></span>
+            <picture>
+              <source srcset="assets/sea-spray/can-dew.webp" type="image/webp" />
+              <img class="join-can" src="assets/sea-spray/can-dew.png" alt="" width="195" height="469" />
+            </picture>
+          </div>
           <div class="join-shade" aria-hidden="true"></div>
           <div class="join-copy">
             <h2 id="join-title" class="join-headline">Join the<br />first drop</h2>
+            <p class="join-dek">Denver first.</p>
             <div data-join-intro>
-              <button type="button" class="join-outline" data-join-reveal>Join the first drop</button>
+              <button type="button" class="join-submit" data-join-reveal>Join the first drop</button>
             </div>
             <div data-mai-form-wrap>
               <form class="join-form" data-mai-form="waitlist" method="POST" action="https://formsubmit.co/hello@drinkmai.com" hidden>
@@ -196,8 +219,9 @@
                 <label class="join-field"><span>Email</span>
                   <input id="email-join" name="email" type="email" autocomplete="email" inputmode="email" required />
                 </label>
-                <div class="join-split">
-                  <label class="join-field"><span>City <span class="optional">(optional)</span></span>
+                <button type="button" class="join-more" data-join-more aria-expanded="false">More (optional)</button>
+                <div class="join-more-panel" data-join-more-panel hidden>
+                  <label class="join-field"><span>City</span>
                     <select id="city-join" name="city">
                       <option value="Denver" selected>Denver</option>
                       <option value="Portland">Portland</option>
@@ -208,25 +232,25 @@
                       <option value="Other">Other</option>
                     </select>
                   </label>
-                  <label class="join-field"><span>Interest <span class="optional">(optional)</span></span>
-                    <select id="interest-join" name="interest">
-                      <option value="">Optional</option>
-                      <option value="Drinker">Drinker</option>
-                      <option value="Café">Café</option>
-                      <option value="Retail shop">Retail shop</option>
-                    </select>
-                  </label>
+                  <div class="join-field">
+                    <span id="interest-label">Interest</span>
+                    <div class="join-chips" role="radiogroup" aria-labelledby="interest-label">
+                      <label class="join-chip"><input type="radio" name="interest" value="Drinker" />Drinker</label>
+                      <label class="join-chip"><input type="radio" name="interest" value="Café" />Café</label>
+                      <label class="join-chip"><input type="radio" name="interest" value="Retail shop" />Retail shop</label>
+                    </div>
+                  </div>
+                  <label class="join-check"><input type="checkbox" data-cafe-toggle /> I’m a café / shop</label>
+                  <div class="join-cafe" data-cafe-fields hidden>
+                    <label class="join-field"><span>Venue</span>
+                      <input id="venue-join" name="venue" type="text" autocomplete="organization" disabled />
+                    </label>
+                    <label class="join-field"><span>Note</span>
+                      <textarea id="note-join" name="note" rows="2" disabled></textarea>
+                    </label>
+                  </div>
                 </div>
-                <label class="join-check"><input type="checkbox" data-cafe-toggle /> I’m a café / shop</label>
-                <div class="join-cafe" data-cafe-fields hidden>
-                  <label class="join-field"><span>Venue</span>
-                    <input id="venue-join" name="venue" type="text" autocomplete="organization" disabled />
-                  </label>
-                  <label class="join-field"><span>Note <span class="optional">(optional)</span></span>
-                    <textarea id="note-join" name="note" rows="2" disabled></textarea>
-                  </label>
-                </div>
-                <button class="join-outline" type="submit" data-join-submit>Join the first drop</button>
+                <button class="join-submit" type="submit" data-join-submit>Join the first drop</button>
               </form>
               <div class="join-thanks" data-mai-success data-success="waitlist" hidden role="status">
                 <p>You’re on the list. We’ll email you when the first drop is ready.</p>
@@ -237,12 +261,12 @@
               </div>
               <p class="form-error" data-mai-error hidden role="alert"></p>
             </div>
+            <p class="join-privacy">We use your information in accordance with our <a href="privacy.html">privacy policy</a>.</p>
           </div>
-          <p class="join-privacy">We use your information in accordance with our <a href="privacy.html">privacy policy</a>.</p>
         </div>
       </div>
     </dialog>
 
-    <script src="script.js?v=20261022a"></script>
+    <script src="script.js?v=20261022d"></script>
   </body>
 </html>

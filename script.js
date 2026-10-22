@@ -66,16 +66,23 @@
     '      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
     '    </button>',
     '    <div class="join-card" data-join-card>',
-    '      <picture class="join-photo">',
-    '        <source srcset="assets/mai-hero.avif" type="image/avif" />',
-    '        <source srcset="assets/mai-hero.webp" type="image/webp" />',
-    '        <img src="assets/mai-hero.jpg" alt="" width="1200" height="800" />',
-    '      </picture>',
+    '      <div class="join-scene" aria-hidden="true">',
+    '        <span class="join-wire"></span>',
+    '        <span class="join-lantern join-lantern-paper"></span>',
+    '        <span class="join-lantern join-lantern-sea"></span>',
+    '        <span class="join-lantern join-lantern-coral"></span>',
+    '        <span class="join-lantern join-lantern-ink"></span>',
+    '        <picture>',
+    '          <source srcset="assets/sea-spray/can-dew.webp" type="image/webp" />',
+    '          <img class="join-can" src="assets/sea-spray/can-dew.png" alt="" width="195" height="469" />',
+    '        </picture>',
+    '      </div>',
     '      <div class="join-shade" aria-hidden="true"></div>',
     '      <div class="join-copy">',
     '        <h2 id="join-title" class="join-headline">Join the<br />first drop</h2>',
+    '        <p class="join-dek">Denver first.</p>',
     '        <div data-join-intro>',
-    '          <button type="button" class="join-outline" data-join-reveal>Join the first drop</button>',
+    '          <button type="button" class="join-submit" data-join-reveal>Join the first drop</button>',
     '        </div>',
     '        <div data-mai-form-wrap>',
     '          <form class="join-form" data-mai-form="waitlist" method="POST" hidden>',
@@ -92,8 +99,9 @@
     '            <label class="join-field"><span>Email</span>',
     '              <input id="email-join" name="email" type="email" autocomplete="email" inputmode="email" required />',
     '            </label>',
-    '            <div class="join-split">',
-    '              <label class="join-field"><span>City <span class="optional">(optional)</span></span>',
+    '            <button type="button" class="join-more" data-join-more aria-expanded="false">More (optional)</button>',
+    '            <div class="join-more-panel" data-join-more-panel hidden>',
+    '              <label class="join-field"><span>City</span>',
     '                <select id="city-join" name="city">',
     '                  <option value="Denver" selected>Denver</option>',
     '                  <option value="Portland">Portland</option>',
@@ -104,25 +112,25 @@
     '                  <option value="Other">Other</option>',
     '                </select>',
     '              </label>',
-    '              <label class="join-field"><span>Interest <span class="optional">(optional)</span></span>',
-    '                <select id="interest-join" name="interest">',
-    '                  <option value="">Optional</option>',
-    '                  <option value="Drinker">Drinker</option>',
-    '                  <option value="Café">Café</option>',
-    '                  <option value="Retail shop">Retail shop</option>',
-    '                </select>',
-    '              </label>',
+    '              <div class="join-field">',
+    '                <span id="interest-label">Interest</span>',
+    '                <div class="join-chips" role="radiogroup" aria-labelledby="interest-label">',
+    '                  <label class="join-chip"><input type="radio" name="interest" value="Drinker" />Drinker</label>',
+    '                  <label class="join-chip"><input type="radio" name="interest" value="Café" />Café</label>',
+    '                  <label class="join-chip"><input type="radio" name="interest" value="Retail shop" />Retail shop</label>',
+    '                </div>',
+    '              </div>',
+    '              <label class="join-check"><input type="checkbox" data-cafe-toggle /> I’m a café / shop</label>',
+    '              <div class="join-cafe" data-cafe-fields hidden>',
+    '                <label class="join-field"><span>Venue</span>',
+    '                  <input id="venue-join" name="venue" type="text" autocomplete="organization" disabled />',
+    '                </label>',
+    '                <label class="join-field"><span>Note</span>',
+    '                  <textarea id="note-join" name="note" rows="2" disabled></textarea>',
+    '                </label>',
+    '              </div>',
     '            </div>',
-    '            <label class="join-check"><input type="checkbox" data-cafe-toggle /> I’m a café / shop</label>',
-    '            <div class="join-cafe" data-cafe-fields hidden>',
-    '              <label class="join-field"><span>Venue</span>',
-    '                <input id="venue-join" name="venue" type="text" autocomplete="organization" disabled />',
-    '              </label>',
-    '              <label class="join-field"><span>Note <span class="optional">(optional)</span></span>',
-    '                <textarea id="note-join" name="note" rows="2" disabled></textarea>',
-    '              </label>',
-    '            </div>',
-    '            <button class="join-outline" type="submit" data-join-submit>Join the first drop</button>',
+    '            <button class="join-submit" type="submit" data-join-submit>Join the first drop</button>',
     '          </form>',
     '          <div class="join-thanks" data-mai-success data-success="waitlist" hidden role="status">',
     '            <p>You’re on the list. We’ll email you when the first drop is ready.</p>',
@@ -133,8 +141,8 @@
     '          </div>',
     '          <p class="form-error" data-mai-error hidden role="alert"></p>',
     '        </div>',
+    '        <p class="join-privacy">We use your information in accordance with our <a href="privacy.html">privacy policy</a>.</p>',
     '      </div>',
-    '      <p class="join-privacy">We use your information in accordance with our <a href="privacy.html">privacy policy</a>.</p>',
     '    </div>',
     '  </div>',
     '</dialog>'
@@ -152,7 +160,8 @@
   var cafeFields = dialog.querySelector("[data-cafe-fields]");
   var venue = dialog.querySelector("#venue-join");
   var note = dialog.querySelector("#note-join");
-  var interest = dialog.querySelector("#interest-join");
+  var moreBtn = dialog.querySelector("[data-join-more]");
+  var morePanel = dialog.querySelector("[data-join-more-panel]");
   var subject = form.querySelector('input[name="_subject"]');
   var formKind = form.querySelector('input[name="form"]');
   var pageInput = form.querySelector('input[name="page"]');
@@ -174,6 +183,16 @@
     next.value = url.toString();
   }
 
+  function setMore(open) {
+    if (morePanel) morePanel.hidden = !open;
+    if (moreBtn) moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  function currentInterest() {
+    var checked = form.querySelector('input[name="interest"]:checked');
+    return checked ? checked.value : "";
+  }
+
   function syncCafe() {
     var on = cafeToggle.checked;
     cafeFields.hidden = !on;
@@ -184,7 +203,10 @@
     formKind.value = on ? "Café / retail" : "First drop waitlist";
     form.setAttribute("data-mai-form", on ? "cafe" : "waitlist");
     submitBtn.textContent = on ? "Tell us you’re interested" : "Join the first drop";
-    if (on && !interest.value) interest.value = "Café";
+    if (on && !currentInterest()) {
+      var cafeChip = form.querySelector('input[name="interest"][value="Café"]');
+      if (cafeChip) cafeChip.checked = true;
+    }
     setNext();
   }
 
@@ -211,6 +233,7 @@
     wrap.querySelectorAll("[data-mai-success]").forEach(function (node) { node.hidden = true; });
     card.classList.remove("is-form", "is-thanks");
     cafeToggle.checked = false;
+    setMore(false);
     syncCafe();
   }
 
@@ -223,6 +246,7 @@
     card.classList.add("is-form");
     card.classList.remove("is-thanks");
     cafeToggle.checked = !!cafe;
+    setMore(!!cafe);
     syncCafe();
   }
 
