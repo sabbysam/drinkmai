@@ -26,7 +26,21 @@
     ];
     return Promise.all(faces.map(function (f) {
       return f.load().then(function (loaded) { document.fonts.add(loaded); });
-    })).then(function () { return document.fonts.ready; });
+    })).then(function () {
+      return document.fonts.ready;
+    }).then(function () {
+      return Promise.all([
+        document.fonts.load("400 48px 'Cormorant Garamond'"),
+        document.fonts.load("600 48px 'Cormorant Garamond'"),
+        document.fonts.load("500 32px Outfit")
+      ]);
+    });
+  }
+
+  function fontsReady() {
+    return document.fonts.check("400 48px 'Cormorant Garamond'")
+      && document.fonts.check("600 48px 'Cormorant Garamond'")
+      && document.fonts.check("500 32px Outfit");
   }
 
   function mul(a, b) {
@@ -302,7 +316,6 @@
 
   function mount(root) {
     var cv = root.querySelector(".can3d-view");
-    var nav = root.querySelector(".can3d-nav");
     var fallback = root.querySelector(".can3d-fallback");
     if (!cv) return;
     var mobile = window.matchMedia("(max-width: 860px)").matches;
@@ -443,22 +456,39 @@
       raf = requestAnimationFrame(frame);
     }
 
-    var outSize = mobile ? 1024 : 1536;
+    // WebGL1 repeating mipmaps require a power-of-two size. 1536 samples as black.
+    var outSize = 2048;
     var W = outSize;
     var HT = Math.round(W * (2 * h) / (2 * Math.PI * R));
     loadFonts().catch(function () { return undefined; }).then(function () {
       if (!alive) return;
+      if (!fontsReady()) {
+        root.dataset.canFonts = "0";
+        return;
+      }
       var t0 = performance.now();
       var wrap = buildWrap(W, HT, outSize);
+      var probe = wrap.getContext("2d").getImageData(Math.round(outSize * 0.25), Math.round(outSize * 0.42), 1, 1).data;
+      if (probe[0] + probe[1] + probe[2] < 80) return;
       gl.bindTexture(gl.TEXTURE_2D, tex);
+      while (gl.getError()) {}
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, wrap);
+      var uploadErr = gl.getError();
       gl.generateMipmap(gl.TEXTURE_2D);
+      var mipErr = gl.getError();
+      if (uploadErr || mipErr) return;
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       var an = gl.getExtension("EXT_texture_filter_anisotropic");
-      if (an) gl.texParameterf(gl.TEXTURE_2D, an.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(mobile ? 4 : 8, gl.getParameter(an.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+      if (an) gl.texParameterf(gl.TEXTURE_2D, an.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, gl.getParameter(an.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
       root.dataset.canBuildMs = String(Math.round(performance.now() - t0));
+      root.dataset.canFonts = "1";
+      root.dataset.canProbe = probe[0] + "," + probe[1] + "," + probe[2];
       if (fallback) fallback.setAttribute("aria-hidden", "true");
-      if (nav) nav.hidden = false;
       cv.removeAttribute("hidden");
       root.classList.add("is-live");
       shown = true;
@@ -467,26 +497,6 @@
 
     function onUser() {
       st.spin = false;
-      if (nav) {
-        nav.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
-      }
-    }
-    function go(name) {
-      st.spin = false;
-      var yaw = name === "back" ? Math.PI : 0;
-      st.aim = { yaw: yaw, pitch: 0.16 };
-      if (nav) {
-        nav.querySelectorAll("button").forEach(function (b) {
-          b.setAttribute("aria-pressed", b.getAttribute("data-can-view") === name ? "true" : "false");
-        });
-      }
-    }
-    if (nav) {
-      nav.addEventListener("click", function (e) {
-        var btn = e.target.closest("button");
-        if (!btn) return;
-        go(btn.getAttribute("data-can-view"));
-      });
     }
 
     cv.addEventListener("pointerdown", function (e) {
