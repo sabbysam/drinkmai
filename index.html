@@ -51,7 +51,7 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261022r" />
+    <link rel="stylesheet" href="styles.css?v=20261022t" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -196,7 +196,7 @@
             <div class="poster-field">
               <div class="spray-copy">
                 <div class="spray-lead">
-                  <p class="spray-kicker">Sparkling matcha · yuzu · a pinch of sea salt</p>
+                  <p class="spray-kicker">Lightly sparkling matcha</p>
                   <h1><span class="spray-line">Light as sea spray.</span><br />Calm as matcha.</h1>
                   <button type="button" class="button" data-join-open data-join-email data-inline-cta>Join the first drop</button>
                   <noscript>
@@ -289,17 +289,20 @@
           </div>
               </div>
               <div class="spray-slot">
-                <picture>
-                  <source type="image/webp" srcset="assets/can/mai-hero.webp" />
-                  <img
-                    class="spray-can"
-                    src="assets/can/mai-hero.png"
-                    alt="Mai sparkling matcha yuzu can"
-                    width="240"
-                    height="715"
-                    fetchpriority="high"
-                  />
-                </picture>
+                <div class="can3d" data-can3d>
+                  <picture class="can3d-fallback">
+                    <source type="image/webp" srcset="assets/can/mai-hero.webp" />
+                    <img
+                      class="spray-can"
+                      src="assets/can/mai-hero.png"
+                      alt="Mai sparkling matcha yuzu can"
+                      width="240"
+                      height="715"
+                      fetchpriority="high"
+                    />
+                  </picture>
+                  <canvas class="can3d-view" hidden aria-label="Mai sparkling matcha yuzu can. Drag to turn it."></canvas>
+                </div>
               </div>
             </div>
           </div>
@@ -457,6 +460,7 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=20261022r"></script>
+    <script src="script.js?v=20261022t"></script>
+    <script src="assets/can3d.js?v=20261022v" defer></script>
   </body>
 </html>

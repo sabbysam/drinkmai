@@ -2282,3 +2282,56 @@ body.home-sea .spray-denver-actions {
   }
 }
 
+body.home-sea .can3d {
+  position: relative;
+  width: 320px;
+  height: 750px;
+  max-width: 100%;
+}
+
+body.home-sea .can3d-fallback,
+body.home-sea .can3d-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body.home-sea .can3d .spray-can {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+body.home-sea .can3d-view {
+  display: block;
+  background: transparent;
+  touch-action: none;
+  cursor: grab;
+}
+
+body.home-sea .can3d-view[hidden] {
+  display: none;
+}
+
+body.home-sea .can3d-view.is-grabbing { cursor: grabbing; }
+
+body.home-sea .can3d.is-live .can3d-fallback {
+  visibility: hidden;
+}
+
+@media (max-width: 860px) {
+  body.home-sea .can3d {
+    width: 220px;
+    height: 530px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.home-sea .can3d-view {
+    display: none;
+  }
+}
+
