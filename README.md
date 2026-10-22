@@ -12,9 +12,11 @@ From the repo root:
 python3 -m http.server 8080
 ```
 
-Open http://localhost:8080 and walk Home, Story, FAQ (`the-drop.html`), and Privacy. `/faq/` refreshes to `/the-drop.html#faq` (GitHub Pages has no server redirects).
+Open http://localhost:8080 and walk Home and Privacy. The site is one page: hero, What’s in the can (`#ingredients`), story (`#story`), questions (`#faq`), and Denver / cafés (`#cafes`). The header is the wordmark and one “Join the first drop” button, with no nav links.
 
-Home links use `/`, not `index.html`, so Search Console does not treat them as two URLs. Other pages stay relative (`story.html`, `the-drop.html`, `privacy.html`).
+Old pages are redirect stubs, since GitHub Pages has no server redirects: `story.html` → `/#story`, `the-drop.html` and `/faq/` → `/#faq`. Keep them so old links still land.
+
+Home links use `/`, not `index.html`, so Search Console does not treat them as two URLs. `privacy.html` stays relative.
 
 ## Product facts (locked)
 
