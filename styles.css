@@ -3594,3 +3594,11 @@ body.home-sea .cafe-cat-lap { height: clamp(120px, 21vh, 230px); height: clamp(1
 @media (max-width: 860px) {
   body.home-sea .cafe-cat-lap { height: clamp(92px, 14vh, 140px); height: clamp(92px, 14svh, 140px); }
 }
+
+/* Same cat, same size, day and night. */
+body.home-sea .dusk-cat { width: clamp(150px, 15vw, 240px); }
+body.home-sea .dusk-spill { left: calc(5% + clamp(150px, 15vw, 240px) - 8px); width: clamp(90px, 9vw, 140px); }
+@media (max-width: 860px) {
+  body.home-sea .dusk-cat { width: 120px; }
+  body.home-sea .dusk-spill { left: calc(4% + 112px); width: 76px; }
+}
