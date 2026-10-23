@@ -3506,3 +3506,8 @@ body.home-sea .cafe-glass {
   body.home-sea .cafe-glints { left: calc(50% - var(--sun) / 2); }
   body.home-sea .cafe-prop-drinks { left: 56%; }
 }
+
+/* Day counter: just the cat and the can. */
+@media (min-width: 861px) {
+  body.home-sea .cafe-prop-can { left: 74%; }
+}
