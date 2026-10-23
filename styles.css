@@ -3481,3 +3481,28 @@ body.home-sea .dusk-steam + .dusk-steam { animation-delay: -1.7s; }
   body.home-sea .dusk-drinks { right: 10%; }
   body.home-sea .dusk-glass { height: clamp(110px, 20vh, 170px); }
 }
+
+/* Sun sets clear of the can, behind the hills; glass at true scale. */
+body.home-sea .cafe-sun { right: auto; left: calc(40% - var(--sun) / 2); }
+body.home-sea .cafe-glints { right: auto; left: calc(40% - var(--sun) / 2); }
+body.home-sea .cafe-prop-drinks { left: 52%; }
+body.home-sea .cafe-glass {
+  height: clamp(165px, 33vh, 340px);
+  height: clamp(165px, 33svh, 340px);
+}
+
+@media (max-width: 860px) {
+  body.home-sea .cafe-sun,
+  body.home-sea .cafe-glints { left: calc(46% - var(--sun) / 2); }
+  body.home-sea .cafe-prop-can { left: 77%; }
+  body.home-sea .cafe-prop-drinks { left: 37%; }
+  body.home-sea .cafe-glass { height: clamp(120px, 19vh, 180px); height: clamp(120px, 19svh, 180px); }
+  body.home-sea .cafe-prop-cat { left: 1%; }
+  body.home-sea .cafe-cat { height: clamp(100px, 16vh, 160px); height: clamp(100px, 16svh, 160px); }
+}
+
+@media (min-width: 861px) {
+  body.home-sea .cafe-sun,
+  body.home-sea .cafe-glints { left: calc(50% - var(--sun) / 2); }
+  body.home-sea .cafe-prop-drinks { left: 56%; }
+}
