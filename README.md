@@ -14,7 +14,7 @@ python3 -m http.server 8080
 
 Open http://localhost:8080 and walk Home and Privacy. The site is one page: the café opening scene (`.cafe`, owns the `h1`), the can (`#the-can`, the green poster with the 3D can), What’s in the can (`#ingredients`), story (`#story`), questions (`#faq`), and Denver / cafés (`#cafes`). The home header is just the wordmark.
 
-The can section below it is the same café at dusk (`.spray-hero.is-dusk`): stars, a moon, the flickering lantern string, a dark sea with warm glints, and the cat asleep on the counter with drifting z’s, with the poured glass and a steaming matcha bowl on the counter.
+The second scene (`.cafe.cafe-night`, `#the-can`) reuses the café layout exactly (same window, frame, counter and headline position) at night: stars, a moon, the lantern string, a dark sea with warm glints, the cat asleep beside the empty, spilled bowl, and “Calm into the evening.”
 
 The café scene is plain HTML, CSS and inline SVG (no video): a window onto the sea with a peach sun, drifting clouds, a gull, a sailboat, noren, a lantern, and a counter with the cat, the 3D can (`[data-can3d]`, drag to turn) in front of the sun, and a sparkling glass. All motion is CSS, pauses when the scene is off screen, and stops for reduced motion.
 

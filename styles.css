@@ -3610,3 +3610,88 @@ body.home-sea .dusk-spill { left: calc(5% + clamp(140px, 14vw, 224px) - 8px); }
   body.home-sea .dusk-cat { width: 156px; }
   body.home-sea .dusk-spill { left: calc(4% + 148px); width: 80px; }
 }
+
+/* ---------- Night: the same café, same layout, later ---------- */
+body.home-sea .cafe-night {
+  --night-cat: clamp(157px, 27.4vh, 300px);
+  --night-cat: clamp(157px, 27.4svh, 300px);
+  --night-bowl: clamp(115px, 20vh, 220px);
+  --night-bowl: clamp(115px, 20svh, 220px);
+  --wood: #6e4f36;
+  --wall: #3a2e27;
+}
+
+body.home-sea .night-window {
+  border-color: var(--wood);
+  background: linear-gradient(180deg, #172a37 0%, #22394a 24%, #3d5562 42%, #8e6e68 54%, #d99a73 59%, #e9ae7f 62%);
+}
+
+body.home-sea .night-window .dusk-sea {
+  bottom: 0;
+  height: var(--sea);
+}
+
+body.home-sea .night-hills {
+  position: absolute;
+  right: 0;
+  bottom: var(--sea);
+  width: 46%;
+  height: 9%;
+  transform: scaleX(-1);
+}
+
+body.home-sea .night-lanterns {
+  top: calc(var(--inset-top) + var(--frame));
+  left: calc(var(--inset-x) + var(--frame) + 8px);
+  right: calc(var(--inset-x) + var(--frame) + 8px);
+}
+
+body.home-sea .cafe-night .scene-title { color: #f6efe4; }
+
+body.home-sea .cafe-night .cafe-counter { background-color: #4f3726; }
+body.home-sea .cafe-night .cafe-counter::before { background: linear-gradient(180deg, #b98757 0%, #93673f 100%); }
+
+body.home-sea .night-cat {
+  left: 10%;
+  display: block;
+  width: var(--night-cat);
+}
+
+body.home-sea .night-cat svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: -3.75%;
+  overflow: visible;
+}
+
+body.home-sea .night-bowl {
+  left: calc(10% + var(--night-cat) - 10px);
+  display: block;
+  width: var(--night-bowl);
+}
+
+body.home-sea .night-bowl svg { display: block; width: 100%; height: auto; margin-bottom: -4%; overflow: visible; }
+
+@media (max-width: 860px) {
+  body.home-sea .cafe-night {
+    --night-cat: clamp(120px, 18.3vh, 183px);
+    --night-cat: clamp(120px, 18.3svh, 183px);
+    --night-bowl: clamp(88px, 13.4vh, 134px);
+    --night-bowl: clamp(88px, 13.4svh, 134px);
+  }
+  body.home-sea .night-cat { left: 3%; }
+  body.home-sea .night-bowl { left: calc(3% + var(--night-cat) - 10px); }
+  body.home-sea .night-window { background: linear-gradient(180deg, #172a37 0%, #22394a 26%, #3d5562 44%, #8e6e68 56%, #d99a73 61%, #e9ae7f 64%); }
+}
+
+/* Night: headline sits below the lantern string; the moon moves clear of it. */
+body.home-sea .cafe-night .cafe-copy { top: 34%; }
+body.home-sea .night-window .dusk-moon { left: 72%; top: 20%; }
+@media (max-width: 860px) {
+  body.home-sea .cafe-night .cafe-copy { top: 24%; }
+  body.home-sea .night-window .dusk-moon { left: 76%; top: 34%; }
+}
+@media (min-width: 861px) {
+  body.home-sea .night-window .dusk-moon { left: 81%; top: 30%; }
+}

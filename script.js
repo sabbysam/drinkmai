@@ -605,7 +605,7 @@
   });
 
   /* Dusk words rise in as the scene scrolls into view; the café headline shows at once. */
-  var reveals = Array.prototype.slice.call(document.querySelectorAll(".is-dusk .spray-copy"));
+  var reveals = Array.prototype.slice.call(document.querySelectorAll(".cafe-night .cafe-copy"));
   reveals.forEach(function (el) { el.classList.add("scene-reveal"); });
   if (reveals.length) {
     if ("IntersectionObserver" in window) {
@@ -622,14 +622,14 @@
     }
   }
 
-  /* Café scene: pause its animations while it's off screen. */
-  var cafe = document.querySelector(".cafe");
-  if (cafe && "IntersectionObserver" in window) {
-    new IntersectionObserver(function (entries) {
+  /* Café scenes: pause their animations while off screen. */
+  if ("IntersectionObserver" in window) {
+    var sceneIo = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        cafe.classList.toggle("is-offscreen", !entry.isIntersecting);
+        entry.target.classList.toggle("is-offscreen", !entry.isIntersecting);
       });
-    }).observe(cafe);
+    });
+    document.querySelectorAll(".cafe").forEach(function (el) { sceneIo.observe(el); });
   }
 
   /* What's in the can: each card plays its animation once as it scrolls in,
