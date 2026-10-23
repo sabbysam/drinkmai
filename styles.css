@@ -3541,8 +3541,8 @@ body.home-sea .lap-steam-2 { animation-delay: -1.7s; }
 
 @keyframes lap-dip {
   0%, 100% { transform: rotate(0deg); }
-  45% { transform: rotate(5deg) translateY(2px); }
-  60% { transform: rotate(1deg); }
+  45% { transform: rotate(2.5deg) translateY(1px); }
+  60% { transform: rotate(0.5deg); }
 }
 
 @keyframes lap-ripple {
@@ -3569,4 +3569,14 @@ body.home-sea .dusk-spill svg { display: block; width: 100%; height: auto; overf
 body.home-sea .cafe-cat-lap { height: clamp(104px, 17vh, 190px); height: clamp(104px, 17svh, 190px); }
 @media (max-width: 860px) {
   body.home-sea .cafe-cat-lap { height: clamp(86px, 13vh, 130px); height: clamp(86px, 13svh, 130px); }
+}
+
+body.home-sea .lap-tongue {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: lap-tongue 0.75s ease-in-out infinite;
+}
+@keyframes lap-tongue {
+  0%, 100% { transform: scaleY(0.25); }
+  45% { transform: scaleY(1); }
 }
