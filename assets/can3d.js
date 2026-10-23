@@ -557,7 +557,6 @@
       var dy = e.clientY - st.ly;
       st.moved += Math.abs(dx) + Math.abs(dy);
       st.yaw += dx * 0.01;
-      st.pitch = Math.max(-1.05, Math.min(1.05, st.pitch + dy * 0.008));
       st.lx = e.clientX;
       st.ly = e.clientY;
     });
