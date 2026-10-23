@@ -3511,3 +3511,62 @@ body.home-sea .cafe-glass {
 @media (min-width: 861px) {
   body.home-sea .cafe-prop-can { left: 74%; }
 }
+
+/* Afternoon: the cat laps from a bowl of matcha. */
+body.home-sea .cafe-cat-lap {
+  height: clamp(92px, 15vh, 170px);
+  height: clamp(92px, 15svh, 170px);
+}
+
+body.home-sea .lap-head {
+  transform-box: view-box;
+  transform-origin: 140px 92px;
+  animation: lap-dip 1.5s ease-in-out infinite;
+}
+
+body.home-sea .lap-tail {
+  transform-box: view-box;
+  transform-origin: 52px 128px;
+  animation: cafe-tail 6s ease-in-out infinite;
+}
+
+body.home-sea .lap-ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lap-ripple 1.5s ease-out infinite;
+}
+
+body.home-sea .lap-steam { animation: cafe-steam 3.4s ease-out infinite; }
+body.home-sea .lap-steam-2 { animation-delay: -1.7s; }
+
+@keyframes lap-dip {
+  0%, 100% { transform: rotate(0deg); }
+  45% { transform: rotate(5deg) translateY(2px); }
+  60% { transform: rotate(1deg); }
+}
+
+@keyframes lap-ripple {
+  0%, 40% { transform: scale(0.4); opacity: 0; }
+  55% { opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Evening: the bowl's empty, a little spilled, and he's asleep. */
+body.home-sea .dusk-spill {
+  position: absolute;
+  left: calc(5% + clamp(104px, 11vw, 170px) - 6px);
+  bottom: calc(var(--dcounter) * 0.74 - 2px);
+  width: clamp(72px, 7.5vw, 116px);
+}
+
+body.home-sea .dusk-spill svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+@media (max-width: 860px) {
+  body.home-sea .cafe-cat-lap { height: clamp(80px, 12vh, 120px); height: clamp(80px, 12svh, 120px); }
+  body.home-sea .dusk-spill { left: calc(4% + 90px); width: 66px; }
+}
+
+body.home-sea .cafe-cat-lap { height: clamp(104px, 17vh, 190px); height: clamp(104px, 17svh, 190px); }
+@media (max-width: 860px) {
+  body.home-sea .cafe-cat-lap { height: clamp(86px, 13vh, 130px); height: clamp(86px, 13svh, 130px); }
+}
