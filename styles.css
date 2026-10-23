@@ -3602,3 +3602,11 @@ body.home-sea .dusk-spill { left: calc(5% + clamp(150px, 15vw, 240px) - 8px); wi
   body.home-sea .dusk-cat { width: 120px; }
   body.home-sea .dusk-spill { left: calc(4% + 112px); width: 76px; }
 }
+
+/* Same cat, same scale: match head sizes day and night. */
+body.home-sea .dusk-cat { width: clamp(140px, 14vw, 224px); }
+body.home-sea .dusk-spill { left: calc(5% + clamp(140px, 14vw, 224px) - 8px); }
+@media (max-width: 860px) {
+  body.home-sea .dusk-cat { width: 156px; }
+  body.home-sea .dusk-spill { left: calc(4% + 148px); width: 80px; }
+}

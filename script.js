@@ -604,8 +604,8 @@
     go(0);
   });
 
-  /* Scene words rise in: the café's on load, dusk's as it scrolls into view. */
-  var reveals = Array.prototype.slice.call(document.querySelectorAll(".cafe-copy, .is-dusk .spray-copy"));
+  /* Dusk words rise in as the scene scrolls into view; the café headline shows at once. */
+  var reveals = Array.prototype.slice.call(document.querySelectorAll(".is-dusk .spray-copy"));
   reveals.forEach(function (el) { el.classList.add("scene-reveal"); });
   if (reveals.length) {
     if ("IntersectionObserver" in window) {
