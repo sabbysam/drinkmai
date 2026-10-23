@@ -3695,3 +3695,12 @@ body.home-sea .night-window .dusk-moon { left: 72%; top: 20%; }
 @media (min-width: 861px) {
   body.home-sea .night-window .dusk-moon { left: 81%; top: 30%; }
 }
+
+/* Night hills sit exactly where the daytime hills do. */
+body.home-sea .night-hills {
+  left: 0;
+  right: auto;
+  width: 62%;
+  height: 11%;
+  transform: none;
+}
