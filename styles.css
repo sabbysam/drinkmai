@@ -3409,3 +3409,75 @@ body.home-sea .dusk-hills {
   width: 46%;
   transform: scaleX(-1);
 }
+
+/* ---------- The can leads: hero prop on the daytime counter ---------- */
+body.home-sea .cafe-prop-can {
+  left: 80%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  z-index: 3;
+}
+
+body.home-sea .cafe-prop-can .can3d {
+  height: clamp(230px, 46vh, 470px);
+  height: clamp(230px, 46svh, 470px);
+  max-width: none;
+}
+
+body.home-sea .cafe-prop-can .can3d-view { touch-action: pan-y; }
+
+body.home-sea .cafe-prop-drinks { left: 62%; }
+
+/* ---------- Dusk: the poured glass under the lanterns ---------- */
+body.home-sea .is-dusk .poster-field {
+  min-height: clamp(560px, 82vh, 900px);
+}
+
+body.home-sea .dusk-drinks {
+  position: absolute;
+  right: 14%;
+  bottom: calc(var(--dcounter) * 0.74);
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(10px, 1.6vw, 26px);
+}
+
+body.home-sea .dusk-drinks::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(20, 12, 6, 0.4) 0%, rgba(20, 12, 6, 0) 70%);
+  z-index: -1;
+}
+
+body.home-sea .dusk-glass {
+  display: block;
+  width: auto;
+  height: clamp(130px, 26vh, 260px);
+  overflow: visible;
+  filter: drop-shadow(0 0 18px rgba(243, 190, 130, 0.25));
+}
+
+body.home-sea .dusk-bowl-svg {
+  display: block;
+  width: auto;
+  height: clamp(46px, 8vh, 84px);
+  overflow: visible;
+}
+
+body.home-sea .dusk-steam { animation: cafe-steam 3.4s ease-out infinite; }
+body.home-sea .dusk-steam + .dusk-steam { animation-delay: -1.7s; }
+
+@media (max-width: 860px) {
+  body.home-sea .cafe-prop-can { left: 74%; }
+  body.home-sea .cafe-prop-can .can3d { height: clamp(200px, 34vh, 320px); height: clamp(200px, 34svh, 320px); }
+  body.home-sea .cafe-prop-drinks { left: 40%; }
+  body.home-sea .cafe-glass { height: clamp(56px, 10vh, 100px); height: clamp(56px, 10svh, 100px); }
+  body.home-sea .is-dusk .poster-field { min-height: clamp(600px, 88vh, 760px); }
+  body.home-sea .dusk-drinks { right: 10%; }
+  body.home-sea .dusk-glass { height: clamp(110px, 20vh, 170px); }
+}

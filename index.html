@@ -51,7 +51,7 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261022polish" />
+    <link rel="stylesheet" href="styles.css?v=20261022canfirst" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -248,6 +248,22 @@
               </g>
             </svg>
           </span>
+          <span class="cafe-prop cafe-prop-can">
+            <div class="can3d" data-can3d>
+                          <picture class="can3d-fallback">
+                            <source type="image/webp" srcset="assets/can/mai-front.webp" />
+                            <img
+                              class="spray-can"
+                              src="assets/can/mai-front.png"
+                              alt="Mai sparkling matcha yuzu can"
+                              width="666"
+                              height="1560"
+                              fetchpriority="high"
+                            />
+                          </picture>
+                          <canvas class="can3d-view" hidden aria-label="Mai sparkling matcha yuzu can. Drag to turn it."></canvas>
+                        </div>
+          </span>
           <span class="cafe-prop cafe-prop-drinks">
             <svg class="cafe-glass" viewBox="0 -4 54 88" focusable="false">
               <defs><clipPath id="cafe-liquid"><path d="M6.1 24H45.9L42.5 80H9.5Z"/></clipPath></defs>
@@ -262,16 +278,6 @@
               </g>
               <circle cx="42" cy="6" r="9" fill="#e9b04f" stroke="#f6ede0" stroke-width="1.5"/>
               <path d="M42 6V-2M42 6L49 2M42 6L49 10M42 6V14M42 6L35 10M42 6L35 2" stroke="#f6ede0" stroke-width="1"/>
-            </svg>
-          </span>
-          <span class="cafe-prop cafe-prop-bowl">
-            <svg class="cafe-bowl" viewBox="0 0 70 62" focusable="false">
-              <path class="cafe-steam" d="M28 22c-5-6 5-10 0-18" fill="none" stroke="#fbf6ee" stroke-width="2.5" stroke-linecap="round"/>
-              <path class="cafe-steam cafe-steam-2" d="M41 22c-5-6 5-10 0-18" fill="none" stroke="#fbf6ee" stroke-width="2.5" stroke-linecap="round"/>
-              <path d="M6 30H64C64 46 52 58 35 58S6 46 6 30Z" fill="#45624f"/>
-              <path d="M14 36C16 44 20 48 25 50" fill="none" stroke="#5d7c66" stroke-width="2" stroke-linecap="round"/>
-              <ellipse cx="35" cy="30" rx="29" ry="5" fill="#9fc27e"/>
-              <rect x="26" y="56" width="18" height="5" rx="1.5" fill="#3a5242"/>
             </svg>
           </span>
         </div>
@@ -300,6 +306,32 @@
                   <div class="dusk-glints"><span></span><span></span><span></span><span></span></div>
                 </div>
                 <div class="dusk-counter"></div>
+                <span class="dusk-drinks">
+                  <svg class="dusk-glass" viewBox="0 -4 54 88" focusable="false">
+                    <defs><clipPath id="dusk-liquid"><path d="M6.1 24H45.9L42.5 80H9.5Z"/></clipPath></defs>
+                    <path d="M4 6H48L44 82H8Z" fill="#e8eee9" fill-opacity="0.22" stroke="#e9c9a4" stroke-width="1.4"/>
+                    <path d="M6.1 24H45.9L42.5 80H9.5Z" fill="#9fbf8e"/>
+                    <path d="M6.1 24H45.9L45 38C34 34 18 34 7 38Z" fill="#f3c48c" fill-opacity="0.45"/>
+                    <g clip-path="url(#dusk-liquid)" fill="#fff4e2">
+                      <circle class="cafe-bubble" cx="15" cy="78" r="2"/>
+                      <circle class="cafe-bubble" cx="24" cy="80" r="1.5"/>
+                      <circle class="cafe-bubble" cx="31" cy="77" r="2.2"/>
+                      <circle class="cafe-bubble" cx="37" cy="80" r="1.4"/>
+                      <circle class="cafe-bubble" cx="20" cy="79" r="1.2"/>
+                    </g>
+                    <path d="M10 10L13 70" stroke="#fff1dc" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="42" cy="6" r="9" fill="#e9b04f" stroke="#f6ede0" stroke-width="1.5"/>
+                    <path d="M42 6V-2M42 6L49 2M42 6L49 10M42 6V14M42 6L35 10M42 6L35 2" stroke="#f6ede0" stroke-width="1"/>
+                  </svg>
+                  <svg class="dusk-bowl-svg" viewBox="0 0 70 62" focusable="false">
+              <path class="dusk-steam" d="M28 22c-5-6 5-10 0-18" fill="none" stroke="#fbf6ee" stroke-width="2.5" stroke-linecap="round"/>
+              <path class="dusk-steam dusk-steam-2" d="M41 22c-5-6 5-10 0-18" fill="none" stroke="#fbf6ee" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M6 30H64C64 46 52 58 35 58S6 46 6 30Z" fill="#45624f"/>
+              <path d="M14 36C16 44 20 48 25 50" fill="none" stroke="#5d7c66" stroke-width="2" stroke-linecap="round"/>
+              <ellipse cx="35" cy="30" rx="29" ry="5" fill="#9fc27e"/>
+              <rect x="26" y="56" width="18" height="5" rx="1.5" fill="#3a5242"/>
+            </svg>
+                </span>
                 <span class="dusk-cat">
                   <span class="dusk-z dz1">z</span><span class="dusk-z dz2">z</span><span class="dusk-z dz3">z</span>
                   <svg viewBox="0 0 160 92" focusable="false">
@@ -332,22 +364,6 @@
               <li><a class="word-link" href="#ingredients">quiet bubbles</a></li>
             </ul>
           </div>
-              </div>
-              <div class="spray-slot">
-                <div class="can3d" data-can3d>
-                  <picture class="can3d-fallback">
-                    <source type="image/webp" srcset="assets/can/mai-front.webp" />
-                    <img
-                      class="spray-can"
-                      src="assets/can/mai-front.png"
-                      alt="Mai sparkling matcha yuzu can"
-                      width="666"
-                      height="1560"
-                      fetchpriority="high"
-                    />
-                  </picture>
-                  <canvas class="can3d-view" hidden aria-label="Mai sparkling matcha yuzu can. Drag to turn it."></canvas>
-                </div>
               </div>
             </div>
           </div>
