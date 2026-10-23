@@ -3721,3 +3721,16 @@ body.home-sea .scene-tag {
   letter-spacing: -0.01em;
   color: #2f5440;
 }
+
+/* Story as a one-line sign-off. */
+body.home-sea .spray-signoff { padding: 2.5rem 1.25rem; }
+body.home-sea .spray-signoff p {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  line-height: 1.3;
+  color: #1f4a35;
+  text-align: center;
+}
