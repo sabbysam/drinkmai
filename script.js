@@ -413,7 +413,7 @@
     function scrollPos() {
       return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     }
-    // Opens as soon as someone starts scrolling down: about 120px of their
+    // Opens as soon as someone starts scrolling down: about 260px of their
     // own scrolling (wheel, touch or keys). Jumps to #story or #faq on load
     // don't count, so a deep link doesn't open it by itself.
     var startY = null;
@@ -424,7 +424,7 @@
       window.addEventListener(type, arm, { passive: true });
     });
     function scrolledEnough() {
-      return startY !== null && scrollPos() - startY >= 120;
+      return startY !== null && scrollPos() - startY >= 260;
     }
     function tryAuto() {
       if (autoDone || dismissed() || sessionSeen() || dialog.open) return;
