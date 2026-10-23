@@ -604,6 +604,24 @@
     go(0);
   });
 
+  /* Scene words rise in: the café's on load, dusk's as it scrolls into view. */
+  var reveals = Array.prototype.slice.call(document.querySelectorAll(".cafe-copy, .is-dusk .spray-copy"));
+  reveals.forEach(function (el) { el.classList.add("scene-reveal"); });
+  if (reveals.length) {
+    if ("IntersectionObserver" in window) {
+      var revealIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          revealIo.unobserve(entry.target);
+        });
+      }, { threshold: 0.35 });
+      reveals.forEach(function (el) { revealIo.observe(el); });
+    } else {
+      reveals.forEach(function (el) { el.classList.add("is-in"); });
+    }
+  }
+
   /* Café scene: pause its animations while it's off screen. */
   var cafe = document.querySelector(".cafe");
   if (cafe && "IntersectionObserver" in window) {
