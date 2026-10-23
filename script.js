@@ -7,7 +7,7 @@
   var MAI_FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzAApV9JJIrnMDqb7frgjvPsKt3FBzTGr20s77TyDJYcAGqQ8irx1ucuNhXkNFsJ3Ju9A/exec";
 
   var SHARE_URL = "https://drinkmai.com";
-  var SHARE_TEXT = "Light as sea spray. Join the first drop.";
+  var SHARE_TEXT = "Sparkling matcha. Light as sea spray. Join the first drop.";
   var STORAGE = "mai-joined";
   var DISMISS = "mai-popup-dismissed-2";
   var SESSION = "mai-popup-shown-2";
