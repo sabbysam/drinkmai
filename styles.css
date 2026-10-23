@@ -3705,20 +3705,19 @@ body.home-sea .night-hills {
   transform: none;
 }
 
-/* Headline a touch smaller (both scenes), with the product line right under it. */
+/* Product as the headline; the mood line underneath in italics. */
 body.home-sea .scene-title,
-body.home-sea .cafe-copy .scene-title,
-body.home-sea .spray-copy .scene-title {
-  font-size: clamp(2.2rem, 4.4vw, 4.25rem);
-  margin-bottom: 0.9rem;
+body.home-sea .cafe-copy .scene-title {
+  margin-bottom: 0.35rem;
 }
 
-body.home-sea .scene-sub {
-  max-width: 30ch;
+body.home-sea .scene-tag {
   margin: 0 0 clamp(1.3rem, 3.4vh, 2rem);
-  font-family: var(--sans);
-  font-size: clamp(1.1rem, 1.55vw, 1.45rem);
-  font-weight: 400;
-  line-height: 1.4;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.45rem, 2.5vw, 2.35rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: #2f5440;
 }
