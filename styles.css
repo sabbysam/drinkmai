@@ -3520,13 +3520,13 @@ body.home-sea .cafe-cat-lap {
 
 body.home-sea .lap-head {
   transform-box: view-box;
-  transform-origin: 140px 92px;
+  transform-origin: 134px 100px;
   animation: lap-dip 1.5s ease-in-out infinite;
 }
 
 body.home-sea .lap-tail {
   transform-box: view-box;
-  transform-origin: 52px 128px;
+  transform-origin: 50px 116px;
   animation: cafe-tail 6s ease-in-out infinite;
 }
 
@@ -3579,4 +3579,18 @@ body.home-sea .lap-tongue {
 @keyframes lap-tongue {
   0%, 100% { transform: scaleY(0.25); }
   45% { transform: scaleY(1); }
+}
+
+/* A touch bigger: the clear hero, still clear of the noren and headline. */
+body.home-sea .cafe-prop-can .can3d {
+  height: clamp(250px, 55vh, 560px);
+  height: clamp(250px, 55svh, 560px);
+}
+@media (max-width: 860px) {
+  body.home-sea .cafe-prop-can .can3d { height: clamp(210px, 38vh, 340px); height: clamp(210px, 38svh, 340px); }
+}
+
+body.home-sea .cafe-cat-lap { height: clamp(120px, 21vh, 230px); height: clamp(120px, 21svh, 230px); }
+@media (max-width: 860px) {
+  body.home-sea .cafe-cat-lap { height: clamp(92px, 14vh, 140px); height: clamp(92px, 14svh, 140px); }
 }
