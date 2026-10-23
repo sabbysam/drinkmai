@@ -1,10 +1,11 @@
 (function () {
   /**
-   * Signups go to a Google Apps Script web app bound to the "Mai signups"
-   * sheet in Google Drive. Each one becomes a row there and emails the team.
-   * This is the only endpoint. Replace it when the provider changes.
+   * Signups go to the Mai signups Apps Script first. The sheet only counts
+   * when that response is readable JSON. Otherwise the same fields go to
+   * Formsubmit, which answers with JSON we can check.
    */
   var MAI_FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzAApV9JJIrnMDqb7frgjvPsKt3FBzTGr20s77TyDJYcAGqQ8irx1ucuNhXkNFsJ3Ju9A/exec";
+  var MAI_FORM_FALLBACK = "https://formsubmit.co/ajax/hello@drinkmai.com";
 
   var SHARE_URL = "https://drinkmai.com";
   var SHARE_TEXT = "Light as sea spray. Calm as matcha. Join the first drop.";
@@ -337,24 +338,62 @@
     });
   });
 
+  function formPayload(target) {
+    var data = {};
+    new FormData(target).forEach(function (value, key) {
+      if (key === "_honey" || key === "ajax") return;
+      data[key] = value;
+    });
+    return data;
+  }
+
+  function saved(packet) {
+    if (!packet || !packet.res || !packet.res.ok || !packet.data || typeof packet.data !== "object") return false;
+    var data = packet.data;
+    return data.ok === true || data.success === true || data.success === "true" || data.result === "success" || data.status === "success";
+  }
+
+  async function readJson(res) {
+    var text = await res.text();
+    var data = null;
+    try { data = JSON.parse(text); } catch (err) { data = null; }
+    return { res: res, data: data };
+  }
+
+  async function postJson(url, options) {
+    var ctrl = new AbortController();
+    var timer = window.setTimeout(function () { ctrl.abort(); }, 8000);
+    try {
+      return await readJson(await fetch(url, Object.assign({ signal: ctrl.signal }, options)));
+    } finally {
+      window.clearTimeout(timer);
+    }
+  }
+
   async function postForm(target) {
     var honey = target.querySelector('input[name="_honey"]');
     if (honey && honey.value) return { ok: true, bot: true };
 
-    var body = new URLSearchParams(new FormData(target));
-    body.set("ajax", "1");
-    var ctrl = new AbortController();
-    var timer = window.setTimeout(function () { ctrl.abort(); }, 12000);
-    // Apps Script answers through a redirect without CORS headers, so the
-    // response is opaque. A resolved request means the row was written.
-    await fetch(MAI_FORM_ENDPOINT, {
-      method: "POST",
-      mode: "no-cors",
-      body: body,
-      signal: ctrl.signal
-    });
-    window.clearTimeout(timer);
-    return { ok: true };
+    var data = formPayload(target);
+    try {
+      // text/plain skips the CORS preflight so the JSON body can be read.
+      var primary = await postJson(MAI_FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(data),
+        redirect: "follow"
+      });
+      if (saved(primary)) return { ok: true };
+    } catch (err) { /* unreadable; try Formsubmit */ }
+    try {
+      var backup = await postJson(MAI_FORM_FALLBACK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(data)
+      });
+      if (saved(backup)) return { ok: true, via: "formsubmit" };
+    } catch (err2) { /* still unconfirmed */ }
+    return { ok: false };
   }
 
   setNext();
@@ -374,10 +413,17 @@
 
     var kind = cafeToggle.checked ? "cafe" : "waitlist";
     postForm(form)
-      .then(function () {
+      .then(function (result) {
         submitBtn.disabled = false;
         submitBtn.textContent = original;
-        showSuccess(kind);
+        if (result && result.ok) showSuccess(kind);
+        else {
+          var failed = wrap.querySelector("[data-mai-error]");
+          if (failed) {
+            failed.textContent = "That didn’t send. Try again, or email hello@drinkmai.com.";
+            failed.hidden = false;
+          }
+        }
       })
       .catch(function () {
         submitBtn.disabled = false;
@@ -409,30 +455,35 @@
       if (emailOpen) emailOpen.focus();
     }
   } else if (!dismissed() && !sessionSeen()) {
-    var timer = window.setTimeout(tryAuto, 25000);
-    function scrollPos() {
-      return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    }
-    // Opens as soon as someone starts scrolling down: about 260px of their
-    // own scrolling (wheel, touch or keys). Jumps to #story or #faq on load
-    // don't count, so a deep link doesn't open it by itself.
-    var startY = null;
-    function arm() {
-      if (startY === null) startY = scrollPos();
-    }
+    var gesture = false;
+    var scrolledOnce = false;
+    var timer = 0;
+    var canSection = document.getElementById("the-can") || document.querySelector(".cafe-hero-can") || document.querySelector(".cafe");
     ["wheel", "touchstart", "keydown", "pointerdown"].forEach(function (type) {
-      window.addEventListener(type, arm, { passive: true });
+      window.addEventListener(type, function () { gesture = true; }, { passive: true });
     });
-    var openingScene = document.querySelector(".cafe");
-    function scrolledEnough() {
-      if (startY === null || scrollPos() - startY < 120) return false;
-      // With the café scene up top, wait until they've scrolled past it and
-      // reached the can; otherwise use the original distance.
-      if (!openingScene) return scrollPos() - startY >= 260;
-      return openingScene.getBoundingClientRect().bottom <= (window.innerHeight || 0) * 0.25;
+    function viewH() {
+      return window.innerHeight || document.documentElement.clientHeight || 0;
+    }
+    // Still on screen, or still coming up from below. Either one would put
+    // the sheet over the can as it arrives.
+    function canBlocks() {
+      var nodes = [document.querySelector(".cafe-hero-can"), canSection].filter(Boolean);
+      var view = viewH();
+      return nodes.some(function (el) {
+        var rect = el.getBoundingClientRect();
+        return rect.bottom > 8 && rect.top < view;
+      });
+    }
+    function passedCan() {
+      if (!canSection) return false;
+      return canSection.getBoundingClientRect().bottom <= 8;
     }
     function tryAuto() {
       if (autoDone || dismissed() || sessionSeen() || dialog.open) return;
+      if (!scrolledOnce) return;
+      if (canBlocks()) return;
+      if (!passedCan()) return;
       autoDone = true;
       window.removeEventListener("scroll", onScroll);
       document.removeEventListener("scroll", onScroll);
@@ -441,8 +492,12 @@
       openJoin(document.body.hasAttribute("data-join-straight") ? "form" : "intro");
     }
     function onScroll() {
-      if (autoDone || dismissed() || sessionSeen() || dialog.open) return;
-      if (scrolledEnough()) tryAuto();
+      if (!gesture || autoDone || dismissed() || sessionSeen() || dialog.open) return;
+      if (!scrolledOnce) {
+        scrolledOnce = true;
+        timer = window.setTimeout(tryAuto, 30000);
+      }
+      tryAuto();
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     document.addEventListener("scroll", onScroll, { passive: true });
