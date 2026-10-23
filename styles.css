@@ -2330,13 +2330,38 @@ body.home-sea .spray-denver-actions {
 
 @media (max-width: 860px) {
   :root {
-    --header-h: 5.5rem;
+    --header-h: 3.65rem;
     --t-6: 1.75rem;
     --t-7: 2.25rem;
     --t-8: 2.75rem;
     --type-words: var(--t-2);
     --type-title: var(--t-6);
     --type-headline: var(--t-7);
+  }
+
+  body.home-sea .header-inner {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    min-height: var(--header-h);
+    padding: 0.3rem 0;
+  }
+
+  body.home-sea .wordmark { font-size: var(--t-5); }
+
+  body.home-sea .site-nav {
+    order: 0;
+    width: auto;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: 0.55rem;
+  }
+
+  body.home-sea .site-nav .nav-link {
+    font-size: var(--t-1);
+    padding: 0.1rem 0;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -2914,18 +2939,42 @@ body.home-sea .cafe-hero-can {
   position: absolute;
   z-index: 4;
   left: 54%;
-  bottom: calc(var(--counter-h) - 1.5%);
-  height: min(72%, 660px);
+  /* Photo still keeps a gray oval under the metal (bottom ~6.2%).
+     Plant that line into the wood top so the base meets the counter
+     and the sea no longer shows under the corners. */
+  bottom: calc(var(--counter-h) - 7.4%);
+  height: min(68%, 620px);
   width: auto;
   margin: 0;
   pointer-events: none;
 }
 
+body.home-sea .cafe-hero-can::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 10%;
+  right: 10%;
+  bottom: calc(6.2% - 14px);
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(42, 24, 12, 0.5) 0%, rgba(42, 24, 12, 0.2) 45%, rgba(42, 24, 12, 0) 72%);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
 body.home-sea .cafe-hero-can img {
+  position: relative;
+  z-index: 1;
   display: block;
   height: 100%;
   width: auto;
   max-width: none;
+  /* Cut the baked stadium shadow. Keep a slight downward look so the
+     base stays put and the top recedes. */
+  clip-path: inset(0 0 6.2% 0);
+  transform: perspective(980px) rotateX(7deg);
+  transform-origin: 50% 93.6%;
 }
 
 body.home-sea .cafe-copy .button {
@@ -2986,9 +3035,9 @@ body.home-sea .cafe-prop::after {
   background: radial-gradient(ellipse at center, rgba(58, 36, 20, 0.32) 0%, rgba(58, 36, 20, 0) 70%);
 }
 
-body.home-sea .cafe-prop-cat { left: 10%; }
-body.home-sea .cafe-prop-drinks { left: 55%; gap: clamp(6px, 0.8vw, 12px); }
-body.home-sea .cafe-prop-bowl { left: 77%; }
+body.home-sea .cafe-prop-cat { left: 8%; }
+body.home-sea .cafe-prop-drinks { left: 32%; gap: clamp(6px, 0.8vw, 12px); }
+body.home-sea .cafe-prop-bowl { left: 84%; }
 
 body.home-sea .cafe-cat {
   display: block;
@@ -3133,24 +3182,24 @@ body.home-sea .cafe.is-offscreen *::after {
   body.home-sea .cafe-noren { width: 62%; height: clamp(36px, 7%, 60px); }
   body.home-sea .cafe-lantern { width: 28px; right: calc(var(--inset-x) + 2%); }
   body.home-sea .cafe-copy {
-    top: 9%;
-    width: min(62%, 16rem);
+    top: calc(var(--inset-top) + var(--frame) + clamp(36px, 7%, 60px) + 0.85rem);
+    width: min(58%, 15rem);
     right: auto;
   }
   body.home-sea .cafe-copy h1 { font-size: var(--t-6); }
   body.home-sea .cafe-hero-can {
-    left: 58%;
-    height: min(54%, 430px);
+    left: 56%;
+    height: min(52%, 420px);
     transform: translateX(-50%);
   }
-  body.home-sea .cafe-props { bottom: 15.6%; }
-  body.home-sea .cafe-prop-cat { left: 3%; }
-  body.home-sea .cafe-prop-drinks { left: 45%; }
-  body.home-sea .cafe-prop-bowl { left: 81%; }
-  body.home-sea .cafe-cat { height: clamp(110px, 19vh, 200px); height: clamp(110px, 19svh, 200px); }
+  body.home-sea .cafe-props { bottom: 12%; }
+  body.home-sea .cafe-prop-cat { left: 0; }
+  body.home-sea .cafe-prop-drinks { left: 21.5%; }
+  body.home-sea .cafe-prop-bowl { left: auto; right: 0; }
+  body.home-sea .cafe-cat { height: 96px; }
   body.home-sea .cafe-can img { height: clamp(96px, 17.5vh, 180px); height: clamp(96px, 17.5svh, 180px); }
-  body.home-sea .cafe-glass { height: clamp(48px, 9vh, 92px); height: clamp(48px, 9svh, 92px); }
-  body.home-sea .cafe-bowl { height: clamp(34px, 6vh, 60px); height: clamp(34px, 6svh, 60px); }
+  body.home-sea .cafe-glass { height: 58px; }
+  body.home-sea .cafe-bowl { height: 38px; }
   body.home-sea .cafe-cloud-1 { top: 44%; left: 8%; }
   body.home-sea .cafe-cloud-2 { top: 54%; left: 40%; }
 }
