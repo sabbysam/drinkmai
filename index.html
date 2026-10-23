@@ -51,7 +51,7 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261022one" />
+    <link rel="stylesheet" href="styles.css?v=20261022cafe" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -184,14 +184,116 @@
     </header>
 
     <main id="main">
+      <section class="cafe" aria-labelledby="cafe-title">
+        <div class="cafe-window" aria-hidden="true">
+          <svg class="cafe-cloud cafe-cloud-1" viewBox="0 0 140 44" focusable="false"><path d="M16 40C4 40 2 26 14 24C13 12 28 7 37 15C43 2 66 2 72 15C80 8 97 11 97 24C110 22 120 33 111 40Z" fill="#fbf6ee"/></svg>
+          <svg class="cafe-cloud cafe-cloud-2" viewBox="0 0 140 44" focusable="false"><path d="M16 40C4 40 2 26 14 24C13 12 28 7 37 15C43 2 66 2 72 15C80 8 97 11 97 24C110 22 120 33 111 40Z" fill="#fbf6ee"/></svg>
+          <div class="cafe-gull-track"><svg class="cafe-gull" viewBox="0 0 32 14" focusable="false"><path d="M2 10Q9 2 16 8Q23 2 30 10" fill="none" stroke="#56645c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="cafe-sun"></div>
+          <svg class="cafe-hills" viewBox="0 0 600 60" preserveAspectRatio="none" focusable="false">
+            <path d="M190 60C250 40 310 30 360 34C410 38 440 50 470 60Z" fill="#cbd8c5"/>
+            <path d="M0 60C60 40 130 22 210 24C280 26 330 44 390 60Z" fill="#b5c8b0"/>
+          </svg>
+          <div class="cafe-sea">
+            <span class="cafe-wave cafe-wave-1"></span>
+            <span class="cafe-wave cafe-wave-2"></span>
+            <span class="cafe-wave cafe-wave-3"></span>
+            <span class="cafe-wave cafe-wave-4"></span>
+            <span class="cafe-wave cafe-wave-5"></span>
+            <span class="cafe-wave cafe-wave-6"></span>
+            <div class="cafe-glints">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <svg class="cafe-boat" viewBox="0 0 44 34" focusable="false">
+            <g class="cafe-boat-bob">
+              <path d="M22 25V2" stroke="#1f4a35" stroke-width="1.5"/>
+              <path d="M23 4V24H38Z" fill="#f6ede0"/>
+              <path d="M21 8V24H10Z" fill="#efdcc6"/>
+              <path d="M4 26H40L34 32H10Z" fill="#1f4a35"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="cafe-noren" aria-hidden="true"><span></span><span class="cafe-noren-sun"></span><span></span></div>
+
+        <svg class="cafe-lantern" viewBox="0 0 40 84" aria-hidden="true" focusable="false">
+          <path d="M20 0V13" stroke="#7e5b3f" stroke-width="1.5"/>
+          <rect x="12" y="12" width="16" height="5" rx="1" fill="#7e5b3f"/>
+          <ellipse cx="20" cy="40" rx="17" ry="23" fill="#f6ede0" stroke="#d9925f" stroke-width="1.5"/>
+          <ellipse cx="20" cy="40" rx="8" ry="23" fill="none" stroke="#e8c9ae" stroke-width="1.2"/>
+          <path d="M5 31Q20 35 35 31M4 49Q20 53 36 49" fill="none" stroke="#ead3bd" stroke-width="1.2"/>
+          <rect x="12" y="62" width="16" height="5" rx="1" fill="#7e5b3f"/>
+          <path d="M20 67V82" stroke="#c47e62" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+
+        <div class="cafe-copy">
+          <p class="cafe-kicker">Lightly sparkling matcha</p>
+          <h1 id="cafe-title"><span>Light as sea spray.</span><br />Calm as matcha.</h1>
+          <button type="button" class="button" data-join-open data-join-email data-inline-cta>Join the first drop</button>
+        </div>
+
+        <div class="cafe-counter" aria-hidden="true"></div>
+
+        <div class="cafe-props" aria-hidden="true">
+          <span class="cafe-prop cafe-prop-cat">
+            <svg class="cafe-cat" viewBox="0 0 132 172" focusable="false">
+              <path class="cafe-cat-tail" d="M90 164C120 166 128 136 110 120" fill="none" stroke="#34363a" stroke-width="11" stroke-linecap="round"/>
+              <g class="cafe-cat-body">
+                <path d="M22 170C12 140 16 104 36 86C44 79 52 76 60 76C68 76 76 79 84 86C104 104 108 140 98 170Z" fill="#34363a"/>
+                <path d="M40 85C52 91 68 91 80 85" fill="none" stroke="#c47e62" stroke-width="5" stroke-linecap="round"/>
+                <ellipse cx="60" cy="58" rx="25" ry="23" fill="#34363a"/>
+                <path d="M39 50L35 22L55 40Z" fill="#34363a"/>
+                <path class="cafe-cat-ear" d="M81 50L85 22L65 40Z" fill="#34363a"/>
+              </g>
+            </svg>
+          </span>
+          <span class="cafe-prop cafe-prop-drinks">
+            <picture class="cafe-can">
+              <source type="image/webp" srcset="assets/can/mai-front.webp" />
+              <img src="assets/can/mai-front.png" alt="" width="666" height="1560" decoding="async" />
+            </picture>
+            <svg class="cafe-glass" viewBox="0 -4 54 88" focusable="false">
+              <defs><clipPath id="cafe-liquid"><path d="M6.1 24H45.9L42.5 80H9.5Z"/></clipPath></defs>
+              <path d="M4 6H48L44 82H8Z" fill="#eef4ec" fill-opacity="0.75" stroke="#8fa898" stroke-width="1.5"/>
+              <path d="M6.1 24H45.9L42.5 80H9.5Z" fill="#bdd6b3"/>
+              <g clip-path="url(#cafe-liquid)" fill="#f4faf1">
+                <circle class="cafe-bubble" cx="15" cy="78" r="2"/>
+                <circle class="cafe-bubble" cx="24" cy="80" r="1.5"/>
+                <circle class="cafe-bubble" cx="31" cy="77" r="2.2"/>
+                <circle class="cafe-bubble" cx="37" cy="80" r="1.4"/>
+                <circle class="cafe-bubble" cx="20" cy="79" r="1.2"/>
+              </g>
+              <circle cx="42" cy="6" r="9" fill="#e9b04f" stroke="#f6ede0" stroke-width="1.5"/>
+              <path d="M42 6V-2M42 6L49 2M42 6L49 10M42 6V14M42 6L35 10M42 6L35 2" stroke="#f6ede0" stroke-width="1"/>
+            </svg>
+          </span>
+          <span class="cafe-prop cafe-prop-bowl">
+            <svg class="cafe-bowl" viewBox="0 0 70 62" focusable="false">
+              <path class="cafe-steam" d="M28 22c-5-6 5-10 0-18" fill="none" stroke="#fbf6ee" stroke-width="2.5" stroke-linecap="round"/>
+              <path class="cafe-steam cafe-steam-2" d="M41 22c-5-6 5-10 0-18" fill="none" stroke="#fbf6ee" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M6 30H64C64 46 52 58 35 58S6 46 6 30Z" fill="#45624f"/>
+              <path d="M14 36C16 44 20 48 25 50" fill="none" stroke="#5d7c66" stroke-width="2" stroke-linecap="round"/>
+              <ellipse cx="35" cy="30" rx="29" ry="5" fill="#9fc27e"/>
+              <rect x="26" y="56" width="18" height="5" rx="1.5" fill="#3a5242"/>
+            </svg>
+          </span>
+        </div>
+
+        <a class="cafe-scroll" href="#the-can">
+          <span>scroll</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </section>
+
       <section class="spray-hero" id="waitlist" aria-label="Mai">
-        <div class="poster">
+        <div class="poster" id="the-can">
           <div class="poster-mat">
             <div class="poster-field">
               <div class="spray-copy">
                 <div class="spray-lead">
-                  <p class="spray-kicker">Lightly sparkling matcha</p>
-                  <h1><span class="spray-line">Light as sea spray.</span><br />Calm as matcha.</h1>
+                  <p class="spray-kicker">Yuzu + sea salt</p>
+                  <h2 class="spray-title">Made to sip slowly.</h2>
                   <button type="button" class="button" data-join-open data-join-email data-inline-cta>Join the first drop</button>
                   <noscript>
                     <p>Email <a href="mailto:hello@drinkmai.com">hello@drinkmai.com</a></p>
@@ -526,7 +628,7 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=20261022scroll2"></script>
+    <script src="script.js?v=20261022cafe"></script>
     <script src="assets/can3d.js?v=20261023a" defer></script>
   </body>
 </html>

@@ -12,7 +12,9 @@ From the repo root:
 python3 -m http.server 8080
 ```
 
-Open http://localhost:8080 and walk Home and Privacy. The site is one page: hero, What’s in the can (`#ingredients`), story (`#story`), questions (`#faq`), and Denver / cafés (`#cafes`). The header is the wordmark and one “Join the first drop” button, with no nav links.
+Open http://localhost:8080 and walk Home and Privacy. The site is one page: the café opening scene (`.cafe`, owns the `h1`), the can (`#the-can`, the green poster with the 3D can), What’s in the can (`#ingredients`), story (`#story`), questions (`#faq`), and Denver / cafés (`#cafes`). The home header is just the wordmark.
+
+The café scene is plain HTML, CSS and inline SVG (no video): a window onto the sea with a peach sun, drifting clouds, a gull, a sailboat, noren, a lantern, and a counter with the cat, the real can render (`assets/can/mai-front.*`), a sparkling glass and a matcha bowl. All motion is CSS, pauses when the scene is off screen, and stops for reduced motion.
 
 Old pages are redirect stubs, since GitHub Pages has no server redirects: `story.html` → `/#story`, `the-drop.html` and `/faq/` → `/#faq`. Keep them so old links still land.
 
@@ -38,7 +40,7 @@ One join sheet, a modal on every page. It posts to a Google Apps Script web app 
 
 “Join the first drop” opens the sheet. A café or shop can check “I’m a café / shop” in that same sheet to add venue and a note. There is no second form and no separate signup page. `#waitlist` on any page other than home redirects to `/#waitlist`, which opens the sheet.
 
-The sheet auto-opens once, as soon as someone scrolls down about 260px from where the page loaded (or after 25 seconds), unless it was already dismissed or someone already joined (`localStorage` keys `mai-popup-dismissed-2` and `mai-joined`). On home the header is just the wordmark; the hero’s “Join the first drop” button is the main way in.
+The sheet auto-opens once, after the visitor has scrolled past the café scene and onto the can (or after 25 seconds), unless it was already dismissed or someone already joined (`localStorage` keys `mai-popup-dismissed-2` and `mai-joined`). Jumps to a section on load don’t count; it waits for their own scrolling.
 
 How it posts: `fetch` with `mode: "no-cors"` and `ajax=1`, because Apps Script replies through a redirect without CORS headers. Success shows in the sheet. If the request fails, the sheet shows an error and the form stays filled. The script drops submissions with no valid email and anything that fills the `_honey` field. Without JavaScript the form posts normally and the script shows a short thank-you page linking back to `?joined=1` or `?joined=cafe`.
 

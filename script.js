@@ -420,11 +420,16 @@
     function arm() {
       if (startY === null) startY = scrollPos();
     }
-    ["wheel", "touchstart", "keydown"].forEach(function (type) {
+    ["wheel", "touchstart", "keydown", "pointerdown"].forEach(function (type) {
       window.addEventListener(type, arm, { passive: true });
     });
+    var openingScene = document.querySelector(".cafe");
     function scrolledEnough() {
-      return startY !== null && scrollPos() - startY >= 260;
+      if (startY === null || scrollPos() - startY < 120) return false;
+      // With the café scene up top, wait until they've scrolled past it and
+      // reached the can; otherwise use the original distance.
+      if (!openingScene) return scrollPos() - startY >= 260;
+      return openingScene.getBoundingClientRect().bottom <= (window.innerHeight || 0) * 0.25;
     }
     function tryAuto() {
       if (autoDone || dismissed() || sessionSeen() || dialog.open) return;
@@ -598,6 +603,16 @@
 
     go(0);
   });
+
+  /* Café scene: pause its animations while it's off screen. */
+  var cafe = document.querySelector(".cafe");
+  if (cafe && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        cafe.classList.toggle("is-offscreen", !entry.isIntersecting);
+      });
+    }).observe(cafe);
+  }
 
   /* What's in the can: each card plays its animation once as it scrolls in,
      again on tap, and while hovered (CSS). */
