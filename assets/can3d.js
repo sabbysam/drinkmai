@@ -549,7 +549,6 @@
       if (st.pts.size >= 2) {
         var pair = Array.from(st.pts.values());
         var dd = Math.hypot(pair[0][0] - pair[1][0], pair[0][1] - pair[1][1]);
-        if (st.pinch > 0) st.dist = Math.min(11, Math.max(6.4, st.dist * (st.pinch / dd)));
         st.pinch = dd;
         return;
       }
@@ -573,11 +572,6 @@
     }
     cv.addEventListener("pointerup", endPointer);
     cv.addEventListener("pointercancel", endPointer);
-    cv.addEventListener("wheel", function (e) {
-      if (!e.ctrlKey && !e.metaKey) return;
-      e.preventDefault();
-      st.dist = Math.min(11, Math.max(6.4, st.dist * (1 + e.deltaY * 0.001)));
-    }, { passive: false });
 
     var io = new IntersectionObserver(function (entries) {
       st.visible = entries.some(function (en) { return en.isIntersecting; });
