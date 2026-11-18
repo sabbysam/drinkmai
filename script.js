@@ -58,6 +58,160 @@
     return "Home";
   }
 
+  /*
+   * Quiet spam gate for the join sheet. Bots that fill the café fields were
+   * leaving _honey blank, so a filled honeypot is not enough. A blocked
+   * submit still looks like success and never reaches Apps Script.
+   * The same venue, note, honeypot, and token rules live in
+   * docs/apps-script-spam-filter.md for doPost. Keep the two copies in step.
+   * 1700000000000.3cb10ce0 is a known maiTokenHash vector.
+   */
+  var navStartedAt = Date.now() - (typeof performance !== "undefined" && performance.now ? performance.now() : 0);
+  var formShownAt = 0;
+  var sawPerson = false;
+  var sawTyped = false;
+  var JUNK_VENUE = {
+    apple: 1, nokia: 1, google: 1, fbi: 1, aliexpress: 1, wallmart: 1, walmart: 1,
+    amazon: 1, microsoft: 1, samsung: 1, facebook: 1, instagram: 1, meta: 1,
+    nike: 1, sony: 1, huawei: 1, xiaomi: 1, alibaba: 1, ebay: 1, shein: 1,
+    temu: 1, wish: 1, adidas: 1, nvidia: 1, netflix: 1, tiktok: 1, twitter: 1,
+    openai: 1, intel: 1, oracle: 1, adobe: 1, paypal: 1
+  };
+  var VENUE_FILLER = {
+    inc: 1, llc: 1, ltd: 1, co: 1, corp: 1, company: 1, the: 1, official: 1,
+    store: 1, shop: 1, cafe: 1, coffee: 1, house: 1, tea: 1, brand: 1, online: 1
+  };
+  var PRICE_LATIN = /\b(prices?|pricing|precios?|precos?|prezz[oi]|prix|preise?|prijzen|prijs|priset|pris|hinta|ceny|cenas?|cenu|cene|preturi|pretul|pret|harga|fiyat\w*|preco)\b/;
+  var PRICE_PHRASE = /\b(how much|quanto costa|quanto custa|cuanto cuesta|combien|wie ?viel|hoeveel|berapa|your price|the price|know your price)\b/;
+  var PRICE_MARKS = ["τιμή", "τιμη", "τιμές", "τιμες", "ფას", "цена", "цену", "цены", "ценой", "цене", "ціна", "ціну", "ціни", "价格", "价钱", "价位", "価格", "値段", "가격", "سعر", "ثمن", "कीमत", "दाम", "ราคา", "giá"];
+
+  function markFormShown() {
+    if (!formShownAt) formShownAt = Date.now();
+  }
+
+  function notePerson(event) {
+    if (event && event.isTrusted) sawPerson = true;
+  }
+
+  document.addEventListener("pointerdown", notePerson, true);
+  document.addEventListener("keydown", notePerson, true);
+  document.addEventListener("touchstart", notePerson, true);
+  document.addEventListener("input", function (event) {
+    if (!event.isTrusted || !event.target || !event.target.form) return;
+    if (!event.target.form.hasAttribute("data-mai-form")) return;
+    if (event.target.name === "_honey" || event.target.name === "mai_token") return;
+    sawTyped = true;
+  }, true);
+
+  function fieldText(form, name) {
+    var el = form.querySelector('[name="' + name + '"]');
+    if (!el || el.disabled) return "";
+    return String(el.value || "").trim();
+  }
+
+  function submittedTooFast() {
+    var since = Date.now() - (formShownAt || navStartedAt);
+    if (since < 0 || since >= 1000) return false;
+    if (sawTyped && since >= 400) return false;
+    return true;
+  }
+
+  function venueIsJunk(name) {
+    var raw = String(name || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    if (!raw) return false;
+    var words = raw.split(/\s+/).filter(function (word) { return !VENUE_FILLER[word]; });
+    if (!words.length) return false;
+    if (JUNK_VENUE[words.join("")]) return true;
+    if (words.length === 1 && JUNK_VENUE[words[0]]) return true;
+    return false;
+  }
+
+  function foldLatin(value) {
+    return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+
+  function hasPriceCue(note) {
+    var folded = foldLatin(note);
+    if (PRICE_LATIN.test(folded) || PRICE_PHRASE.test(folded)) return true;
+    for (var i = 0; i < PRICE_MARKS.length; i++) {
+      if (note.indexOf(PRICE_MARKS[i]) !== -1) return true;
+    }
+    return false;
+  }
+
+  function looksGibberish(note) {
+    var latin = foldLatin(note).replace(/drinkmai\.com/g, " ").replace(/https?:\/\/\S+/g, " ");
+    latin = latin.replace(/[^a-z\s]/g, " ").replace(/\s+/g, " ").trim();
+    var letters = latin.replace(/[^a-z]/g, "");
+    if (!letters) return false;
+    if (letters.length < 6) return !/[aeiouy]/.test(letters);
+    var vowels = letters.replace(/[^aeiouy]/g, "").length;
+    if (vowels / letters.length < 0.2) return true;
+    var words = latin.split(" ").filter(Boolean);
+    var weird = 0;
+    for (var i = 0; i < words.length; i++) {
+      if (words[i].length >= 4 && !/[aeiouy]/.test(words[i])) weird++;
+    }
+    return words.length > 0 && weird >= Math.max(1, Math.ceil(words.length * 0.5));
+  }
+
+  function nonLatinRatio(note) {
+    var letters = String(note || "").match(/\p{L}/gu);
+    if (!letters || !letters.length) return 0;
+    var non = 0;
+    for (var i = 0; i < letters.length; i++) {
+      if (!/\p{Script=Latin}/u.test(letters[i])) non++;
+    }
+    return non / letters.length;
+  }
+
+  function isSubstantive(note) {
+    return /\b(stock|stocking|carry|carrying|wholesale|delivery|invoice|pastry|menu|bakery|roaster|roastery|address|neighborhood|colfax|larimer|hours|our cafe|our café|our shop|our store|our bakery|we have|we're a|we are a)\b/i.test(note);
+  }
+
+  function noteIsSpam(note) {
+    var raw = String(note || "").trim();
+    if (!raw) return false;
+    var price = hasPriceCue(raw);
+    var inquiry = isSubstantive(raw);
+    var site = /drinkmai\.com/i.test(raw);
+    var leftover = raw.replace(/https?:\/\/\S+/gi, " ").replace(/drinkmai\.com/ig, " ").replace(/\s+/g, " ").trim().length;
+    if (price && !inquiry && raw.length <= 220) return true;
+    if (!inquiry && nonLatinRatio(raw) >= 0.45 && price && raw.length <= 280) return true;
+    if (site && (price || looksGibberish(raw) || leftover < 24 || (nonLatinRatio(raw) >= 0.35 && raw.length <= 220))) return true;
+    return false;
+  }
+
+  function maiTokenHash(ts) {
+    var s = String(ts) + ".mai-drop-1";
+    var h = 5381;
+    for (var i = 0; i < s.length; i++) {
+      h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
+    }
+    return h.toString(16);
+  }
+
+  function signupBlocked(form) {
+    if (fieldText(form, "_honey")) return true;
+    if (!sawPerson) return true;
+    if (submittedTooFast()) return true;
+    if (venueIsJunk(fieldText(form, "venue"))) return true;
+    if (noteIsSpam(fieldText(form, "note"))) return true;
+    return false;
+  }
+
+  function stampToken(form) {
+    var token = form.querySelector('input[name="mai_token"]');
+    if (!token) {
+      token = document.createElement("input");
+      token.type = "hidden";
+      token.name = "mai_token";
+      form.appendChild(token);
+    }
+    var ts = String(Date.now());
+    token.value = ts + "." + maiTokenHash(ts);
+  }
+
   function start() {
   if (!document.getElementById("join-modal") && document.body) {
   document.body.insertAdjacentHTML("beforeend", [
@@ -83,9 +237,8 @@
     '        <div data-mai-form-wrap>',
     '          <form class="join-form" data-mai-form="waitlist" method="POST" hidden>',
     '            <input type="hidden" name="_subject" value="Mai first drop waitlist" />',
-    '            <input type="hidden" name="_captcha" value="false" />',
-    '            <input type="hidden" name="_template" value="table" />',
     '            <input type="hidden" name="_next" value="https://drinkmai.com/?joined=1" />',
+    '            <input type="hidden" name="mai_token" value="" />',
     '            <div class="hp" aria-hidden="true">',
     '              <label for="hp-join">Leave blank</label>',
     '              <input id="hp-join" type="text" name="_honey" tabindex="-1" autocomplete="off" />',
@@ -167,6 +320,7 @@
 
   pageInput.value = pageName();
   form.action = MAI_FORM_ENDPOINT;
+  if (!form.hidden) formShownAt = navStartedAt;
 
   function setNext() {
     var next = form.querySelector('input[name="_next"]');
@@ -233,6 +387,7 @@
   }
 
   function showForm(cafe) {
+    markFormShown();
     headline.hidden = false;
     headline.innerHTML = cafe ? "Pouring in<br />Denver first." : "Join the<br />first drop";
     intro.hidden = true;
@@ -338,8 +493,8 @@
   });
 
   async function postForm(target) {
-    var honey = target.querySelector('input[name="_honey"]');
-    if (honey && honey.value) return { ok: true, bot: true };
+    if (signupBlocked(target)) return { ok: true, bot: true };
+    stampToken(target);
 
     var body = new URLSearchParams(new FormData(target));
     body.set("ajax", "1");
